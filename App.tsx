@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, PermissionsAndroid, Platform } from 'react-native';
 import { initWhisper } from 'whisper.rn'; // Import whisper.rn
+import RNFS from 'react-native-fs';
 
 const App = () => {
   const [recognizedText, setRecognizedText] = useState('');
@@ -19,6 +20,7 @@ const App = () => {
           buttonPositive: 'OK',
         },
       );
+      console.log('Tamara: Permission granted!');
       return granted === PermissionsAndroid.RESULTS.GRANTED;
     }
     return true;
@@ -27,12 +29,18 @@ const App = () => {
   // Initialize Whisper context
   const initializeWhisper = async () => {
     try {
+      console.log('Tamara: InitializeWhisper!');
+      console.log('Tamara: Filepath:', require('./assets/models/ggml-tiny.en.bin'));
+      console.log(require('./assets/models/ggml-tiny.en.bin'));
+      const filePath = `${RNFS.MainBundlePath}/assets/models/ggml-tiny.en.bin`;
+      console.log('Tamara: Filepath 2:', filePath);
       const context = await initWhisper({
-        filePath: require('./assets/models/ggml-tiny.en.bin'), // Ensure this file is accessible  
+        filePath: filePath,  
       });
+      console.log('Tamara: Context:', context);
       setWhisperContext(context);
     } catch (error) {
-      console.error('Error initializing Whisper:', error);
+      console.error('Tamara: Error initializing Whisper:', error);
     }
   };
 
