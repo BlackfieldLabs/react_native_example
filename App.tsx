@@ -1,50 +1,90 @@
-import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { initWhisper } from 'whisper.rn'
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button, StyleSheet, PermissionsAndroid, Platform } from 'react-native';
+import { initWhisper } from 'whisper.rn'; // Import whisper.rn
 
 const App = () => {
-    console.log("Tamara: App start.");
-    console.log("Tamara: Lalalalala.");
-    const [transcription, setTranscription] = useState<string>(''); // Holds the transcribed text
-    const [isListening, setIsListening] = useState<boolean>(false); // Tracks whether Whisper is listening
-    const [whisperContext, setWhisperContext] = useState<any>(null);
-  const [recognizedText, setRecognizedText] = useState<string>(''); // State to hold recognized text
-    let result;
-  const startListening = async () => {
-      console.log("Tamara: start listening!");
-      try{
-          console.log("Tamara: try block!");
-          // Initialize Whisper with the model file
-                      const whisperContext = await initWhisper({
-                        filePath: 'file://.../ggml-tiny.en.bin',
-                      })
-      }
-      catch(e:Exception) {
-          // Displays error thrown by the try block
-          result = e.Message;
-          console.log("Tamara: catch block!", e.Message);
-      }
-      finally {
-          // Runs irrespective of try and catch blocks
-          console.log("Tamara: finally block!");
-      }
-  }
+  const [recognizedText, setRecognizedText] = useState('');
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [whisperContext, setWhisperContext] = useState<any>(null);
 
-  const handleButtonPress = () => {
-    // For now, simulate setting the recognized text
-    setRecognizedText('Voice recognition result will appear here...');
+  console.log('Tamara: App start!');
+  // Request microphone permission (Android only)
+  const requestMicrophonePermission = async () => {
+    if (Platform.OS === 'android') {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+        {
+          title: 'Microphone Permission',
+          message: 'This app requires access to your microphone for speech recognition.',
+          buttonPositive: 'OK',
+        },
+      );
+      return granted === PermissionsAndroid.RESULTS.GRANTED;
+    }
+    return true;
+  };
+
+  // Initialize Whisper context
+  const initializeWhisper = async () => {
+    try {
+      const context = await initWhisper({
+        filePath: require('./assets/models/ggml-tiny.en.bin'), // Ensure this file is accessible  
+      });
+      setWhisperContext(context);
+    } catch (error) {
+      console.error('Error initializing Whisper:', error);
+    }
+  };
+
+  useEffect(() => {
+    initializeWhisper();
+  }, []);
+
+  const startTranscription = async () => {
+    const hasPermission = await requestMicrophonePermission();
+    if (!hasPermission) {
+      console.error('Microphone permission not granted.');
+      return;
+    }
+
+    setIsTranscribing(true);
+    try {
+      const options = { language: 'en' }; // Set language options
+      const { stop, subscribe } = await whisperContext.transcribeRealtime(options);
+
+      // Listen for transcription updates
+      subscribe((event: any) => {
+        const { isCapturing, data, processTime, recordingTime } = event;
+        console.log(
+          `Realtime transcribing: ${isCapturing ? 'ON' : 'OFF'}\n` +
+            `Result: ${data.result}\n` +
+            `Process time: ${processTime}ms\n` +
+            `Recording time: ${recordingTime}ms`
+        );
+
+        if (!isCapturing) {
+          console.log('Finished real-time transcribing.');
+          setIsTranscribing(false);
+          stop();
+        }
+
+        setRecognizedText(data.result);
+      });
+    } catch (error) {
+      console.error('Error during real-time transcription:', error);
+      setIsTranscribing(false);
+    }
   };
 
   return (
     <View style={styles.container}>
-      {/* Title Text */}
-      <Text style={styles.title}>Start Voice Recognition</Text>
-
-      {/* Button */}
-      <Button title="Start" onPress={startListening} />
-
-      {/* TextView to display recognized text */}
-      <Text style={styles.result}>{recognizedText}</Text>
+      <Text style={styles.title}>Real-Time Transcription</Text>
+      <Button
+        title={isTranscribing ? 'Listening...' : 'Start Transcription'}
+        onPress={startTranscription}
+        disabled={isTranscribing}
+      />
+      <Text style={styles.result}>{recognizedText || 'Speech will appear here...'}</Text>
     </View>
   );
 };
@@ -55,19 +95,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#fff',
   },
   title: {
     fontSize: 20,
-    marginBottom: 20,
     fontWeight: 'bold',
-    textAlign: 'center',
+    marginBottom: 20,
   },
   result: {
     marginTop: 20,
     fontSize: 16,
     color: '#333',
-    textAlign: 'center',
   },
 });
 
