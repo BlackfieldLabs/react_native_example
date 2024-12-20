@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Button, Image, ImageBackground, StyleSheet, TouchableOpacity, PermissionsAndroid, Platform, Dimensions } from 'react-native';
 import { initWhisper, WhisperContext } from 'whisper.rn';
+import { WebView } from 'react-native-webview';
 import RNFS from 'react-native-fs';
 
 const App = () => {
@@ -38,7 +39,7 @@ const App = () => {
           const exists = await RNFS.existsAssets(filePath); // Check if the file exists in assets
           console.log('Tamara: File exists:', exists);
           if (exists) {
-            console.warn('Tamara: File ound in assets:', filePath);
+            console.warn('Tamara: File found in assets:', filePath);
 
 
             // Copy the file to a writable location (e.g., Document Directory)
@@ -49,8 +50,7 @@ const App = () => {
 
             // Initialize Whisper with the new path
             /*const whisperContext = await initWhisper({ 
-              filePath: '/data/user/0/com.iot_react_native/files/ggml-tiny.en.bin',
-              language: 'en',
+              filePath: filePath,
              });*/
 
 
@@ -74,20 +74,19 @@ const App = () => {
   }, []); // Empty dependency array runs this effect only once
   //----------------------------------------------------
 
-  const [recognizedText, setRecognizedText] = useState<string>(''); // State to hold recognized text
-
   const handleButtonPress = () => {
-    // For now, simulate setting the recognized text
-    setRecognizedText('Voice recognition result will appear here...');
+    console.log('Updated Text in Browser Area'); // Update the text dynamically
   };
 
   return (
     <View style={styles.container}>
       {/* Top View (Blue, 4/5 of the screen) */}
       <View style={styles.topContainer}>
-        <Text style={styles.text}>HTML Browser Area</Text>
+      <WebView
+        source={{ uri: 'https://dev.kresoja.net/dashboard/1' }}
+        style={styles.webView}
+      />
       </View>
-
       {/* Bottom View (Red, 1/5 of the screen) */}
       <View style={styles.bottomContainer}>
         <View style={styles.whiteView}>
@@ -119,7 +118,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     flex: 5, // 4/5 of the screen
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     justifyContent: 'center', // Center content vertically
     alignItems: 'center', // Center content horizontally
   },
@@ -128,6 +127,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#d7e3f5',
     justifyContent: 'center', // Center content vertically
     alignItems: 'center', // Center content horizontally
+  },
+  webView: {
+    flex: 1, // Ensures the WebView takes full space of the top container
   },
   text: {
     color: 'black',
