@@ -23,11 +23,10 @@ const App = () => {
     }
     return true;
   };
-  //----------------------------------------------------
 
   // File path to the model in Android assets
   const filePath = 'models/ggml-tiny.en.bin';
-  console.log('Tamara: Filepath:', filePath);
+  console.log('Filepath:', filePath);
 
   const whisper = useRef<WhisperContext>();
   // Initialize Whisper context
@@ -37,34 +36,29 @@ const App = () => {
       if (hasPermission) {
         try {
           const exists = await RNFS.existsAssets(filePath); // Check if the file exists in assets
-          console.log('Tamara: File exists:', exists);
+          console.log('File exists:', exists);
           if (exists) {
-            console.warn('Tamara: File found in assets:', filePath);
-
+            console.warn('File found in assets:', filePath);
 
             // Copy the file to a writable location (e.g., Document Directory)
             const destinationPath = `${RNFS.DocumentDirectoryPath}/ggml-tiny.en.bin`;
-            console.log('Tamara: File copied to:', destinationPath);
+            console.log('File destination path:', destinationPath);
             await RNFS.copyFileAssets('models/ggml-tiny.en.bin', destinationPath);
-            console.log('Tamara: File copied to:', destinationPath);
+            console.log('File copied to:', destinationPath);
 
             // Initialize Whisper with the new path
             /*const whisperContext = await initWhisper({ 
               filePath: filePath,
              });*/
-
-
-
             //const whisperContext = await initWhisper({ filePath: filePath });
             //console.log('Tamara: Context initialized successfully:', whisperContext);
             //whisper.current = whisperContext;
           } else {
-            console.log('Tamara: File is not there!');
+            console.log('File is not there!');
           }
         } catch (error) {
-          console.error('Tamara: Error initializing Whisper:');
+          console.error('Error initializing Whisper:');
           console.error('Error object:', error);
-          //console.error('Error object:', JSON.stringify(error, null, 2));
       }
       } else {
         console.warn('Tamara: Microphone permission denied.');
@@ -72,11 +66,6 @@ const App = () => {
     };
     initializeWhisper();
   }, []); // Empty dependency array runs this effect only once
-  //----------------------------------------------------
-
-  const handleButtonPress = () => {
-    console.log('Updated Text in Browser Area'); // Update the text dynamically
-  };
 
   return (
     <View style={styles.container}>
@@ -126,10 +115,6 @@ const styles = StyleSheet.create({
     flex: 5, // 5/6 of the screen
     backgroundColor: 'white', // Optional background
   },
-  text: {
-    color: 'black',
-    fontSize: 24,
-  },
   whiteView: {
     backgroundColor: 'white',
     width: '95%', // 95% of the container's width
@@ -152,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   roundButton: {
-    height: '75%', // 80% of the container's height
+    height: '75%', // 75% of the container's height
     aspectRatio: 1, // Ensures width equals height
     position: 'absolute',
     right: 30, // Distance from the right edge
