@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Button, Image, ImageBackground, StyleSheet, TouchableOpacity, PermissionsAndroid, Platform, Dimensions } from 'react-native';
+import { View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity, PermissionsAndroid, Platform } from 'react-native';
 import { initWhisper, WhisperContext } from 'whisper.rn';
 import { WebView } from 'react-native-webview';
 import RNFS from 'react-native-fs';
@@ -80,14 +80,14 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      {/* Top View (Blue, 4/5 of the screen) */}
-      <View style={styles.topContainer}>
-      <WebView
-        source={{ uri: 'https://dev.kresoja.net/dashboard/1' }}
-        style={styles.webView}
-      />
+      {/* Top View (Blue, 5/6 of the screen) */}
+      <View style={styles.webViewContainer}>
+        <WebView
+          style={StyleSheet.absoluteFillObject}
+         source={{ uri: 'https://dev.kresoja.net/dashboard/1' }}
+        />
       </View>
-      {/* Bottom View (Red, 1/5 of the screen) */}
+      {/* Bottom View (Red, 1/6 of the screen) */}
       <View style={styles.bottomContainer}>
         <View style={styles.whiteView}>
           <ImageBackground
@@ -116,20 +116,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1, // Full screen
   },
-  topContainer: {
-    flex: 5, // 4/5 of the screen
-    backgroundColor: 'transparent',
-    justifyContent: 'center', // Center content vertically
-    alignItems: 'center', // Center content horizontally
-  },
   bottomContainer: {
     flex: 1, // 1/5 of the screen
     backgroundColor: '#d7e3f5',
     justifyContent: 'center', // Center content vertically
     alignItems: 'center', // Center content horizontally
   },
-  webView: {
-    flex: 1, // Ensures the WebView takes full space of the top container
+  webViewContainer: {
+    flex: 5, // 5/6 of the screen
+    backgroundColor: 'white', // Optional background
   },
   text: {
     color: 'black',
