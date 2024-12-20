@@ -10,7 +10,8 @@ module.exports = mergeConfig(getDefaultConfig(__dirname), {
   resolver: {
     assetExts: [
       ...(getDefaultConfig(__dirname).resolver.assetExts || []),
-      'bin', // Add .bin files to the list of asset extensions
+      'bin', // ggml model binary
+      'mil', // CoreML model asset
     ],
   },
 });

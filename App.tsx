@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, PermissionsAndroid, Platform } from 'react-native';
-import { initWhisper } from 'whisper.rn'; // Import whisper.rn
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, Button, Image, ImageBackground, StyleSheet, TouchableOpacity, PermissionsAndroid, Platform, Dimensions } from 'react-native';
+import { initWhisper, WhisperContext } from 'whisper.rn';
 import RNFS from 'react-native-fs';
 
 const App = () => {
-  const [recognizedText, setRecognizedText] = useState('');
-  const [isTranscribing, setIsTranscribing] = useState(false);
-  const [whisperContext, setWhisperContext] = useState<any>(null);
-
   console.log('Tamara: App start!');
+
   // Request microphone permission (Android only)
   const requestMicrophonePermission = async () => {
     if (Platform.OS === 'android') {
@@ -25,95 +22,151 @@ const App = () => {
     }
     return true;
   };
+  //----------------------------------------------------
 
+  // File path to the model in Android assets
+  const filePath = 'models/ggml-tiny.en.bin';
+  console.log('Tamara: Filepath:', filePath);
+
+  const whisper = useRef<WhisperContext>();
   // Initialize Whisper context
-  const initializeWhisper = async () => {
-    try {
-      console.log('Tamara: InitializeWhisper!');
-      console.log('Tamara: Filepath:', require('./assets/models/ggml-tiny.en.bin'));
-      console.log(require('./assets/models/ggml-tiny.en.bin'));
-      const filePath = `${RNFS.MainBundlePath}/assets/models/ggml-tiny.en.bin`;
-      console.log('Tamara: Filepath 2:', filePath);
-      const context = await initWhisper({
-        filePath: filePath,  
-      });
-      console.log('Tamara: Context:', context);
-      setWhisperContext(context);
-    } catch (error) {
-      console.error('Tamara: Error initializing Whisper:', error);
-    }
-  };
-
   useEffect(() => {
+    const initializeWhisper = async () => {
+      const hasPermission = await requestMicrophonePermission();
+      if (hasPermission) {
+        try {
+          const exists = await RNFS.existsAssets(filePath); // Check if the file exists in assets
+          console.log('Tamara: File exists:', exists);
+          if (exists) {
+            console.warn('Tamara: File ound in assets:', filePath);
+
+
+            // Copy the file to a writable location (e.g., Document Directory)
+            const destinationPath = `${RNFS.DocumentDirectoryPath}/ggml-tiny.en.bin`;
+            console.log('Tamara: File copied to:', destinationPath);
+            await RNFS.copyFileAssets('models/ggml-tiny.en.bin', destinationPath);
+            console.log('Tamara: File copied to:', destinationPath);
+
+            // Initialize Whisper with the new path
+            /*const whisperContext = await initWhisper({ 
+              filePath: '/data/user/0/com.iot_react_native/files/ggml-tiny.en.bin',
+              language: 'en',
+             });*/
+
+
+
+            //const whisperContext = await initWhisper({ filePath: filePath });
+            //console.log('Tamara: Context initialized successfully:', whisperContext);
+            //whisper.current = whisperContext;
+          } else {
+            console.log('Tamara: File is not there!');
+          }
+        } catch (error) {
+          console.error('Tamara: Error initializing Whisper:');
+          console.error('Error object:', error);
+          //console.error('Error object:', JSON.stringify(error, null, 2));
+      }
+      } else {
+        console.warn('Tamara: Microphone permission denied.');
+      }
+    };
     initializeWhisper();
-  }, []);
+  }, []); // Empty dependency array runs this effect only once
+  //----------------------------------------------------
 
-  const startTranscription = async () => {
-    const hasPermission = await requestMicrophonePermission();
-    if (!hasPermission) {
-      console.error('Microphone permission not granted.');
-      return;
-    }
+  const [recognizedText, setRecognizedText] = useState<string>(''); // State to hold recognized text
 
-    setIsTranscribing(true);
-    try {
-      const options = { language: 'en' }; // Set language options
-      const { stop, subscribe } = await whisperContext.transcribeRealtime(options);
-
-      // Listen for transcription updates
-      subscribe((event: any) => {
-        const { isCapturing, data, processTime, recordingTime } = event;
-        console.log(
-          `Realtime transcribing: ${isCapturing ? 'ON' : 'OFF'}\n` +
-            `Result: ${data.result}\n` +
-            `Process time: ${processTime}ms\n` +
-            `Recording time: ${recordingTime}ms`
-        );
-
-        if (!isCapturing) {
-          console.log('Finished real-time transcribing.');
-          setIsTranscribing(false);
-          stop();
-        }
-
-        setRecognizedText(data.result);
-      });
-    } catch (error) {
-      console.error('Error during real-time transcription:', error);
-      setIsTranscribing(false);
-    }
+  const handleButtonPress = () => {
+    // For now, simulate setting the recognized text
+    setRecognizedText('Voice recognition result will appear here...');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Real-Time Transcription</Text>
-      <Button
-        title={isTranscribing ? 'Listening...' : 'Start Transcription'}
-        onPress={startTranscription}
-        disabled={isTranscribing}
-      />
-      <Text style={styles.result}>{recognizedText || 'Speech will appear here...'}</Text>
+      {/* Top View (Blue, 4/5 of the screen) */}
+      <View style={styles.topContainer}>
+        <Text style={styles.text}>HTML Browser Area</Text>
+      </View>
+
+      {/* Bottom View (Red, 1/5 of the screen) */}
+      <View style={styles.bottomContainer}>
+        <View style={styles.whiteView}>
+          <ImageBackground
+            source={require('./assets/squiggly_line.png')} // Path to your image
+            style={StyleSheet.absoluteFillObject} // Covers the entire whiteView
+            imageStyle={{ borderRadius: 30 }} // Matches the whiteView's rounded corners
+          />
+          <Text style={styles.whiteViewTitleText}>Julia</Text>
+          <Text style={styles.whiteViewSubtitleText}>Click to Speak</Text>
+          <TouchableOpacity
+            style={styles.roundButton}
+            onPress={() => console.log('Button Pressed')}
+            accessibilityLabel="Round button">
+            <Image
+              source={require('./assets/siri_image.png')}
+              style={styles.roundButtonImage}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1, // Full screen
+  },
+  topContainer: {
+    flex: 5, // 4/5 of the screen
+    backgroundColor: 'white',
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center', // Center content horizontally
+  },
+  bottomContainer: {
+    flex: 1, // 1/5 of the screen
+    backgroundColor: '#d7e3f5',
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center', // Center content horizontally
+  },
+  text: {
+    color: 'black',
+    fontSize: 24,
+  },
+  whiteView: {
+    backgroundColor: 'white',
+    width: '95%', // 95% of the container's width
+    height: '80%', // 80% of the container's height
+    borderRadius: 30,
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'flex-start', // Center content horizontally
+    paddingLeft: 20, // Adds padding from the left edge
+  },
+  whiteViewTitleText: {
+    fontSize: 24,
+    color: 'black',
+    textAlign: 'left',
+    backgroundColor: 'white',
+  },
+  whiteViewSubtitleText: {
+    fontSize: 18,
+    color: '#bcbec2',
+    textAlign: 'left',
+    backgroundColor: 'white',
+  },
+  roundButton: {
+    height: '75%', // 80% of the container's height
+    aspectRatio: 1, // Ensures width equals height
+    position: 'absolute',
+    right: 30, // Distance from the right edge
+    backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#fff',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  result: {
-    marginTop: 20,
-    fontSize: 16,
-    color: '#333',
+  roundButtonImage: {
+    height: '100%', // Relative to parent height
+    aspectRatio: 1, // Ensures width equals height
+    borderRadius: 35, // Makes it circular
   },
 });
 
