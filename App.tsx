@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity, PermissionsAndroid, Platform } from 'react-native';
-import { initWhisper, WhisperContext } from 'whisper.rn';
+import { View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity, PermissionsAndroid, Platform, TouchableHighlight } from 'react-native';
 import { WebView } from 'react-native-webview';
 import RNFS from 'react-native-fs';
+import Voice, {
+  SpeechRecognizedEvent,
+  SpeechResultsEvent,
+  SpeechErrorEvent,
+} from "@react-native-voice/voice";
 
 const App = () => {
   console.log('Tamara: App start!');
 
   // Request microphone permission (Android only)
   const requestMicrophonePermission = async () => {
+    console.log('Tamara: mic permission!');
     if (Platform.OS === 'android') {
+      console.log('Tamara: mic android!');
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
         {
@@ -24,80 +30,139 @@ const App = () => {
     return true;
   };
 
-  // File path to the model in Android assets
-  const filePath = 'models/ggml-tiny.en.bin';
-  console.log('Filepath:', filePath);
+  const [recognized, setRecognized] = useState("");
+  const [pitch, setPitch] = useState("");
+  const [error, setError] = useState("");
+  const [end, setEnd] = useState("");
+  const [started, setStarted] = useState("");
+  const [results, setResults] = useState([]);
+  const [partialResults, setPartialResults] = useState([]);
 
-  const whisper = useRef<WhisperContext>();
-  // Initialize Whisper context
   useEffect(() => {
-    const initializeWhisper = async () => {
-      const hasPermission = await requestMicrophonePermission();
-      if (hasPermission) {
-        try {
-          const exists = await RNFS.existsAssets(filePath); // Check if the file exists in assets
-          console.log('File exists:', exists);
-          if (exists) {
-            console.warn('File found in assets:', filePath);
-
-            // Copy the file to a writable location (e.g., Document Directory)
-            const destinationPath = `${RNFS.DocumentDirectoryPath}/ggml-tiny.en.bin`;
-            console.log('File destination path:', destinationPath);
-            await RNFS.copyFileAssets('models/ggml-tiny.en.bin', destinationPath);
-            console.log('File copied to:', destinationPath);
-
-            // Initialize Whisper with the new path
-            /*const whisperContext = await initWhisper({ 
-              filePath: filePath,
-             });*/
-            //const whisperContext = await initWhisper({ filePath: filePath });
-            //console.log('Tamara: Context initialized successfully:', whisperContext);
-            //whisper.current = whisperContext;
-          } else {
-            console.log('File is not there!');
-          }
-        } catch (error) {
-          console.error('Error initializing Whisper:');
-          console.error('Error object:', error);
-      }
-      } else {
-        console.warn('Tamara: Microphone permission denied.');
-      }
+    Voice.onSpeechStart = (e) => {
+      console.log("onSpeechStart: ", e);
+      setStarted("√");
     };
-    initializeWhisper();
-  }, []); // Empty dependency array runs this effect only once
+  
+    Voice.onSpeechRecognized = (e) => {
+      console.log("onSpeechRecognized: ", e);
+      setRecognized("√");
+    };
+  
+    Voice.onSpeechEnd = (e) => {
+      console.log("onSpeechEnd: ", e);
+      setEnd("√");
+    };
+  
+    Voice.onSpeechError = (e) => {
+      console.log("onSpeechError: ", e);
+      setError(JSON.stringify(e.error));
+    };
+  
+    Voice.onSpeechResults = (e) => {
+      console.log("onSpeechResults: ", e);
+      setResults(e.value);
+    };
+  
+    Voice.onSpeechPartialResults = (e) => {
+      console.log("onSpeechPartialResults: ", e);
+      setPartialResults(e.value);
+    };
+  
+    Voice.onSpeechVolumeChanged = (e) => {
+      console.log("onSpeechVolumeChanged: ", e);
+      setPitch(e.value);
+    };
+  
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
+
+  const startRecognizing = async () => {
+    console.log('Tamara: mic permission!');
+    const hasPermission = await requestMicrophonePermission();
+    if (!hasPermission) {
+      console.log('Permission denied!');
+      return;
+    }
+  
+    try {
+      await Voice.start("en-US");
+    } catch (e) {
+      console.error('Voice.start error:', e);
+    }
+  };
+  
+  const stopRecognizing = async () => {
+    try {
+      await Voice.stop();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  
+  const cancelRecognizing = async () => {
+    try {
+      await Voice.cancel();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  
+  const destroyRecognizer = async () => {
+    try {
+      await Voice.destroy();
+    } catch (e) {
+      console.error(e);
+    }
+    resetStates();
+  };
+  
+  const resetStates = () => {
+    setRecognized("");
+    setPitch("");
+    setError("");
+    setStarted("");
+    setResults([]);
+    setPartialResults([]);
+    setEnd("");
+  };
 
   return (
     <View style={styles.container}>
-      {/* Top View (Blue, 5/6 of the screen) */}
-      <View style={styles.webViewContainer}>
-        <WebView
-          style={StyleSheet.absoluteFillObject}
-         source={{ uri: 'https://dev.kresoja.net/dashboard/1' }}
-        />
-      </View>
-      {/* Bottom View (Red, 1/6 of the screen) */}
-      <View style={styles.bottomContainer}>
-        <View style={styles.whiteView}>
-          <ImageBackground
-            source={require('./assets/squiggly_line.png')} // Path to your image
-            style={StyleSheet.absoluteFillObject} // Covers the entire whiteView
-            imageStyle={{ borderRadius: 30 }} // Matches the whiteView's rounded corners
-          />
-          <Text style={styles.whiteViewTitleText}>Julia</Text>
-          <Text style={styles.whiteViewSubtitleText}>Click to Speak</Text>
-          <TouchableOpacity
-            style={styles.roundButton}
-            onPress={() => console.log('Button Pressed')}
-            accessibilityLabel="Round button">
-            <Image
-              source={require('./assets/siri_image.png')}
-              style={styles.roundButtonImage}
-            />
-          </TouchableOpacity>
+        <View style={styles.container}>
+          <Text style={styles.welcome}>Welcome to React Native Voice!</Text>
+          <Text style={styles.instructions}>Press the button and start speaking.</Text>
+          <Text style={styles.stat}>{`Started: ${started}`}</Text>
+          <Text style={styles.stat}>{`Recognized: ${recognized}`}</Text>
+          <Text style={styles.stat}>{`Pitch: ${pitch}`}</Text>
+          <Text style={styles.stat}>{`Error: ${error}`}</Text>
+          <Text style={styles.stat}>Results</Text>
+          {results.map((result, index) => (
+            <Text key={`result-${index}`} style={styles.stat}>{result}</Text>
+          ))}
+          <Text style={styles.stat}>Partial Results</Text>
+          {partialResults.map((result, index) => (
+            <Text key={`partial-result-${index}`} style={styles.stat}>{result}</Text>
+          ))}
+          <Text style={styles.stat}>{`End: ${end}`}</Text>
+
+          <TouchableHighlight onPress={startRecognizing}>
+            <Text style={styles.action}>Start</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={stopRecognizing}>
+            <Text style={styles.action}>Stop Recognizing</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={cancelRecognizing}>
+            <Text style={styles.action}>Cancel</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={destroyRecognizer}>
+            <Text style={styles.action}>Destroy</Text>
+          </TouchableHighlight>
         </View>
       </View>
-    </View>
+    
   );
 };
 
@@ -149,6 +214,27 @@ const styles = StyleSheet.create({
     height: '100%', // Relative to parent height
     aspectRatio: 1, // Ensures width equals height
     borderRadius: 35, // Makes it circular
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: "center",
+    margin: 10,
+  },
+  action: {
+    textAlign: "center",
+    color: "#0000FF",
+    marginVertical: 5,
+    fontWeight: "bold",
+  },
+  instructions: {
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5,
+  },
+  stat: {
+    textAlign: "center",
+    color: "#B0171F",
+    marginBottom: 1,
   },
 });
 
