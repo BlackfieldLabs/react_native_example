@@ -58,10 +58,10 @@ const App = () => {
       console.log("onSpeechError: ", e);
       setError(JSON.stringify(e.error));
     };
-  
+
     Voice.onSpeechResults = (e) => {
       console.log("onSpeechResults: ", e);
-      setResults(e.value);
+      setResults(e.value || []); // Fallback to an empty array if `e.value` is undefined
     };
   
     Voice.onSpeechPartialResults = (e) => {
@@ -89,8 +89,9 @@ const App = () => {
   
     try {
       await Voice.start("en-US");
+      console.log('Voice module:', Voice);
     } catch (e) {
-      console.error('Voice.start error:', e);
+      console.error('Tamara: Voice.start error:', e);
     }
   };
   
@@ -131,38 +132,36 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-        <View style={styles.container}>
-          <Text style={styles.welcome}>Welcome to React Native Voice!</Text>
-          <Text style={styles.instructions}>Press the button and start speaking.</Text>
-          <Text style={styles.stat}>{`Started: ${started}`}</Text>
-          <Text style={styles.stat}>{`Recognized: ${recognized}`}</Text>
-          <Text style={styles.stat}>{`Pitch: ${pitch}`}</Text>
-          <Text style={styles.stat}>{`Error: ${error}`}</Text>
-          <Text style={styles.stat}>Results</Text>
-          {results.map((result, index) => (
-            <Text key={`result-${index}`} style={styles.stat}>{result}</Text>
-          ))}
-          <Text style={styles.stat}>Partial Results</Text>
-          {partialResults.map((result, index) => (
-            <Text key={`partial-result-${index}`} style={styles.stat}>{result}</Text>
-          ))}
-          <Text style={styles.stat}>{`End: ${end}`}</Text>
-
-          <TouchableHighlight onPress={startRecognizing}>
-            <Text style={styles.action}>Start</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={stopRecognizing}>
-            <Text style={styles.action}>Stop Recognizing</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={cancelRecognizing}>
-            <Text style={styles.action}>Cancel</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={destroyRecognizer}>
-            <Text style={styles.action}>Destroy</Text>
-          </TouchableHighlight>
+      {/* Top View (Blue, 5/6 of the screen) */}
+      <View style={styles.webViewContainer}>
+        <WebView
+          style={StyleSheet.absoluteFillObject}
+          source={{ uri: 'https://dev.kresoja.net/dashboard/1' }}
+        />
+      </View>
+      {/* Bottom View (Red, 1/6 of the screen) */}
+      <View style={styles.bottomContainer}>
+        <View style={styles.whiteView}>
+          <ImageBackground
+            source={require('./assets/squiggly_line.png')} // Path to your image
+            style={StyleSheet.absoluteFillObject} // Covers the entire whiteView
+            imageStyle={{ borderRadius: 30 }} // Matches the whiteView's rounded corners
+          />
+          <Text style={styles.whiteViewTitleText}>Julia</Text>
+          <Text style={styles.whiteViewSubtitleText}>Click to Speak</Text>
+          <TouchableOpacity
+            style={styles.roundButton}
+            onPress={startRecognizing}
+            accessibilityLabel="Round button">
+            <Image
+              source={require('./assets/siri_image.png')}
+              style={styles.roundButtonImage}
+            />
+          </TouchableOpacity>
+          
         </View>
       </View>
-    
+    </View>
   );
 };
 
