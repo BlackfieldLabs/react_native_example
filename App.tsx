@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity, PermissionsAndroid, Platform, TouchableHighlight } from 'react-native';
+import { View, Text, Image, ImageBackground, SafeAreaView, StyleSheet, TouchableOpacity, PermissionsAndroid, Platform, TouchableHighlight } from 'react-native';
 import { WebView } from 'react-native-webview';
 import RNFS from 'react-native-fs';
 import Voice, {
@@ -9,7 +9,8 @@ import Voice, {
 } from "@react-native-voice/voice";
 
 const App = () => {
-  console.log('Tamara: App start!');
+  const [isListening, setIsListening] = useState(false); // Track listening state
+  console.log('Tamara: App start! Is listening: ', isListening);
 
   // Request microphone permission (Android only)
   const requestMicrophonePermission = async () => {
@@ -28,6 +29,47 @@ const App = () => {
       return granted === PermissionsAndroid.RESULTS.GRANTED;
     }
     return true;
+  };
+
+  const toggleListening = async () => {
+    if (isListening) {
+      // Stop listening
+      try {
+        await stopRecognizing();
+        setIsListening(false);
+      } catch (error) {
+        console.error('Error stopping recognition:', error);
+      }
+    } else {
+      // Start listening
+      try {
+        await startRecognizing();
+        setIsListening(true);
+      } catch (error) {
+        console.error('Error starting recognition:', error);
+      }
+    }
+  };
+
+  const startRecognizing = async () => {
+    const hasPermission = await requestMicrophonePermission();
+    if (!hasPermission) {
+      console.log('Permission denied!');
+      return;
+    }
+    try {
+      await Voice.start("en-US");
+    } catch (e) {
+      console.error('Voice.start error:', e);
+    }
+  };
+
+  const stopRecognizing = async () => {
+    try {
+      await Voice.stop();
+    } catch (e) {
+      console.error('Voice.stop error:', e);
+    }
   };
 
   const [recognized, setRecognized] = useState("");
@@ -79,7 +121,7 @@ const App = () => {
     };
   }, []);
 
-  const startRecognizing = async () => {
+  /*const startRecognizing = async () => {
     console.log('Tamara: mic permission!');
     const hasPermission = await requestMicrophonePermission();
     if (!hasPermission) {
@@ -93,15 +135,15 @@ const App = () => {
     } catch (e) {
       console.error('Tamara: Voice.start error:', e);
     }
-  };
+  };*/
   
-  const stopRecognizing = async () => {
+  /*const stopRecognizing = async () => {
     try {
       await Voice.stop();
     } catch (e) {
       console.error(e);
     }
-  };
+  };*/
   
   const cancelRecognizing = async () => {
     try {
@@ -131,41 +173,50 @@ const App = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Top View (Blue, 5/6 of the screen) */}
-      <View style={styles.webViewContainer}>
-        <WebView
-          style={StyleSheet.absoluteFillObject}
-          source={{ uri: 'https://dev.kresoja.net/dashboard/1' }}
-        />
-      </View>
-      {/* Bottom View (Red, 1/6 of the screen) */}
-      <View style={styles.bottomContainer}>
-        <View style={styles.whiteView}>
-          <ImageBackground
-            source={require('./assets/squiggly_line.png')} // Path to your image
-            style={StyleSheet.absoluteFillObject} // Covers the entire whiteView
-            imageStyle={{ borderRadius: 30 }} // Matches the whiteView's rounded corners
+    <SafeAreaView style={styles.safeContainer}>
+      <View style={styles.container}>
+        {/* Top View (Blue, 5/6 of the screen) */}
+        <View style={styles.webViewContainer}>
+          <WebView
+            style={StyleSheet.absoluteFillObject}
+            source={{ uri: 'https://dev.kresoja.net/dashboard/1' }}
           />
-          <Text style={styles.whiteViewTitleText}>Julia</Text>
-          <Text style={styles.whiteViewSubtitleText}>Click to Speak</Text>
-          <TouchableOpacity
-            style={styles.roundButton}
-            onPress={startRecognizing}
-            accessibilityLabel="Round button">
-            <Image
-              source={require('./assets/siri_image.png')}
-              style={styles.roundButtonImage}
+        </View>
+        {/* Bottom View (Red, 1/6 of the screen) */}
+        <View style={styles.bottomContainer}>
+          <View style={styles.whiteView}>
+            <ImageBackground
+              source={require('./assets/squiggly_line.png')} // Path to your image
+              style={StyleSheet.absoluteFillObject} // Covers the entire whiteView
+              imageStyle={{ borderRadius: 30 }} // Matches the whiteView's rounded corners
             />
-          </TouchableOpacity>
-          
+            <Text style={styles.whiteViewTitleText}>Julia</Text>
+            <Text style={styles.whiteViewSubtitleText}>
+              {results.length > 0 ? results[0] : "Click to Speak"}
+            </Text>
+            <TouchableOpacity
+              style={styles.roundButton}
+              onPress={toggleListening}
+              accessibilityLabel="Toggle Speech Recognition">
+              <Image
+                source={isListening
+                  ? require('./assets/stop_siri_image.png') // Replace with a "Stop" image
+                  : require('./assets/start_siri_image.png')} // Replace with a "Start" image
+                style={styles.roundButtonImage}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: 'white', // Match your app's background
+  },
   container: {
     flex: 1, // Full screen
   },
@@ -187,6 +238,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // Center content vertically
     alignItems: 'flex-start', // Center content horizontally
     paddingLeft: 20, // Adds padding from the left edge
+    overflow: 'hidden',
   },
   whiteViewTitleText: {
     fontSize: 24,
@@ -199,6 +251,8 @@ const styles = StyleSheet.create({
     color: '#bcbec2',
     textAlign: 'left',
     backgroundColor: 'white',
+    maxWidth: '60%', // Ensure text stays within white view
+    flexWrap: 'wrap', // Allow text to wrap if it's too long
   },
   roundButton: {
     height: '75%', // 75% of the container's height
