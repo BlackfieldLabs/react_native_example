@@ -1,7 +1,9 @@
+//React/React Native
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, Image, ImageBackground, SafeAreaView, StyleSheet, TouchableOpacity, PermissionsAndroid, Platform, TouchableHighlight } from 'react-native';
+//WebView
 import { WebView } from 'react-native-webview';
-import RNFS from 'react-native-fs';
+//Voice 
 import Voice, {
   SpeechRecognizedEvent,
   SpeechResultsEvent,
@@ -9,8 +11,38 @@ import Voice, {
 } from "@react-native-voice/voice";
 
 const App = () => {
-  const [isListening, setIsListening] = useState(false); // Track listening state
+  // Track listening state
+  const [isListening, setIsListening] = useState(false);
   console.log('Tamara: App start! Is listening: ', isListening);
+
+  // API Call on Component Mount
+  const makeApiCall = async () => {
+    try {
+      console.log('Making API Call...');
+      const response = await fetch(
+        'http://eluxnetworks.net:8000/function/well-api/api',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          mode: 'cors',
+          body: new URLSearchParams({
+            function: 'voice_ask',
+            clientId: '001',
+            token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvYnN0ZXIiLCJleHAiOjE3MzI3NzMwNDR9.ai__sUTerJDp6-i9fDHUUubU3Mo_iUwE0gV3QBJWkR8',
+            user_name: 'Julia',
+            question: 'how is dad doing',
+            nonce: ',3', // Generates a random unique string
+          }).toString(),
+        }
+      );
+      const jsonResponse = await response.json();
+      console.log('API Response:', jsonResponse);
+    } catch (error) {
+      console.error('API Call Error:', error);
+    }
+  };
 
   // Request microphone permission (Android only)
   const requestMicrophonePermission = async () => {
@@ -31,12 +63,16 @@ const App = () => {
     return true;
   };
 
+  // Handle actions on button click
   const toggleListening = async () => {
+    console.log('Tamara: toggleListening');
     if (isListening) {
       // Stop listening
       try {
         await stopRecognizing();
         setIsListening(false);
+        console.log('Tamara: stopRecognizing');
+        makeApiCall();
       } catch (error) {
         console.error('Error stopping recognition:', error);
       }
@@ -51,6 +87,7 @@ const App = () => {
     }
   };
 
+  // Speak to text methods
   const startRecognizing = async () => {
     const hasPermission = await requestMicrophonePermission();
     if (!hasPermission) {
@@ -85,66 +122,42 @@ const App = () => {
       console.log("onSpeechStart: ", e);
       setStarted("√");
     };
-  
+
     Voice.onSpeechRecognized = (e) => {
-      console.log("onSpeechRecognized: ", e);
+      //console.log("onSpeechRecognized: ", e);
       setRecognized("√");
     };
-  
+
     Voice.onSpeechEnd = (e) => {
       console.log("onSpeechEnd: ", e);
       setEnd("√");
     };
-  
+
     Voice.onSpeechError = (e) => {
       console.log("onSpeechError: ", e);
       setError(JSON.stringify(e.error));
     };
 
     Voice.onSpeechResults = (e) => {
-      console.log("onSpeechResults: ", e);
+      //console.log("onSpeechResults: ", e);
       setResults(e.value || []); // Fallback to an empty array if `e.value` is undefined
     };
-  
+
     Voice.onSpeechPartialResults = (e) => {
-      console.log("onSpeechPartialResults: ", e);
+      //console.log("onSpeechPartialResults: ", e);
       setPartialResults(e.value);
     };
-  
+
     Voice.onSpeechVolumeChanged = (e) => {
-      console.log("onSpeechVolumeChanged: ", e);
+      //console.log("onSpeechVolumeChanged: ", e);
       setPitch(e.value);
     };
-  
+
     return () => {
       Voice.destroy().then(Voice.removeAllListeners);
     };
   }, []);
 
-  /*const startRecognizing = async () => {
-    console.log('Tamara: mic permission!');
-    const hasPermission = await requestMicrophonePermission();
-    if (!hasPermission) {
-      console.log('Permission denied!');
-      return;
-    }
-  
-    try {
-      await Voice.start("en-US");
-      console.log('Voice module:', Voice);
-    } catch (e) {
-      console.error('Tamara: Voice.start error:', e);
-    }
-  };*/
-  
-  /*const stopRecognizing = async () => {
-    try {
-      await Voice.stop();
-    } catch (e) {
-      console.error(e);
-    }
-  };*/
-  
   const cancelRecognizing = async () => {
     try {
       await Voice.cancel();
@@ -152,7 +165,7 @@ const App = () => {
       console.error(e);
     }
   };
-  
+
   const destroyRecognizer = async () => {
     try {
       await Voice.destroy();
@@ -161,7 +174,7 @@ const App = () => {
     }
     resetStates();
   };
-  
+
   const resetStates = () => {
     setRecognized("");
     setPitch("");
@@ -267,27 +280,6 @@ const styles = StyleSheet.create({
     height: '100%', // Relative to parent height
     aspectRatio: 1, // Ensures width equals height
     borderRadius: 35, // Makes it circular
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-  },
-  action: {
-    textAlign: "center",
-    color: "#0000FF",
-    marginVertical: 5,
-    fontWeight: "bold",
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5,
-  },
-  stat: {
-    textAlign: "center",
-    color: "#B0171F",
-    marginBottom: 1,
   },
 });
 
