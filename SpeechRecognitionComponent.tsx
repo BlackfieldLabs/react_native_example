@@ -20,7 +20,7 @@ const SpeechRecognitionComponent: React.FC<SpeechRecognitionProps> = ({ onResult
                 await stopRecognizing();
                 setIsListening(false);
                 console.log('SpeechRecognitionComponent -  stopRecognizing');
-                //makeApiCall();
+                //askWellNuoAIQuestion();
             } catch (error) {
                 console.error('SpeechRecognitionComponent - Error: stopping recognition:', error);
             }
@@ -163,7 +163,7 @@ const SpeechRecognitionComponent: React.FC<SpeechRecognitionProps> = ({ onResult
 const styles = StyleSheet.create({
     bottomContainer: {
         flex: 1, // 1/5 of the screen
-        backgroundColor: '#d7e3f5',
+        backgroundColor: '#eaf0fd',
         justifyContent: 'center', // Center content vertically
         alignItems: 'center', // Center content horizontally
     },

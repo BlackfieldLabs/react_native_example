@@ -17,15 +17,18 @@ const MainLayout = () => {
     const handleSpeechResults = (results: string[]) => {
         console.log('MainLayout - Speech Results:', results);
         setSpeechResults(results);
+        
+        let uuidString: string = uuidv4();
+        const result = VoiceAskAPIService.checkCredentials('anandk', 'anandk_', '001', uuidString);
 
         // Trigger API call with the speech results
         if (results.length > 0) {
-            makeApiCall('001', '<YOUR_TOKEN>', 'Julia', results[0], uuidv4());
+            askWellNuoAIQuestion('001', '<YOUR_TOKEN>', 'anandk', results[0], uuidString);
         }
     };
 
     // Call the API using APIService
-    const makeApiCall = async (
+    const askWellNuoAIQuestion = async (
         clientId: string,
         token: string,
         userName: string,
@@ -33,7 +36,7 @@ const MainLayout = () => {
         nonce: string
     ) => {
         try {
-            const response = await VoiceAskAPIService.makeApiCall(clientId, token, userName, question, nonce);
+            const response = await VoiceAskAPIService.askWellNuoAIQuestion(clientId, token, userName, question, nonce);
             console.log('MainLayout - API Call Response:', response);
 
             // Handle the API response here if needed
