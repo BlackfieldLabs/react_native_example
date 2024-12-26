@@ -1,5 +1,5 @@
 import React from 'react';
-import MainLayout from './MainLayout';
+import MainLayout from './screens/MainLayout';
 
 const App = () => {
   console.log('App - App start!');
