@@ -20,7 +20,6 @@ const SpeechRecognitionComponent: React.FC<SpeechRecognitionProps> = ({ onResult
                 await stopRecognizing();
                 setIsListening(false);
                 console.log('SpeechRecognitionComponent -  stopRecognizing');
-                //askWellNuoAIQuestion();
             } catch (error) {
                 console.error('SpeechRecognitionComponent - Error: stopping recognition:', error);
             }
@@ -120,6 +119,8 @@ const SpeechRecognitionComponent: React.FC<SpeechRecognitionProps> = ({ onResult
         };
 
         Voice.onSpeechPartialResults = (e) => {
+            const speechResults = e.value || [];
+            setResults(speechResults);
             console.log("SpeechRecognitionComponent - onSpeechPartialResults: ", e);
         };
 

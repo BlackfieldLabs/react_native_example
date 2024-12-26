@@ -19,12 +19,14 @@ const MainLayout = () => {
         setSpeechResults(results);
         
         let uuidString: string = uuidv4();
-        const result = VoiceAskAPIService.checkCredentials('anandk', 'anandk_', '001', uuidString);
+        //API call test
+        /*const result = VoiceAskAPIService.checkCredentials('anandk', 'anandk_', '001', uuidString);
 
         // Trigger API call with the speech results
         if (results.length > 0) {
-            askWellNuoAIQuestion('001', '<YOUR_TOKEN>', 'anandk', results[0], uuidString);
-        }
+            askWellNuoAIQuestion('001', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvYnN0ZXIiLCJleHAiOjE3MzI3NzMwNDR9.ai__sUTerJDp6-i9fDHUUubU3Mo_iUwE0gV3QBJWkR8', 
+             'anandk', results[0], uuidString);
+        }*/
     };
 
     // Call the API using APIService
