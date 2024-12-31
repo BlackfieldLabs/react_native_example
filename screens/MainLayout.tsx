@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {View, SafeAreaView, StyleSheet, Text} from 'react-native';
+import {View, SafeAreaView, StyleSheet, Text, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {Icon} from 'react-native-elements';
 
 // Components
 import WebViewComponent from '../components/WebViewComponent';
@@ -105,41 +105,47 @@ const MainLayout = () => {
       //   })}
       screenOptions={({route}) => ({
         tabBarIcon: ({color, size}) => {
-          let icon = '';
+          let iconSource = '';
 
+          // Assign PNG file paths based on the route name
           if (route.name === 'Home') {
-            icon = '🏠';
+            iconSource = require('../assets/icons/home-outline.png');
           } else if (route.name === 'Search') {
-            icon = '🔍';
+            iconSource = require('../assets/icons/search-outline.png');
           } else if (route.name === 'Voice') {
-            icon = '🎤';
+            iconSource = require('../assets/icons/mic-outline.png');
           } else if (route.name === 'QR') {
-            icon = '📷';
+            iconSource = require('../assets/icons/qr-code-outline.png');
           } else if (route.name === 'Profile') {
-            icon = '👤';
+            iconSource = require('../assets/icons/person-outline.png');
           }
 
-          return <Text style={{fontSize: size, color}}>{icon}</Text>;
+          // Return an Image component for the icon
+          return (
+            <Image
+              source={iconSource}
+              style={{
+                width: size || 24,
+                height: size || 24,
+                tintColor: color, // Apply color tint for active/inactive states
+              }}
+            />
+          );
+        },
+        tabBarActiveTintColor: '#00BFA6',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+          height: 70,
+          paddingBottom: 10,
         },
       })}>
-      <Tab.Screen
-        name="Home"
-        component={() => <PlaceholderScreen title="Home" />}
-      />
-      <Tab.Screen
-        name="Search"
-        component={() => <PlaceholderScreen title="Search" />}
-      />
-      <Tab.Screen
-        name="Voice"
-        options={{
-          tabBarLabel: '',
-          tabBarIconStyle: {
-            backgroundColor: '#00BFA6',
-            borderRadius: 50,
-            padding: 10,
-          },
-        }}>
+      <Tab.Screen name="Home">
+        {() => <PlaceholderScreen title="Home" />}
+      </Tab.Screen>
+      <Tab.Screen name="Search">
+        {() => <PlaceholderScreen title="Search" />}
+      </Tab.Screen>
+      <Tab.Screen name="Voice" options={{}}>
         {() => (
           <SafeAreaView style={styles.safeContainer}>
             <View style={styles.container}>
@@ -149,14 +155,12 @@ const MainLayout = () => {
           </SafeAreaView>
         )}
       </Tab.Screen>
-      <Tab.Screen
-        name="QR"
-        component={() => <PlaceholderScreen title="QR" />}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={() => <PlaceholderScreen title="Profile" />}
-      />
+      <Tab.Screen name="QR">
+        {() => <PlaceholderScreen title="QR" />}
+      </Tab.Screen>
+      <Tab.Screen name="Profile">
+        {() => <PlaceholderScreen title="Profile" />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 };
