@@ -1,4 +1,4 @@
-const API_URL = 'http://eluxnetworks.net:8000/function/well-api/api';
+const API_URL = 'https://eluxnetworks.net/function/well-api/api';
 const CONTENT_TYPE_VALUE = 'application/x-www-form-urlencoded';
 const DEFAULT_TIMEOUT = 30000; // 30 seconds timeout
 

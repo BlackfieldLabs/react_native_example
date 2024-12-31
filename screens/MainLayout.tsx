@@ -19,7 +19,7 @@ const MainLayout = () => {
         try {
             console.log('MainLayout - Initializing token...');
             const uuidString = uuidv4();
-            const response = await VoiceAskAPIService.checkCredentials('anandk', 'anandk_', '001', uuidString);
+            const response = await VoiceAskAPIService.checkCredentials('anandk', 'anandk_7', '001', uuidString);
 
             if (response?.token) {
                 console.log('MainLayout - Token received:', response.token);
