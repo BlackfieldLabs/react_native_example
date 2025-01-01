@@ -13,6 +13,8 @@ import VoiceAskAPIService from '../services/VoiceAskAPIService';
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 import ProfilePage from './ProfilePage';
+import HomePage from './HomePage';
+import NotificationsPage from './NotificationsPage';
 
 // Placeholder components for other tabs
 const PlaceholderScreen = ({title}) => (
@@ -116,10 +118,10 @@ const MainLayout = () => {
         },
       })}>
       <Tab.Screen name="Home">
-        {() => <PlaceholderScreen title="Home" />}
+        {() => <HomePage/>}
       </Tab.Screen>
       <Tab.Screen name="Notifications">
-        {() => <PlaceholderScreen title="Notifications" />}
+        {() => <NotificationsPage />}
       </Tab.Screen>
       <Tab.Screen name="Workflow">
         {() => <PlaceholderScreen title="Workflow" />}

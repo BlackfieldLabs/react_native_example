@@ -42,7 +42,7 @@ const LoginPage: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image source={require('./img/blackfield.png')} style={styles.logo} />
+        <Image source={require('../assets/blackfield.png')} style={styles.logo} />
       </View>
       <View style={styles.inputContainer}>
         <TextInput
