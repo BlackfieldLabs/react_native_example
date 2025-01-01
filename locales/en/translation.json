@@ -1,0 +1,13 @@
+{
+    "welcome": "Welcome",
+    "login": "Login",
+    "profile": {
+      "username": "Username",
+      "email": "Email"
+    },
+    "settings": {
+      "language": "Language",
+      "theme": "Theme"
+    }
+  }
+  

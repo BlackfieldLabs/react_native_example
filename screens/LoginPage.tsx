@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Image, Alert, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState(''); // State for email
   const [password, setPassword] = useState(''); // State for password
   const navigation = useNavigation(); // Get navigation object
+  const { t } = useTranslation();
 
   const isValidEmail = (email: string): boolean => {
     // Simple regex for email validation
@@ -62,7 +64,7 @@ const LoginPage: React.FC = () => {
         />
       </View>
       <TouchableOpacity style={styles.primaryButton} onPress={handleLogin}>
-        <Text style={styles.primaryButtonText}>Login</Text>
+        <Text style={styles.primaryButtonText}>{t('login')}</Text>
       </TouchableOpacity>
       <Text style={styles.divider}>or</Text>
       <TouchableOpacity style={styles.secondaryButton}>

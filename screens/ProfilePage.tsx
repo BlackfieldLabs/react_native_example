@@ -7,59 +7,99 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 const ProfilePage = () => {
+  const {t, i18n} = useTranslation();
+
+  const changeLanguage = lng => {
+    i18n.changeLanguage(lng); // Switch the language
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* User Info Section */}
       <View style={styles.userInfo}>
         <Text style={styles.userName}>Nenad Stojkovic</Text>
         <Text style={styles.userEmail}>charlie060589@gmail.com</Text>
+        <Text style={{textAlign: 'center', marginBottom: 10}}>
+          Current Language: {i18n.language}
+        </Text>
       </View>
 
       {/* Options Section */}
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/privacy.png')} style={styles.icon} />
+          <Image
+            source={require('../assets/icons/privacy.png')}
+            style={styles.icon}
+          />
           <Text style={styles.optionText}>Privacy</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/download.png')} style={styles.icon} />
+          <Image
+            source={require('../assets/icons/download.png')}
+            style={styles.icon}
+          />
           <Text style={styles.optionText}>Download documents</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/settings.png')} style={styles.icon} />
+          <Image
+            source={require('../assets/icons/settings.png')}
+            style={styles.icon}
+          />
           <Text style={styles.optionText}>Account settings</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/settings.png')} style={styles.icon} />
+          <Image
+            source={require('../assets/icons/settings.png')}
+            style={styles.icon}
+          />
           <Text style={styles.optionText}>App settings</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/contact.png')} style={styles.icon} />
+          <Image
+            source={require('../assets/icons/contact.png')}
+            style={styles.icon}
+          />
           <Text style={styles.optionText}>Contact</Text>
+        </View>
+      </TouchableOpacity>
+      {/* Language Change Option */}
+      <TouchableOpacity
+        style={styles.option}
+        onPress={() => changeLanguage(i18n.language === 'en' ? 'rs' : 'en')}>
+        <View style={styles.optionContent}>
+          <Image
+            source={require('../assets/icons/language.png')} // Add your language icon
+            style={styles.icon}
+          />
+          <Text style={styles.optionText}>{t('settings.language')}</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/logout.png')} style={styles.icon} />
+          <Image
+            source={require('../assets/icons/logout.png')}
+            style={styles.icon}
+          />
           <Text style={styles.optionText}>Log out</Text>
         </View>
-      </TouchableOpacity> 
+      </TouchableOpacity>
 
       {/* Footer Section */}
       <View style={styles.footer}>

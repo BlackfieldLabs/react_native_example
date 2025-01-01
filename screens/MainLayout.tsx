@@ -86,12 +86,12 @@ const MainLayout = () => {
           // Assign PNG file paths based on the route name
           if (route.name === 'Home') {
             iconSource = require('../assets/icons/home-outline.png');
-          } else if (route.name === 'Search') {
-            iconSource = require('../assets/icons/search-outline.png');
+          } else if (route.name === 'Notifications') {
+            iconSource = require('../assets/icons/notifications.png');
           } else if (route.name === 'Voice') {
             iconSource = require('../assets/icons/mic-outline.png');
-          } else if (route.name === 'QR') {
-            iconSource = require('../assets/icons/qr-code-outline.png');
+          } else if (route.name === 'Workflow') {
+            iconSource = require('../assets/icons/network.png');
           } else if (route.name === 'Profile') {
             iconSource = require('../assets/icons/person-outline.png');
           }
@@ -118,8 +118,11 @@ const MainLayout = () => {
       <Tab.Screen name="Home">
         {() => <PlaceholderScreen title="Home" />}
       </Tab.Screen>
-      <Tab.Screen name="Search">
-        {() => <PlaceholderScreen title="Search" />}
+      <Tab.Screen name="Notifications">
+        {() => <PlaceholderScreen title="Notifications" />}
+      </Tab.Screen>
+      <Tab.Screen name="Workflow">
+        {() => <PlaceholderScreen title="Workflow" />}
       </Tab.Screen>
       <Tab.Screen name="Voice" options={{}}>
         {() => (
@@ -131,13 +134,9 @@ const MainLayout = () => {
           </SafeAreaView>
         )}
       </Tab.Screen>
-      <Tab.Screen name="QR">
-        {() => <PlaceholderScreen title="QR" />}
-      </Tab.Screen>
       <Tab.Screen name="Profile" >
         {() => <ProfilePage />}
       </Tab.Screen>
-
     </Tab.Navigator>
   );
 };
