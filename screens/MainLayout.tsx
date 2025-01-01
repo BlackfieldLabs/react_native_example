@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, SafeAreaView, StyleSheet, Text, Image} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Icon} from 'react-native-elements';
 
 // Components
 import WebViewComponent from '../components/WebViewComponent';
@@ -13,6 +12,7 @@ import VoiceAskAPIService from '../services/VoiceAskAPIService';
 // UUID
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
+import ProfilePage from './ProfilePage';
 
 // Placeholder components for other tabs
 const PlaceholderScreen = ({title}) => (
@@ -79,30 +79,6 @@ const MainLayout = () => {
 
   return (
     <Tab.Navigator
-      //   screenOptions={({ route }) => ({
-      //     tabBarIcon: ({ color, size }) => {
-      //       let iconName = '';
-      //       if (route.name === 'Home') {
-      //         iconName = 'home-outline';
-      //       } else if (route.name === 'Search') {
-      //         iconName = 'search-outline';
-      //       } else if (route.name === 'Voice') {
-      //         iconName = 'mic-outline';
-      //       } else if (route.name === 'QR') {
-      //         iconName = 'qr-code-outline';
-      //       } else if (route.name === 'Profile') {
-      //         iconName = 'person-outline';
-      //       }
-      //       console.log(iconName);
-      //       return <Icon name={iconName} size={size} color={color} />;
-      //     },
-      //     tabBarActiveTintColor: '#00BFA6',
-      //     tabBarInactiveTintColor: 'gray',
-      //     tabBarStyle: {
-      //       height: 70,
-      //       paddingBottom: 10,
-      //     },
-      //   })}
       screenOptions={({route}) => ({
         tabBarIcon: ({color, size}) => {
           let iconSource = '';
@@ -158,9 +134,10 @@ const MainLayout = () => {
       <Tab.Screen name="QR">
         {() => <PlaceholderScreen title="QR" />}
       </Tab.Screen>
-      <Tab.Screen name="Profile">
-        {() => <PlaceholderScreen title="Profile" />}
+      <Tab.Screen name="Profile" >
+        {() => <ProfilePage />}
       </Tab.Screen>
+
     </Tab.Navigator>
   );
 };
