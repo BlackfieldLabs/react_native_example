@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Image, Alert, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import CyberRavenAPIService from '../services/CyberRavenAPIService';
 import { useTranslation } from 'react-i18next';
 
 const LoginPage: React.FC = () => {
@@ -30,9 +31,8 @@ const LoginPage: React.FC = () => {
 
     try {
       // Mock API call
-      const response = await new Promise<{ token: string }>((resolve) =>
-        setTimeout(() => resolve({ token: 'mock-jwt-token' }), 1000)
-      );
+      // const accessToken = await CyberRavenAPIService.login('testuser', 'testpassword');
+      // Alert.alert('Login Successful', accessToken);
       navigation.navigate('MainLayout');
     } catch (error) {
       Alert.alert('Login Failed', 'Invalid credentials');

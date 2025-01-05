@@ -1,6 +1,14 @@
 {
     "welcome": "Welcome",
-    "login": "Login",
+    "LoginPage": {
+      "title": "Login",
+      "username": "Username",
+      "password": "Password",
+      "login": "Login",
+      "forgotPassword": "Forgot Password",
+      "register": "Register",
+      "ContinueWithPhoneNumber": "Continue with phone number",
+    },
     "profile": {
       "username": "Username",
       "email": "Email"
