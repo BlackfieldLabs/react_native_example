@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder={t('LoginPage.Email')}
           keyboardType="email-address"
           autoCapitalize="none"
           value={email}
@@ -57,18 +57,18 @@ const LoginPage: React.FC = () => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder={t('LoginPage.Password')}
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
       </View>
       <TouchableOpacity style={styles.primaryButton} onPress={handleLogin}>
-        <Text style={styles.primaryButtonText}>{t('login')}</Text>
+        <Text style={styles.primaryButtonText}>{t('LoginPage.Login')}</Text>
       </TouchableOpacity>
-      <Text style={styles.divider}>or</Text>
+      <Text style={styles.divider}>{t('LoginPage.Or')}</Text>
       <TouchableOpacity style={styles.secondaryButton}>
-        <Text style={styles.secondaryButtonText}>📞 Continue with phone number</Text>
+        <Text style={styles.secondaryButtonText}>📞 {t('LoginPage.ContinueWithPhoneNumber')}</Text>
       </TouchableOpacity>
     </View>
   );

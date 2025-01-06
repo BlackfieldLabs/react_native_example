@@ -1,37 +1,40 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 const HomePage = () => {
+  const { t } = useTranslation();
+
   return (
     <ScrollView style={styles.container}>
       {/* Welcome Section */}
       <View style={styles.welcomeSection}>
-        <Text style={styles.welcomeText}>Welcome, John Doe!</Text>
-        <Text style={styles.subtitle}>Here’s what’s happening today.</Text>
+        <Text style={styles.welcomeText}>{t('HomePage.Welcome', { name: 'John Doe' })}</Text>
+        <Text style={styles.subtitle}>{t('HomePage.Subtitle')}</Text>
       </View>
 
       {/* Key Metrics */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Upcoming Appointment</Text>
-        <Text style={styles.cardContent}>Consultation with Dr. Smith</Text>
-        <Text style={styles.cardContent}>Tomorrow at 10:00 AM</Text>
+        <Text style={styles.cardTitle}>{t('HomePage.UpcomingAppointment')}</Text>
+        <Text style={styles.cardContent}>{t('HomePage.ConsultationWith', { doctor: 'Dr. Smith' })}</Text>
+        <Text style={styles.cardContent}>{t('HomePage.AppointmentTime', { time: 'Tomorrow at 10:00 AM' })}</Text>
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Health Goals Progress</Text>
-        <Text style={styles.cardContent}>You’ve logged 8,000 steps today!</Text>
+        <Text style={styles.cardTitle}>{t('HomePage.HealthGoalsProgress')}</Text>
+        <Text style={styles.cardContent}>{t('HomePage.StepsLogged', { count: 8000 })}</Text>
       </View>
 
       {/* Quick Actions */}
       <View style={styles.quickActions}>
         <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionText}>Book Appointment</Text>
+          <Text style={styles.actionText}>{t('HomePage.BookAppointment')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionText}>Message Doctor</Text>
+          <Text style={styles.actionText}>{t('HomePage.MessageDoctor')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionText}>View Medical Records</Text>
+          <Text style={styles.actionText}>{t('HomePage.ViewMedicalRecords')}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

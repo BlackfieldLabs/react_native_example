@@ -1,21 +1,41 @@
 {
     "welcome": "Welcome",
     "LoginPage": {
-      "title": "Login",
-      "username": "Username",
-      "password": "Password",
-      "login": "Login",
-      "forgotPassword": "Forgot Password",
-      "register": "Register",
-      "ContinueWithPhoneNumber": "Continue with phone number",
+      "Email": "Email",
+      "Password": "Password",
+      "Login": "Login",
+      "Or": "or",
+      "ContinueWithPhoneNumber": "Continue with Phone Number",
+      "LoginFailed": "Login Failed",
+      "InvalidCredentials": "Invalid credentials"
+    }, 
+    "HomePage": {
+      "Welcome": "Welcome, {{name}}!",
+      "Subtitle": "Here’s what’s happening today.",
+      "UpcomingAppointment": "Upcoming Appointment",
+      "ConsultationWith": "Consultation with {{doctor}}",
+      "AppointmentTime": "{{time}}",
+      "HealthGoalsProgress": "Health Goals Progress",
+      "StepsLogged": "You’ve logged {{count}} steps today!",
+      "BookAppointment": "Book Appointment",
+      "MessageDoctor": "Message Doctor",
+      "ViewMedicalRecords": "View Medical Records"
+    },
+    "SettingsPage": {
+      "CurrentLanguage": "Current Language",
+      "Privacy": "Privacy",
+      "DownloadDocuments": "Download documents",
+      "AccountSettings": "Account settings",
+      "AppSettings": "App settings",
+      "Contact": "Contact",
+      "ChangeLanguage": "Change Language",
+      "LogOut": "Log out",
+      "Version": "Version {{version}}",
+      "Share": "Share"
     },
     "profile": {
       "username": "Username",
       "email": "Email"
-    },
-    "settings": {
-      "language": "Language",
-      "theme": "Theme"
     }
   }
   

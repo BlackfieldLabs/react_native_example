@@ -1,13 +1,41 @@
 {
     "welcome": "Welcome",
-    "login": "Prijava",
+    "LoginPage": {
+      "Email": "E-pošta",
+      "Password": "Lozinka",
+      "Login": "Prijava",
+      "Or": "ili",
+      "ContinueWithPhoneNumber": "Nastavi sa brojem telefona",
+      "LoginFailed": "Prijava nije uspela",
+      "InvalidCredentials": "Neispravni podaci za prijavu"
+    },
+    "HomePage": {
+      "Welcome": "Dobrodošli, {{name}}!",
+      "Subtitle": "Evo šta se dešava danas.",
+      "UpcomingAppointment": "Predstojeći termin",
+      "ConsultationWith": "Konsultacija sa {{doctor}}",
+      "AppointmentTime": "{{time}}",
+      "HealthGoalsProgress": "Napredak zdravstvenih ciljeva",
+      "StepsLogged": "Danas ste prešli {{count}} koraka!",
+      "BookAppointment": "Zakažite termin",
+      "MessageDoctor": "Poruka doktoru",
+      "ViewMedicalRecords": "Pogledajte medicinske zapise"
+    },
     "profile": {
       "username": "Username",
       "email": "Email"
     },
-    "settings": {
-      "language": "Language",
-      "theme": "Theme"
-    }
+    "SettingsPage": {
+    "CurrentLanguage": "Trenutni jezik",
+    "Privacy": "Privatnost",
+    "DownloadDocuments": "Preuzmi dokumente",
+    "AccountSettings": "Podešavanja naloga",
+    "AppSettings": "Podešavanja aplikacije",
+    "Contact": "Kontakt",
+    "ChangeLanguage": "Promeni jezik",
+    "LogOut": "Odjavi se",
+    "Version": "Verzija {{version}}",
+    "Share": "Podeli"
   }
+}
   

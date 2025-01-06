@@ -22,91 +22,71 @@ const ProfilePage = () => {
       <View style={styles.userInfo}>
         <Text style={styles.userName}>Nenad Stojkovic</Text>
         <Text style={styles.userEmail}>charlie060589@gmail.com</Text>
-        <Text style={{textAlign: 'center', marginBottom: 10}}>
-          Current Language: {i18n.language}
+        <Text style={{ textAlign: 'center', marginBottom: 10 }}>
+          {t('SettingsPage.CurrentLanguage')}: {i18n.language}
         </Text>
       </View>
 
       {/* Options Section */}
-
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image
-            source={require('../assets/icons/privacy.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.optionText}>Privacy</Text>
+          <Image source={require('../assets/icons/privacy.png')} style={styles.icon} />
+          <Text style={styles.optionText}>{t('SettingsPage.Privacy')}</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image
-            source={require('../assets/icons/download.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.optionText}>Download documents</Text>
+          <Image source={require('../assets/icons/download.png')} style={styles.icon} />
+          <Text style={styles.optionText}>{t('SettingsPage.DownloadDocuments')}</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image
-            source={require('../assets/icons/settings.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.optionText}>Account settings</Text>
+          <Image source={require('../assets/icons/settings.png')} style={styles.icon} />
+          <Text style={styles.optionText}>{t('SettingsPage.AccountSettings')}</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image
-            source={require('../assets/icons/settings.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.optionText}>App settings</Text>
+          <Image source={require('../assets/icons/settings.png')} style={styles.icon} />
+          <Text style={styles.optionText}>{t('SettingsPage.AppSettings')}</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image
-            source={require('../assets/icons/contact.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.optionText}>Contact</Text>
+          <Image source={require('../assets/icons/contact.png')} style={styles.icon} />
+          <Text style={styles.optionText}>{t('SettingsPage.Contact')}</Text>
         </View>
       </TouchableOpacity>
+
       {/* Language Change Option */}
       <TouchableOpacity
         style={styles.option}
-        onPress={() => changeLanguage(i18n.language === 'en' ? 'rs' : 'en')}>
+        onPress={() => changeLanguage(i18n.language === 'en' ? 'sr' : 'en')}
+      >
         <View style={styles.optionContent}>
-          <Image
-            source={require('../assets/icons/language.png')} // Add your language icon
-            style={styles.icon}
-          />
-          <Text style={styles.optionText}>{t('settings.language')}</Text>
+          <Image source={require('../assets/icons/language.png')} style={styles.icon} />
+          <Text style={styles.optionText}>{t('SettingsPage.ChangeLanguage')}</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}>
         <View style={styles.optionContent}>
-          <Image
-            source={require('../assets/icons/logout.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.optionText}>Log out</Text>
+          <Image source={require('../assets/icons/logout.png')} style={styles.icon} />
+          <Text style={styles.optionText}>{t('SettingsPage.LogOut')}</Text>
         </View>
       </TouchableOpacity>
 
       {/* Footer Section */}
       <View style={styles.footer}>
-        <Text style={styles.version}>Version 0.0.1</Text>
+        <Text style={styles.version}>{t('SettingsPage.Version', { version: '0.0.1' })}</Text>
         <Text style={styles.company}>Blackfield Labs</Text>
         <TouchableOpacity>
-          <Text style={styles.shareLink}>Share</Text>
+          <Text style={styles.shareLink}>{t('SettingsPage.Share')}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
