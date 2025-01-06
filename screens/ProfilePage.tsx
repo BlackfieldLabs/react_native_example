@@ -2,189 +2,69 @@ import React from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   Image,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import globalStyles from './styles/globalStyles';
 
 const ProfilePage = () => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const changeLanguage = lng => {
     i18n.changeLanguage(lng); // Switch the language
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[globalStyles.profileContainer, { flexGrow: 1 }]}>
       {/* User Info Section */}
-      <View style={styles.userInfo}>
-        <Text style={styles.userName}>Nenad Stojkovic</Text>
-        <Text style={styles.userEmail}>charlie060589@gmail.com</Text>
+      <View style={[globalStyles.center, { marginBottom: 24 }]}>
+        <Text style={[globalStyles.title, { marginBottom: 4 }]}>Nenad Stojkovic</Text>
+        <Text style={[globalStyles.subtitle, { marginBottom: 16 }]}>charlie060589@gmail.com</Text>
         <Text style={{ textAlign: 'center', marginBottom: 10 }}>
           {t('SettingsPage.CurrentLanguage')}: {i18n.language}
         </Text>
       </View>
 
       {/* Options Section */}
-      <TouchableOpacity style={styles.option}>
-        <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/privacy.png')} style={styles.icon} />
-          <Text style={styles.optionText}>{t('SettingsPage.Privacy')}</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.option}>
-        <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/download.png')} style={styles.icon} />
-          <Text style={styles.optionText}>{t('SettingsPage.DownloadDocuments')}</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.option}>
-        <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/settings.png')} style={styles.icon} />
-          <Text style={styles.optionText}>{t('SettingsPage.AccountSettings')}</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.option}>
-        <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/settings.png')} style={styles.icon} />
-          <Text style={styles.optionText}>{t('SettingsPage.AppSettings')}</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.option}>
-        <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/contact.png')} style={styles.icon} />
-          <Text style={styles.optionText}>{t('SettingsPage.Contact')}</Text>
-        </View>
-      </TouchableOpacity>
-
-      {/* Language Change Option */}
-      <TouchableOpacity
-        style={styles.option}
-        onPress={() => changeLanguage(i18n.language === 'en' ? 'sr' : 'en')}
-      >
-        <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/language.png')} style={styles.icon} />
-          <Text style={styles.optionText}>{t('SettingsPage.ChangeLanguage')}</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.option}>
-        <View style={styles.optionContent}>
-          <Image source={require('../assets/icons/logout.png')} style={styles.icon} />
-          <Text style={styles.optionText}>{t('SettingsPage.LogOut')}</Text>
-        </View>
-      </TouchableOpacity>
+      {[
+        { icon: require('../assets/icons/privacy.png'), label: t('SettingsPage.Privacy') },
+        { icon: require('../assets/icons/download.png'), label: t('SettingsPage.DownloadDocuments') },
+        { icon: require('../assets/icons/settings.png'), label: t('SettingsPage.AccountSettings') },
+        { icon: require('../assets/icons/settings.png'), label: t('SettingsPage.AppSettings') },
+        { icon: require('../assets/icons/contact.png'), label: t('SettingsPage.Contact') },
+        {
+          icon: require('../assets/icons/language.png'),
+          label: t('SettingsPage.ChangeLanguage'),
+          onPress: () => changeLanguage(i18n.language === 'en' ? 'sr' : 'en'),
+        },
+        { icon: require('../assets/icons/logout.png'), label: t('SettingsPage.LogOut') },
+      ].map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          style={globalStyles.card}
+          onPress={item.onPress || (() => {})}
+        >
+          <View style={globalStyles.profileCardContent}>
+            <Image source={item.icon} style={globalStyles.icon} />
+            <Text style={globalStyles.cardText}>{item.label}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
 
       {/* Footer Section */}
-      <View style={styles.footer}>
-        <Text style={styles.version}>{t('SettingsPage.Version', { version: '0.0.1' })}</Text>
-        <Text style={styles.company}>Blackfield Labs</Text>
+      <View style={[globalStyles.center, { marginTop: 16 }]}>
+        <Text style={globalStyles.footerText}>
+          {t('SettingsPage.Version', { version: '0.0.1' })}
+        </Text>
+        <Text style={globalStyles.footerText}>Blackfield Labs</Text>
         <TouchableOpacity>
-          <Text style={styles.shareLink}>{t('SettingsPage.Share')}</Text>
+          <Text style={globalStyles.link}>{t('SettingsPage.Share')}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    backgroundColor: '#f9f9f9',
-    padding: 16,
-  },
-  userInfo: {
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  userName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  userEmail: {
-    fontSize: 16,
-    color: '#888',
-    marginBottom: 16,
-  },
-  stats: {
-    width: '100%',
-    backgroundColor: '#e6e6e6',
-    borderRadius: 8,
-    padding: 12,
-  },
-  statItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-  statLabel: {
-    fontSize: 14,
-    color: '#666',
-  },
-  statValue: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  option: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    marginBottom: 12,
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  optionContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    marginRight: 12,
-  },
-  optionText: {
-    fontSize: 16,
-    flex: 1,
-  },
-  badge: {
-    backgroundColor: '#FFD700',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
-  },
-  badgeText: {
-    fontSize: 12,
-    color: '#000',
-    fontWeight: 'bold',
-  },
-  footer: {
-    alignItems: 'center',
-    marginTop: 16,
-  },
-  version: {
-    fontSize: 12,
-    color: '#888',
-  },
-  company: {
-    fontSize: 12,
-    color: '#888',
-    marginBottom: 8,
-  },
-  shareLink: {
-    fontSize: 12,
-    color: '#00BFA6',
-    fontWeight: 'bold',
-  },
-});
 
 export default ProfilePage;

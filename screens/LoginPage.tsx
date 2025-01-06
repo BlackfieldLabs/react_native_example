@@ -1,52 +1,33 @@
+// LoginPage.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Image, Alert, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Image, Alert, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import CyberRavenAPIService from '../services/CyberRavenAPIService';
 import { useTranslation } from 'react-i18next';
+import globalStyles from './styles/globalStyles'; // Adjust the path as necessary
 
-const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState(''); // State for email
-  const [password, setPassword] = useState(''); // State for password
-  const navigation = useNavigation(); // Get navigation object
+const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigation = useNavigation();
   const { t } = useTranslation();
 
-  const isValidEmail = (email: string): boolean => {
-    // Simple regex for email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
   const handleLogin = async () => {
-    // Validate email
-    // if (!isValidEmail(email)) {
-    //   Alert.alert('Invalid Email', 'Please enter a valid email address.');
-    //   return;
-    // }
-
-    // // Validate password
-    // if (password.length < 6) {
-    //   Alert.alert('Invalid Password', 'Password must be at least 6 characters long.');
-    //   return;
-    // }
-
     try {
       // Mock API call
-      // const accessToken = await CyberRavenAPIService.login('testuser', 'testpassword');
-      // Alert.alert('Login Successful', accessToken);
       navigation.navigate('MainLayout');
     } catch (error) {
-      Alert.alert('Login Failed', 'Invalid credentials');
+      Alert.alert(t('LoginPage.LoginFailed'), t('LoginPage.InvalidCredentials'));
     }
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image source={require('../assets/blackfield.png')} style={styles.logo} />
+    <View style={globalStyles.container}>
+      <View style={globalStyles.logoContainer}>
+        <Image source={require('../assets/blackfield.png')} style={globalStyles.logo} />
       </View>
-      <View style={styles.inputContainer}>
+      <View style={globalStyles.inputContainer}>
         <TextInput
-          style={styles.input}
+          style={globalStyles.input}
           placeholder={t('LoginPage.Email')}
           keyboardType="email-address"
           autoCapitalize="none"
@@ -54,88 +35,24 @@ const LoginPage: React.FC = () => {
           onChangeText={setEmail}
         />
       </View>
-      <View style={styles.inputContainer}>
+      <View style={globalStyles.inputContainer}>
         <TextInput
-          style={styles.input}
+          style={globalStyles.input}
           placeholder={t('LoginPage.Password')}
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
       </View>
-      <TouchableOpacity style={styles.primaryButton} onPress={handleLogin}>
-        <Text style={styles.primaryButtonText}>{t('LoginPage.Login')}</Text>
+      <TouchableOpacity style={globalStyles.primaryButton} onPress={handleLogin}>
+        <Text style={globalStyles.primaryButtonText}>{t('LoginPage.Login')}</Text>
       </TouchableOpacity>
-      <Text style={styles.divider}>{t('LoginPage.Or')}</Text>
-      <TouchableOpacity style={styles.secondaryButton}>
-        <Text style={styles.secondaryButtonText}>📞 {t('LoginPage.ContinueWithPhoneNumber')}</Text>
+      <Text style={globalStyles.divider}>{t('LoginPage.Or')}</Text>
+      <TouchableOpacity style={globalStyles.secondaryButton}>
+        <Text style={globalStyles.secondaryButtonText}>📞 {t('LoginPage.ContinueWithPhoneNumber')}</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-    backgroundColor: '#fff',
-  },
-  logoContainer: {
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  logo: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  inputContainer: {
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  input: {
-    height: 50,
-    paddingHorizontal: 12,
-    fontSize: 16,
-  },
-  primaryButton: {
-    backgroundColor: '#00BFA6',
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  primaryButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  divider: {
-    textAlign: 'center',
-    color: '#888',
-    marginVertical: 16,
-  },
-  secondaryButton: {
-    borderWidth: 1,
-    borderColor: '#00BFA6',
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  secondaryButtonText: {
-    color: '#00BFA6',
-    fontSize: 16,
-  },
-});
 
 export default LoginPage;
