@@ -20,7 +20,7 @@ const MainLayout = () => {
     const speechRecognitionRef = useRef<any>(null);
 
     // Call checkCredentials and save the token
-    const initializeToken = async () => {
+    const initializeToken = async () => {//TODO: tamara - Delete the code for login from MainLayout
         try {
             console.log('MainLayout - Initializing token...');
             const uuidString = uuidv4();

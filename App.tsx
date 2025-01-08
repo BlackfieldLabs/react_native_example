@@ -1,9 +1,9 @@
 import React from 'react';
-import MainLayout from './screens/MainLayout';
+import LoginScreen from './screens/LoginScreen';
 
 const App = () => {
   console.log('App - App start!');
-  return <MainLayout />;
+  return <LoginScreen />;
 };
 
 export default App;
