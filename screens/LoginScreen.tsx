@@ -17,7 +17,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 let globalToken: string | null = null;
 
-const LoginScreen = () => {
+const LoginScreen = (navigation: { navigate: (arg0: string, arg1: { name: string; }) => void; }) => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const[token, setToken] = useState<string> ('');
@@ -27,15 +27,16 @@ const LoginScreen = () => {
         try {
             console.log('LoginScreen - Initializing token...');
             const uuidString = uuidv4();
-            //username = 'anandk';
-            //password = 'anandk_7';
-            const response = await VoiceAskAPIService.checkCredentials(username, password, '001', uuidString);
+            //setUsername('anandk');
+            //setPassword('anandk_7');
+            const response = await VoiceAskAPIService.checkCredentials('anandk', 'anandk_7', '001', uuidString);
 
             if (response?.access_token) {
                 console.log('LoginScreen - Token received:', response.access_token);
                 setToken(response.access_token);
                 globalToken = response.access_token;//TODO: tamara - Open MainLayout if token is acquired and do error handling
                 console.log('LoginScreen - Token is stored - NOT SECURE!');
+                navigation.navigate('Profile', {name: 'Jane'})
             } else {
                 console.error('LoginScreen - Token not found in the response:', response);
             }
@@ -73,7 +74,8 @@ return (
                 style={styles.input}
                 placeholder="Username"
                 placeholderTextColor="#888"
-                value={username} // Bind to state
+                //value={username} // Bind to state
+                value='anandk'
                 onChangeText={setUsername} // Update state on text change
             />
 
@@ -83,7 +85,8 @@ return (
                 placeholder="Password"
                 placeholderTextColor="#888"
                 secureTextEntry
-                value={password} // Bind to state
+                //value={password} // Bind to state
+                value='anandk_7'
                 onChangeText={setPassword} // Update state on text change
             />
 
