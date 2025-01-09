@@ -1,6 +1,5 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
-import {
-    View,
+import { View,
     Text,
     Image,
     ImageBackground,
@@ -17,8 +16,8 @@ import Voice, {
     SpeechRecognizedEvent,
     SpeechEndEvent,
 } from "@react-native-voice/voice";
-import VoiceAskAPIService from '../services/VoiceAskAPIService';
-
+import { COLORS, FONT_SIZES, SPACING, BORDERS } from '../styles/theme';
+//TODO: Refactor this class
 interface Props {
     onResults: (results: string[]) => void;
     isListening: boolean;
@@ -205,12 +204,12 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
 const styles = StyleSheet.create({
     bottomContainer: {
         flex: 1, // 1/5 of the screen
-        backgroundColor: '#eaf0fd',
+        backgroundColor: COLORS.primary,
         justifyContent: 'center', // Center content vertically
         alignItems: 'center', // Center content horizontally
     },
     whiteView: {
-        backgroundColor: 'white',
+        backgroundColor: COLORS.background,
         width: '95%', // 95% of the container's width
         height: '80%', // 80% of the container's height
         borderRadius: 30,
@@ -220,16 +219,16 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     whiteViewTitleText: {
-        fontSize: 24,
-        color: 'black',
+        fontSize: FONT_SIZES.large,
+        color: COLORS.textPrimary,
         textAlign: 'left',
-        backgroundColor: 'white',
+        backgroundColor: COLORS.background,
     },
     whiteViewSubtitleText: {
         fontSize: 18,
-        color: '#bcbec2',
+        color: COLORS.textSecondary,
         textAlign: 'left',
-        backgroundColor: 'white',
+        backgroundColor: COLORS.background,
         maxWidth: '60%', // Ensure text stays within white view
         flexWrap: 'wrap', // Allow text to wrap if it's too long
     },
@@ -237,7 +236,7 @@ const styles = StyleSheet.create({
         height: '75%', // 75% of the container's height
         aspectRatio: 1, // Ensures width equals height
         position: 'absolute',
-        right: 30, // Distance from the right edge
+        right: SPACING.extraLarge, // Distance from the right edge
         backgroundColor: 'transparent',
         justifyContent: 'center',
         alignItems: 'center',
@@ -245,7 +244,7 @@ const styles = StyleSheet.create({
     roundButtonImage: {
         height: '100%', // Relative to parent height
         aspectRatio: 1, // Ensures width equals height
-        borderRadius: 35, // Makes it circular
+        borderRadius: BORDERS.radiusExtraLarge, // Makes it circular
     },
 });
 
