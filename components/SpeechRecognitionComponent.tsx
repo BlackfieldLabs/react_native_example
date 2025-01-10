@@ -16,7 +16,11 @@ import Voice, {
     SpeechRecognizedEvent,
     SpeechEndEvent,
 } from "@react-native-voice/voice";
+//Styles
 import { COLORS, FONT_SIZES, SPACING, BORDERS } from '../styles/theme';
+//Localization
+import { getText } from '../localization/localization';
+
 //TODO: Refactor this class
 interface Props {
     onResults: (results: string[]) => void;
@@ -81,9 +85,9 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
                 {
-                    title: 'Microphone Permission',
-                    message: 'This app requires access to your microphone for speech recognition.',
-                    buttonPositive: 'OK',
+                    title: getText('microphonePermissionTitle'),
+                    message: getText('microphonePermissionMessage'),
+                    buttonPositive: getText('microphonePermissionButton'),
                 }
             );
             console.log('SpeechRecognitionComponent - Permission granted - Android!');
@@ -183,7 +187,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 />
                 <Text style={styles.whiteViewTitleText}>Julia</Text>
                 <Text style={styles.whiteViewSubtitleText}>
-                    {results.length > 0 ? results[0] : "Click to Speak"}
+                    {results.length > 0 ? results[0] : getText('toggleSpeechRecognition')}
                 </Text>
                 <TouchableOpacity
                     style={styles.roundButton}

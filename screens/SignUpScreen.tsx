@@ -4,13 +4,15 @@ import {
     Text, 
     StyleSheet, 
     SafeAreaView } from 'react-native';
-    //Styles
+//Styles
 import sharedStyles from '../styles/sharedStyles';
+//Localization
+import { getText } from '../localization/localization';
 
 const SignUpScreen = () => {
   return (
     <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
-      <Text style={sharedStyles.titleStyle}>Sign Up</Text>
+      <Text style={sharedStyles.titleStyle}>{getText('signUpScreenTitle')}</Text>
       {/* Add your sign-up form here */}
     </SafeAreaView>
   );

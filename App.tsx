@@ -1,14 +1,16 @@
-
 import React from 'react';
 
-//Navigation
+// Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-//Screens
+// Screens
 import LoginScreen from './screens/LoginScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import MainLayout from './screens/MainLayout';
+
+// Localization
+import { getText } from './localization/localization';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +22,8 @@ const App = () => {
         screenOptions={{
           animation: 'slide_from_right',
           gestureEnabled: true,
-        }}>
+        }}
+      >
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -29,12 +32,12 @@ const App = () => {
         <Stack.Screen
           name="SignUp"
           component={SignUpScreen}
-          options={{ title: 'Sign Up' }}
+          options={{ title: getText('signUpScreenTitle') }}
         />
         <Stack.Screen
           name="Main"
           component={MainLayout}
-          //options={{ headerShown: false }}
+          options={{ title: getText('mainLayoutTitle') }}
         />
       </Stack.Navigator>
     </NavigationContainer>

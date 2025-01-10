@@ -13,6 +13,8 @@ import TextInputBox from '../components/textbox/TextInputBox';
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
 //Styles
 import sharedStyles from '../styles/sharedStyles';
+//Localization
+import { getText } from '../localization/localization';
 //API Call
 import VoiceAskAPIService from '../services/VoiceAskAPIService';
 //UUID
@@ -30,7 +32,7 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
             const uuidString = uuidv4();
             //setUsername('anandk');
             //setPassword('anandk_7');
-            const response = await VoiceAskAPIService.checkCredentials('anandk', 'anandk_7', '001', uuidString);
+            const response = await VoiceAskAPIService.checkCredentials(username, password, '001', uuidString);
 
             if (response?.access_token) {
                 const token = response.access_token;
@@ -63,26 +65,26 @@ const LoginScreen = ({ navigation }: { navigation: any }) => {
                         resizeMode="contain"
                     />
                     {/* Title */}
-                    <Text style={sharedStyles.titleStyle}>WellNuo</Text>
+                    <Text style={sharedStyles.titleStyle}>{getText('appTitle')}</Text>
                     {/* Subtitle */}
-                    <Text style={sharedStyles.subtitleStyle}>So you know they are well</Text>
+                    <Text style={sharedStyles.subtitleStyle}>{getText('appSubtitle')}</Text>
                     {/* Username Input */}
                     <TextInputBox
-                        placeholder="Username"
-                        value='anandk'//{username}
+                        placeholder= {getText('usernamePlaceholder')}
+                        value={username}//'anandk'//
                         onChangeText={setUsername}
                     />
                     {/* Password Input */}
                     <PasswordInputBox
-                        placeholder="Password"
-                        value='anandk_7'//{password}
+                        placeholder={getText('passwordPlaceholder')}
+                        value={password}//'anandk_7'//
                         onChangeText={setPassword}
                         //secureTextEntry
                     />
                     {/* Sign In Button */}
-                    <AccentButton title="Sign In" onAccentButtonPress={signInPressed} />
+                    <AccentButton title={getText('loginButton')} onAccentButtonPress={signInPressed} />
                     {/* Sign Up Button */}
-                    <SecondaryButton title="Sign Up" onSecondaryButtonPress={signUpPressed} />
+                    <SecondaryButton title={getText('signUpButton')} onSecondaryButtonPress={signUpPressed} />
                 </View>
             </ImageBackground>
         </SafeAreaView>

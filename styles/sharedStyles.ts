@@ -44,16 +44,6 @@ const sharedStyles = StyleSheet.create({
         color: COLORS.textPrimary,
         marginBottom: 20,
     },
-    textInputBoxStyle: {
-        width: '100%',
-        height: HEIGHT.button,
-        borderWidth: 1,
-        borderColor: COLORS.accent,
-        borderRadius: BORDERS.radiusLarge,
-        paddingHorizontal: 10,
-        marginBottom: SPACING.medium,
-        fontSize: FONT_SIZES.medium,
-    },
 });
 
 export default sharedStyles;

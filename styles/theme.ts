@@ -1,7 +1,7 @@
 export const COLORS = {
     primary: '#eaf0fd',
     secondary: '#bcbec2',
-    accent: '#4281d3',
+    accent: '#4280d3',
     textPrimary: '#000000',
     textSecondary: '#bcbec2',
     background: '#fff',
@@ -25,7 +25,9 @@ export const COLORS = {
   export const HEIGHT = {
     border: 1,
     button: 50,
+    textBox: 40,
     image: 50,
+    smallImage: 20,
     roundImage: 100,
   };
   
@@ -35,9 +37,10 @@ export const COLORS = {
   };
   
   export const BORDERS = {
-    radiusSmall: 4,
-    radiusMedium: 8,
-    radiusLarge: 16,
+    radiusExtraSmall: 4,
+    radiusSmall: 8,
+    radiusMedium: 16,
+    radiusLarge: 24,
     radiusExtraLarge: 32,
   };
   
