@@ -113,8 +113,8 @@ const MainLayout = () => {
         tabBarActiveTintColor: '#00BFA6',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
-          height: 70,
-          paddingBottom: 10,
+          height: 50,
+          paddingBottom: 0,
         },
       })}>
       <Tab.Screen name="Home">
