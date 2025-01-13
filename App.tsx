@@ -3,6 +3,7 @@ import React from 'react';
 // Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { RootStackParamList } from './helpers/RootStackParamList';
 
 // Screens
 import LoginScreen from './screens/LoginScreen';
@@ -12,7 +13,7 @@ import MainLayout from './screens/MainLayout';
 // Localization
 import { getText } from './localization/localization';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (

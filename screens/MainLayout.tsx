@@ -7,6 +7,9 @@ import {
     View,
     SafeAreaView,
 } from 'react-native';
+// Navigation
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { NavigationProp, RoutePropType } from '../helpers/RootStackParamList';
 //Components
 import WebViewComponent from '../components/WebViewComponent';
 import SpeechRecognitionComponent from '../components/SpeechRecognitionComponent';
@@ -18,11 +21,16 @@ import VoiceAskAPIService from '../services/VoiceAskAPIService';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
+type MainLayoutRouteProp = RoutePropType<'Main'>;
+
 let globalToken: string | null = null;
 
-const MainLayout = ({ route }: { route: any }) => {
+const MainLayout = () => {
     const [speechResults, setSpeechResults] = useState<string[]>([]);
     const [isListening, setIsListening] = useState<boolean>(false);
+
+    const navigation = useNavigation<NavigationProp>();
+    const route = useRoute<MainLayoutRouteProp>();
     globalToken = route.params?.token;
     console.log('global token', globalToken);
     // Add ref to store speech recognition methods

@@ -6,6 +6,9 @@ import {
     Image,
     ImageBackground,
 } from 'react-native';
+//Navigation
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '../helpers/RootStackParamList';
 //Components
 import AccentButton from '../components/button/AccentButton';
 import SecondaryButton from '../components/button/SecondaryButton';
@@ -21,9 +24,10 @@ import VoiceAskAPIService from '../services/VoiceAskAPIService';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
-const LoginScreen = ({ navigation }: { navigation: any }) => {
+const LoginScreen = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const navigation = useNavigation<NavigationProp>();
 
     // Call checkCredentials and save the token
     const signInPressed = async () => {
