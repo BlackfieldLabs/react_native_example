@@ -4,6 +4,9 @@ const en = {
     passwordPlaceholder: 'Password',
     loginButton: 'Sign In',
     signUpButton: 'Sign Up',
+    accountInfoTitle: 'Account Information',
+    personalDetailsTitle: 'Personal Details',
+    addressInfoTitle: 'Address Information',
     appTitle: 'WellNuo',
     appSubtitle: 'So you know they are well',
     microphonePermissionTitle: 'Microphone Permission',
@@ -12,7 +15,18 @@ const en = {
     toggleSpeechRecognition: 'Click to Speak',
     signUpScreenTitle: 'Sign Up',
     mainLayoutTitle: 'Dashboard',
-  };
+    repeatPasswordPlaceholder: 'Repeat password',
+    namePlaceholder: 'First name',
+    familyNamePlaceholder: 'Family name',
+    emailPlaceholder: 'Email',
+    telephonePlaceholder: 'Telephone number',
+    cityPlaceholder: 'City',
+    streetNumberPlaceholder: 'Street and number',
+    statePlaceholder: 'State',
+    zipCodePlaceholder: 'Zip code',
+    createUserButton: 'Create User',
+    verifyRealUserButton: 'Open camera to verify user',
+};
   
   const hr = {
     usernamePlaceholder: 'Unesite korisničko ime',

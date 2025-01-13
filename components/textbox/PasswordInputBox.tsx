@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.medium, // Horizontal padding
     paddingTop: SPACING.medium, // Padding at the top for label space
     marginBottom: SPACING.medium, // Space between input boxes
-    backgroundColor: COLORS.background,
+    backgroundColor: COLORS.secondary,
   },
   /**
    * Style for the floating label positioned above the password input box.
