@@ -5,7 +5,7 @@ import { COLORS } from '../styles/theme';
 
 /**
  * A reusable component that renders a WebView inside a container.
- * 
+ *
  * @component
  * @returns {JSX.Element} The WebViewComponent.
  * @example
@@ -24,7 +24,7 @@ const WebViewComponent = () => {
 
 /**
  * Styles for the WebViewComponent.
- * 
+ *
  * @type {object}
  * @property {object} webViewContainer - The container style for the WebView, occupying 5/6 of the screen.
  */

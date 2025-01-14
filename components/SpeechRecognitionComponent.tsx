@@ -6,7 +6,7 @@ import { View,
     StyleSheet,
     TouchableOpacity,
     PermissionsAndroid,
-    Platform
+    Platform,
 } from 'react-native';
 import Voice, {
     SpeechResultsEvent,
@@ -15,7 +15,7 @@ import Voice, {
     SpeechVolumeChangeEvent,
     SpeechRecognizedEvent,
     SpeechEndEvent,
-} from "@react-native-voice/voice";
+} from '@react-native-voice/voice';
 //Styles
 import { COLORS, FONT_SIZES, SPACING, BORDERS } from '../styles/theme';
 //Localization
@@ -52,7 +52,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         },
         toggleListening: async () => {
             await toggleListening();
-        }
+        },
     }));
 
     // Handle actions on button click
@@ -147,25 +147,25 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         };
 
         Voice.onSpeechStart = (e: SpeechStartEvent) => {
-            console.log("SpeechRecognitionComponent - onSpeechStart: ", e);
+            console.log('SpeechRecognitionComponent - onSpeechStart: ', e);
         };
 
         Voice.onSpeechRecognized = (e: SpeechRecognizedEvent) => {
-            console.log("SpeechRecognitionComponent - onSpeechRecognized: ", e);
+            console.log('SpeechRecognitionComponent - onSpeechRecognized: ', e);
         };
 
         Voice.onSpeechEnd = (e: SpeechEndEvent) => {
-            console.log("SpeechRecognitionComponent - onSpeechEnd: ", e);
+            console.log('SpeechRecognitionComponent - onSpeechEnd: ', e);
         };
 
         Voice.onSpeechError = (e: SpeechErrorEvent) => {
-            console.log("SpeechRecognitionComponent - onSpeechError: ", e);
+            console.log('SpeechRecognitionComponent - onSpeechError: ', e);
         };
 
         Voice.onSpeechPartialResults = (e: SpeechResultsEvent) => {
             const speechResults = e.value || [];
             setResults(speechResults);
-            console.log("SpeechRecognitionComponent - onSpeechPartialResults: ", e);
+            console.log('SpeechRecognitionComponent - onSpeechPartialResults: ', e);
         };
 
         Voice.onSpeechVolumeChanged = (e: SpeechVolumeChangeEvent) => {
@@ -173,7 +173,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         };
 
         return () => {
-            Voice.destroy().then(Voice.removeAllListeners);
+            Voice.removeAllListeners();
         };
     }, []);
 

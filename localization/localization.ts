@@ -27,7 +27,7 @@ const en = {
     createUserButton: 'Create User',
     verifyRealUserButton: 'Open camera to verify user',
 };
-  
+
   const hr = {
     usernamePlaceholder: 'Unesite korisničko ime',
     passwordPlaceholder: 'Unesite lozinku',
@@ -42,14 +42,14 @@ const en = {
     signUpScreenTitle: 'Registracija',
     mainLayoutTitle: 'Nadzorna ploča',
   };
-  
+
   // Type for the keys in the language objects
   type LanguageKeys = keyof typeof en;
-  
+
   // Export default language and utilities
   const LANGUAGES = { en };
   let currentLanguage: keyof typeof LANGUAGES = 'en';
-  
+
   /**
    * Get text for the current language by key.
    * @param {LanguageKeys} key - The key for the text string.
@@ -59,7 +59,7 @@ const en = {
     const text = LANGUAGES[currentLanguage][key];
     return text || key;
   };
-  
+
   /**
    * Set the current language.
    * @param {keyof typeof LANGUAGES} lang - The language code to set (e.g., 'en', 'hr').
@@ -69,6 +69,5 @@ const en = {
       currentLanguage = lang;
     }
   };
-  
+
   export default LANGUAGES;
-  

@@ -4,17 +4,17 @@ import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS } from '../../styles/theme
 
 /**
  * A reusable button component with accent styling.
- * 
+ *
  * @component
  * @param {object} props - The component props.
  * @param {string} props.title - The text to display on the button.
  * @param {() => void} props.onAccentButtonPress - Callback function to execute when the button is pressed.
  * @returns {JSX.Element} The styled accent button.
- * 
+ *
  * @example
- * <AccentButton 
- *   title="Submit" 
- *   onAccentButtonPress={() => console.log('Button Pressed')} 
+ * <AccentButton
+ *   title="Submit"
+ *   onAccentButtonPress={() => console.log('Button Pressed')}
  * />
  */
 const AccentButton = ({ title, onAccentButtonPress }: { title: string; onAccentButtonPress: () => void }) => {
@@ -27,7 +27,7 @@ const AccentButton = ({ title, onAccentButtonPress }: { title: string; onAccentB
 
 /**
  * Styles for the AccentButton component.
- * 
+ *
  * @type {object}
  * @property {object} button - The style for the button container.
  * @property {object} buttonText - The style for the button text.

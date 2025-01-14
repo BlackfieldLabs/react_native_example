@@ -4,17 +4,17 @@ import { COLORS, FONT_SIZES, HEIGHT, SPACING, BORDERS } from '../../styles/theme
 
 /**
  * A reusable button component with secondary styling.
- * 
+ *
  * @component
  * @param {object} props - The component props.
  * @param {string} props.title - The text to display on the button.
  * @param {() => void} props.onSecondaryButtonPress - Callback function to execute when the button is pressed.
  * @returns {JSX.Element} The styled secondary button.
- * 
+ *
  * @example
- * <SecondaryButton 
- *   title="Cancel" 
- *   onSecondaryButtonPress={() => console.log('Button Pressed')} 
+ * <SecondaryButton
+ *   title="Cancel"
+ *   onSecondaryButtonPress={() => console.log('Button Pressed')}
  * />
  */
 const SecondaryButton = ({ title, onSecondaryButtonPress }: { title: string; onSecondaryButtonPress: () => void }) => {
@@ -27,7 +27,7 @@ const SecondaryButton = ({ title, onSecondaryButtonPress }: { title: string; onS
 
 /**
  * Styles for the SecondaryButton component.
- * 
+ *
  * @type {object}
  * @property {object} buttonSecondary - The style for the button container.
  * @property {object} buttonSecondaryText - The style for the button text.

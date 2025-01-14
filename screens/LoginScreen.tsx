@@ -53,7 +53,7 @@ const LoginScreen = () => {
     const signUpPressed = () => {
         console.log('signUpPressed');
         navigation.navigate('SignUp');
-    }
+    };
 
     return (
         <SafeAreaView style={sharedStyles.containerStyle}>
@@ -93,6 +93,6 @@ const LoginScreen = () => {
             </ImageBackground>
         </SafeAreaView>
     );
-}
+};
 
 export default LoginScreen;

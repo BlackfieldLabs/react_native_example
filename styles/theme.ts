@@ -7,14 +7,14 @@ export const COLORS = {
     background: '#fff',
     error: '#ff4d4f',
   };
-  
+
   export const FONT_SIZES = {
     small: 12,
     medium: 16,
     large: 24,
     title: 32,
   };
-  
+
   export const SPACING = {
     small: 8,
     medium: 16,
@@ -30,12 +30,12 @@ export const COLORS = {
     smallImage: 20,
     roundImage: 100,
   };
-  
+
   export const FONT_FAMILIES = {
     primary: 'Arial',
     secondary: 'Roboto',
   };
-  
+
   export const BORDERS = {
     radiusExtraSmall: 4,
     radiusSmall: 8,
@@ -43,7 +43,7 @@ export const COLORS = {
     radiusLarge: 24,
     radiusExtraLarge: 32,
   };
-  
+
   export const SHADOWS = {
     light: {
       shadowColor: '#000000',
@@ -60,4 +60,3 @@ export const COLORS = {
       elevation: 4,
     },
   };
-  

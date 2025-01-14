@@ -1,7 +1,7 @@
 import React, {
     useState,
     useEffect,
-    useRef
+    useRef,
 } from 'react';
 import {
     View,
@@ -42,7 +42,7 @@ const MainLayout = () => {
         setSpeechResults(results);
         // Trigger API call with the speech results
         if (results.length > 0 && globalToken) {
-            const uuidString: string = uuidv4()
+            const uuidString: string = uuidv4();
             askWellNuoAIQuestion('001', globalToken, 'anandk', results[0], uuidString);
         } else if (!globalToken) {
             console.warn('MainLayout - Cannot call askWellNuoAIQuestion without a valid token.');
