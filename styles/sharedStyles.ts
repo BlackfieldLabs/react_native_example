@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS } from '../styles/theme';
+import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS, FONTS } from '../styles/theme';
 
 const sharedStyles = StyleSheet.create({
     safeLayoutContainerStyle: {
@@ -35,12 +35,13 @@ const sharedStyles = StyleSheet.create({
     },
     titleStyle: {
         fontSize: FONT_SIZES.large,
-        fontWeight: 'bold',
+        fontFamily:FONTS.regular,
         color: COLORS.textPrimary,
         marginBottom: 5,
     },
     subtitleStyle: {
-        fontSize: 16,
+        fontSize: FONT_SIZES.medium,
+        fontFamily:FONTS.regular,
         color: COLORS.textPrimary,
         marginBottom: 20,
     },

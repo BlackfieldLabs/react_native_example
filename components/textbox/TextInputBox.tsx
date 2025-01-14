@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TextInput, Text, StyleSheet, Animated } from 'react-native';
-import { BORDERS, COLORS, FONT_SIZES, HEIGHT, SPACING } from '../../styles/theme';
+import { View, TextInput, StyleSheet, Animated, TextInputProps } from 'react-native';
+import { BORDERS, COLORS, FONT_SIZES, HEIGHT, SPACING, FONTS } from '../../styles/theme';
 
 /**
  * A reusable text input component with floating label behavior for forms and user input.
@@ -11,8 +11,9 @@ import { BORDERS, COLORS, FONT_SIZES, HEIGHT, SPACING } from '../../styles/theme
  * @param {string} props.value - The current value of the input field.
  * @param {(text: string) => void} props.onChangeText - Callback function triggered when the input text changes.
  * @param {boolean} [props.secureTextEntry=false] - Whether the input field should hide the text for password entry.
- * @param {string} [props.borderColor] - The color of the input field border when focused.
- * @param {string} [props.placeholderColor] - The color of the placeholder text.
+ * @param {string} [props.borderColor=COLORS.accent] - The color of the input field border when focused.
+ * @param {string} [props.placeholderColor=COLORS.textSecondary] - The color of the placeholder text.
+ * @param {TextInputProps} [props.rest] - Additional props for the TextInput component.
  * @returns {JSX.Element} A styled text input component with floating label behavior.
  *
  * @example
@@ -31,6 +32,7 @@ const TextInputBox = ({
   secureTextEntry = false,
   borderColor = COLORS.accent,
   placeholderColor = COLORS.textSecondary,
+  ...rest
 }: {
   placeholder: string;
   value: string;
@@ -38,7 +40,7 @@ const TextInputBox = ({
   secureTextEntry?: boolean;
   borderColor?: string;
   placeholderColor?: string;
-}) => {
+} & TextInputProps) => {
   const [isFocused, setIsFocused] = useState(false); // Tracks if the input is focused
   const animatedLabel = useRef(new Animated.Value(value ? 1 : 0)).current; // Controls label animation
 
@@ -56,16 +58,14 @@ const TextInputBox = ({
   const labelStyle = {
     top: animatedLabel.interpolate({
       inputRange: [0, 1],
-      outputRange: [18, 0], // Moves label vertically
+      outputRange: [18, 0],
     }),
     fontSize: animatedLabel.interpolate({
       inputRange: [0, FONT_SIZES.small],
-      outputRange: [FONT_SIZES.medium, FONT_SIZES.small], // Adjusts font size
+      outputRange: [FONT_SIZES.medium, FONT_SIZES.small],
     }),
-    color: animatedLabel.interpolate({
-      inputRange: [0, 1],
-      outputRange: [placeholderColor, placeholderColor], // Placeholder color stays consistent
-    }),
+    color: placeholderColor,
+    fontFamily: FONTS.regular,
   };
 
   return (
@@ -85,6 +85,8 @@ const TextInputBox = ({
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
+        placeholder={''} // Empty placeholder to avoid duplication with the floating label
+        {...rest} // Pass additional props
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
@@ -114,13 +116,15 @@ const styles = StyleSheet.create({
   label: {
     position: 'absolute', // Positioned relative to the container
     left: SPACING.medium, // Space from the left edge
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent', // Background for label (to avoid overlapping with input)
+    fontFamily: FONTS.regular, // Small padding for better visibility
   },
   /**
    * Style for the text input field, including font size, height, and padding.
    */
   input: {
     fontSize: FONT_SIZES.medium, // Font size for input text
+    fontFamily: FONTS.regular, // Custom font for input text
     height: HEIGHT.textBox, // Dynamic height of the input box
     paddingVertical: SPACING.small, // Vertical padding inside the input
     color: COLORS.textPrimary, // Text color for input

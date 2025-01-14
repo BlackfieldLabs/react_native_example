@@ -11,6 +11,7 @@ import {
 import { getText } from '../localization/localization';
 //Styles
 import sharedStyles from '../styles/sharedStyles';
+import { FONT_SIZES, FONTS } from '../styles/theme';
 //Components
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
 import TextInputBox from '../components/textbox/TextInputBox';
@@ -119,32 +120,12 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: FONT_SIZES.medium,
+    fontFamily: FONTS.regular,
     marginBottom: 12,
     color: 'gray',
   },
-  cameraButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: 'blue',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  createUserButton: {
-    backgroundColor: 'green',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginTop: 20,
-  },
-  createUserButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
+  
 });
 
 export default SignUpScreen;

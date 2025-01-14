@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { COLORS, FONT_SIZES, HEIGHT, SPACING, BORDERS } from '../../styles/theme';
+import { COLORS, FONT_SIZES, HEIGHT, SPACING, BORDERS, FONTS } from '../../styles/theme';
 
 /**
  * A reusable button component with secondary styling.
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
   },
   buttonSecondaryText: {
     fontSize: FONT_SIZES.medium,
+    fontFamily: FONTS.regular,
     color: COLORS.accent,
-    fontWeight: 'bold',
   },
 });
 

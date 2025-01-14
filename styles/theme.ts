@@ -31,10 +31,9 @@ export const COLORS = {
     roundImage: 100,
   };
 
-  export const FONT_FAMILIES = {
-    primary: 'Arial',
-    secondary: 'Roboto',
-  };
+  export const FONTS = {
+    regular: 'Helvetica',
+  };  
 
   export const BORDERS = {
     radiusExtraSmall: 4,
@@ -46,14 +45,14 @@ export const COLORS = {
 
   export const SHADOWS = {
     light: {
-      shadowColor: '#000000',
+      shadowColor: COLORS.textPrimary,
       shadowOffset: { width: 0, height: 1 },
       shadowOpacity: 0.1,
       shadowRadius: 3,
       elevation: 2,
     },
     medium: {
-      shadowColor: '#000000',
+      shadowColor: COLORS.textPrimary,
       shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 0.2,
       shadowRadius: 6,

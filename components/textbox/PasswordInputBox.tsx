@@ -7,7 +7,7 @@ import {
   Animated,
   TouchableOpacity,
 } from 'react-native';
-import { BORDERS, COLORS, FONT_SIZES, HEIGHT, SPACING } from '../../styles/theme';
+import { BORDERS, COLORS, FONT_SIZES, HEIGHT, SPACING, FONTS } from '../../styles/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 /**
@@ -62,16 +62,14 @@ const PasswordInputBox = ({
   const labelStyle = {
     top: animatedLabel.interpolate({
       inputRange: [0, 1],
-      outputRange: [18, 0], // Moves label vertically
+      outputRange: [18, 0],
     }),
     fontSize: animatedLabel.interpolate({
       inputRange: [0, FONT_SIZES.small],
-      outputRange: [FONT_SIZES.medium, FONT_SIZES.small], // Adjusts font size
+      outputRange: [FONT_SIZES.medium, FONT_SIZES.small],
     }),
-    color: animatedLabel.interpolate({
-      inputRange: [0, 1],
-      outputRange: [placeholderColor, placeholderColor], // Placeholder color stays consistent
-    }),
+    color: placeholderColor,
+    fontFamily: FONTS.regular,
   };
 
   return (
@@ -133,6 +131,7 @@ const styles = StyleSheet.create({
     position: 'absolute', // Positioned relative to the container
     left: SPACING.medium, // Space from the left edge
     backgroundColor: 'transparent',
+    fontFamily: FONTS.regular,
   },
   /**
    * Wrapper for the input field and toggle button.
@@ -147,6 +146,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1, // Take up available space
     fontSize: FONT_SIZES.medium, // Font size for input text
+    fontFamily: FONTS.regular,
     height: HEIGHT.textBox, // Dynamic height of the input box
     paddingVertical: SPACING.small, // Vertical padding inside the input
     color: COLORS.textPrimary, // Text color for input

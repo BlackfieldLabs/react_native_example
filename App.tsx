@@ -1,19 +1,15 @@
 import React from 'react';
-
-// Navigation
+//Theme
+import { COLORS, FONTS } from './styles/theme';
+//Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RootStackParamList } from './helpers/RootStackParamList';
-
-// Screens
+//Screens
 import LoginScreen from './screens/LoginScreen';
-import SignUpScreen from './screens/SignUpScreen';
 import MainLayout from './screens/MainLayout';
+import SignUpScreen from './screens/SignUpScreen';
 
-// Localization
-import { getText } from './localization/localization';
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
@@ -23,22 +19,30 @@ const App = () => {
         screenOptions={{
           animation: 'slide_from_right',
           gestureEnabled: true,
+          headerStyle: {
+            backgroundColor: COLORS.primary, // Background color for the navigation bar
+          },
+          headerTitleStyle: {
+            fontFamily: FONTS.regular, // Custom font for the navigation bar title
+            fontSize: 18, // Font size
+            color: COLORS.textPrimary, // Font color
+          },
         }}
       >
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUpScreen}
-          options={{ title: getText('signUpScreenTitle') }}
+          options={{ title: 'Login' }}
         />
         <Stack.Screen
           name="Main"
           component={MainLayout}
-          options={{ title: getText('mainLayoutTitle') }}
+          options={{ title: 'Main Layout' }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUpScreen}
+          options={{ title: 'Sign Up' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

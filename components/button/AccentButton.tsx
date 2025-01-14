@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS } from '../../styles/theme';
+import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS, FONTS } from '../../styles/theme';
 
 /**
  * A reusable button component with accent styling.
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: FONT_SIZES.medium,
+    fontFamily: FONTS.regular,
     color: COLORS.background,
-    fontWeight: 'bold',
   },
 });
 

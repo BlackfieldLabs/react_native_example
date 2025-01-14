@@ -17,7 +17,7 @@ import Voice, {
     SpeechEndEvent,
 } from '@react-native-voice/voice';
 //Styles
-import { COLORS, FONT_SIZES, SPACING, BORDERS } from '../styles/theme';
+import { COLORS, FONT_SIZES, SPACING, BORDERS, FONTS } from '../styles/theme';
 //Localization
 import { getText } from '../localization/localization';
 
@@ -224,12 +224,14 @@ const styles = StyleSheet.create({
     },
     whiteViewTitleText: {
         fontSize: FONT_SIZES.large,
+        fontFamily: FONTS.regular,
         color: COLORS.textPrimary,
         textAlign: 'left',
         backgroundColor: COLORS.background,
     },
     whiteViewSubtitleText: {
         fontSize: 18,
+        fontFamily: FONTS.regular,
         color: COLORS.textSecondary,
         textAlign: 'left',
         backgroundColor: COLORS.background,
