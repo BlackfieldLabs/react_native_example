@@ -72,7 +72,7 @@ const TextInputBox = ({
     <View
       style={[
         styles.container,
-        { borderColor: isFocused ? borderColor : COLORS.textSecondary },
+        { borderColor: isFocused ? borderColor : COLORS.border },
       ]}
     >
       {/* Floating label that animates above the input field */}

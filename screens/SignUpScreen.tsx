@@ -5,22 +5,27 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  TouchableOpacity,
 } from 'react-native';
 //Localization
 import { getText } from '../localization/localization';
 //Styles
 import sharedStyles from '../styles/sharedStyles';
-import { FONT_SIZES, FONTS } from '../styles/theme';
+import { COLORS, FONT_SIZES, FONTS } from '../styles/theme';
 //Components
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
 import TextInputBox from '../components/textbox/TextInputBox';
 import AccentButton from '../components/button/AccentButton';
 import SecondaryButton from '../components/button/SecondaryButton';
+//Navigation
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '../helpers/RootStackParamList';
 
 const SignUpScreen = () => {
+
+  const navigation = useNavigation<NavigationProp>();
   const handleCreateUser = () => {
     console.log('Create User button pressed');
+    navigation.navigate('SelectRole');
   };
 
   const handleCameraButton = () => {
@@ -123,7 +128,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.medium,
     fontFamily: FONTS.regular,
     marginBottom: 12,
-    color: 'gray',
+    color: COLORS.textSecondary,
   },
   
 });

@@ -26,6 +26,7 @@ const en = {
     zipCodePlaceholder: 'Zip code',
     createUserButton: 'Create User',
     verifyRealUserButton: 'Open camera to verify user',
+    roleSelectionTitle: 'Select a role',
 };
 
   const hr = {

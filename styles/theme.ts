@@ -1,7 +1,8 @@
 export const COLORS = {
     primary: '#eaf0fd',
-    secondary: '#f6f6f6',
+    secondary: '#fcfcfc',
     accent: '#4280d3',
+    border: '#efefef',
     textPrimary: '#000000',
     textSecondary: '#bcbec2',
     background: '#fff',
@@ -16,6 +17,7 @@ export const COLORS = {
   };
 
   export const SPACING = {
+    extraSmall: 4,
     small: 8,
     medium: 16,
     large: 24,
@@ -24,10 +26,10 @@ export const COLORS = {
 
   export const HEIGHT = {
     border: 1,
-    button: 50,
+    button: 60,
     textBox: 40,
     image: 50,
-    smallImage: 20,
+    smallImage: 25,
     roundImage: 100,
   };
 
