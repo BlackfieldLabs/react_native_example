@@ -17,7 +17,7 @@ import Voice, {
     SpeechEndEvent,
 } from '@react-native-voice/voice';
 //Styles
-import { COLORS, FONT_SIZES, SPACING, BORDERS, FONTS } from '../styles/theme';
+import sharedStyles from '../styles/sharedStyles';
 //Localization
 import { getText } from '../localization/localization';
 
@@ -178,80 +178,31 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
     }, []);
 
     return (
-        <View style={styles.bottomContainer}>
-            <View style={styles.whiteView}>
+        <View style={sharedStyles.speechComponentBottomContainer}>
+            <View style={sharedStyles.speechComponentWhiteView}>
                 <ImageBackground
                     source={require('../assets/squiggly_line.png')} // Path to your image
                     style={StyleSheet.absoluteFillObject} // Covers the entire whiteView
                     imageStyle={{ borderRadius: 30 }} // Matches the whiteView's rounded corners
                 />
-                <Text style={styles.whiteViewTitleText}>Julia</Text>
-                <Text style={styles.whiteViewSubtitleText}>
+                <Text style={sharedStyles.speechComponentWhiteViewTitleText}>Julia</Text>
+                <Text style={sharedStyles.speechComponentWhiteViewSubtitleText}>
                     {results.length > 0 ? results[0] : getText('toggleSpeechRecognition')}
                 </Text>
                 <TouchableOpacity
-                    style={styles.roundButton}
+                    style={sharedStyles.speechComponentRoundButton}
                     onPress={toggleListening}
                     accessibilityLabel="Toggle Speech Recognition">
                     <Image
                         source={isListening
                             ? require('../assets/stop_siri_image.png') // Replace with a "Stop" image
                             : require('../assets/start_siri_image.png')} // Replace with a "Start" image
-                        style={styles.roundButtonImage}
+                        style={sharedStyles.speechComponentRoundButtonImage}
                     />
                 </TouchableOpacity>
             </View>
         </View>
     );
-});
-
-const styles = StyleSheet.create({
-    bottomContainer: {
-        flex: 1, // 1/5 of the screen
-        backgroundColor: COLORS.primary,
-        justifyContent: 'center', // Center content vertically
-        alignItems: 'center', // Center content horizontally
-    },
-    whiteView: {
-        backgroundColor: COLORS.background,
-        width: '95%', // 95% of the container's width
-        height: '80%', // 80% of the container's height
-        borderRadius: 30,
-        justifyContent: 'center', // Center content vertically
-        alignItems: 'flex-start', // Center content horizontally
-        paddingLeft: 20, // Adds padding from the left edge
-        overflow: 'hidden',
-    },
-    whiteViewTitleText: {
-        fontSize: FONT_SIZES.large,
-        fontFamily: FONTS.regular,
-        color: COLORS.textPrimary,
-        textAlign: 'left',
-        backgroundColor: COLORS.background,
-    },
-    whiteViewSubtitleText: {
-        fontSize: 18,
-        fontFamily: FONTS.regular,
-        color: COLORS.textSecondary,
-        textAlign: 'left',
-        backgroundColor: COLORS.background,
-        maxWidth: '60%', // Ensure text stays within white view
-        flexWrap: 'wrap', // Allow text to wrap if it's too long
-    },
-    roundButton: {
-        height: '75%', // 75% of the container's height
-        aspectRatio: 1, // Ensures width equals height
-        position: 'absolute',
-        right: SPACING.extraLarge, // Distance from the right edge
-        backgroundColor: 'transparent',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    roundButtonImage: {
-        height: '100%', // Relative to parent height
-        aspectRatio: 1, // Ensures width equals height
-        borderRadius: BORDERS.radiusExtraLarge, // Makes it circular
-    },
 });
 
 export default SpeechRecognitionComponent;

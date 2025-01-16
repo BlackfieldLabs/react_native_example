@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS, FONTS } from '../../styles/theme';
+import sharedStyles from '../../styles/sharedStyles';
 
 /**
  * A reusable button component with accent styling.
@@ -19,34 +19,10 @@ import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS, FONTS } from '../../style
  */
 const AccentButton = ({ title, onAccentButtonPress }: { title: string; onAccentButtonPress: () => void }) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onAccentButtonPress}>
-      <Text style={styles.buttonText}>{title}</Text>
+    <TouchableOpacity style={sharedStyles.accentButton} onPress={onAccentButtonPress}>
+      <Text style={sharedStyles.accentButtonText}>{title}</Text>
     </TouchableOpacity>
   );
 };
-
-/**
- * Styles for the AccentButton component.
- *
- * @type {object}
- * @property {object} button - The style for the button container.
- * @property {object} buttonText - The style for the button text.
- */
-const styles = StyleSheet.create({
-  button: {
-    width: '100%',
-    height: HEIGHT.button,
-    backgroundColor: COLORS.accent,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: BORDERS.radiusExtraLarge,
-    marginBottom: SPACING.small,
-  },
-  buttonText: {
-    fontSize: FONT_SIZES.medium,
-    fontFamily: FONTS.regular,
-    color: COLORS.background,
-  },
-});
 
 export default AccentButton;

@@ -8,7 +8,10 @@ import {
     SafeAreaView,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { COLORS, SPACING, FONT_SIZES, BORDERS, FONTS, HEIGHT } from '../styles/theme';
+//Style
+import { COLORS, HEIGHT } from '../styles/theme';
+import sharedStyles from '../styles/sharedStyles';
+//Components
 import AccentButton from '../components/button/AccentButton';
 
 const RoleSelectionScreen = () => {
@@ -46,20 +49,20 @@ const RoleSelectionScreen = () => {
     const isSelected = (id: string) => selectedRoles.includes(id);
 
     return (
-        <SafeAreaView style={styles.safeContainer}>
-            <View style={styles.container}>
-                <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
+            <View style={sharedStyles.roleSelectionContainer}>
+                <ScrollView contentContainerStyle={sharedStyles.roleSelectionScrollContainer}>
                     {roles.map((role) => (
                         <TouchableOpacity
                             key={role.id}
                             style={[
-                                styles.card,
-                                isSelected(role.id) && styles.cardSelected,
+                                sharedStyles.roleSelectionCard,
+                                isSelected(role.id) && sharedStyles.roleSelectionCardSelected,
                             ]}
                             onPress={() => toggleSelection(role.id)}
                         >
                             {/* First Column: Icon */}
-                            <View style={styles.cardIconBackground}>
+                            <View style={sharedStyles.roleSelectionCardIconBackground}>
                                 <MaterialIcons
                                     name={role.iconName}
                                     size={HEIGHT.image}
@@ -68,9 +71,9 @@ const RoleSelectionScreen = () => {
                             </View>
 
                             {/* Second Column: Title and Subtitle */}
-                            <View style={styles.cardContent}>
-                                <Text style={styles.cardTitle}>{role.title}</Text>
-                                <Text style={styles.cardSubtitle}>{role.subtitle}</Text>
+                            <View style={sharedStyles.roleSelectionCardContent}>
+                                <Text style={sharedStyles.roleSelectionCardTitle}>{role.title}</Text>
+                                <Text style={sharedStyles.roleSelectionCardSubtitle}>{role.subtitle}</Text>
                             </View>
 
                             {/* Third Column: Selection Indicator */}
@@ -96,59 +99,5 @@ const RoleSelectionScreen = () => {
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    safeContainer: {
-        flex: 1,
-        backgroundColor: COLORS.background,
-    },
-    container: {
-        flex: 1,
-        padding: SPACING.large,
-    },
-    scrollContainer: {
-        paddingBottom: SPACING.large,
-    },
-    card: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: COLORS.background,
-        borderRadius: BORDERS.radiusLarge,
-        borderWidth: 1,
-        borderColor: COLORS.border,
-        padding: SPACING.medium,
-        marginBottom: SPACING.medium,
-    },
-    cardSelected: {
-        borderColor: COLORS.accent,
-        borderWidth: 1,
-    },
-    cardIconBackground: {
-        width: HEIGHT.button,
-        height: HEIGHT.button,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: COLORS.border,
-        borderRadius: BORDERS.radiusMedium,
-        marginRight: SPACING.small,
-    },
-    cardContent: {
-        flex: 3,
-        justifyContent: 'center',
-    },
-    cardTitle: {
-        fontSize: FONT_SIZES.large,
-        fontFamily: FONTS.regular,
-        color: COLORS.textPrimary,
-        paddingLeft: SPACING.small,
-    },
-    cardSubtitle: {
-        width: '50%',
-        fontSize: FONT_SIZES.medium,
-        fontFamily: FONTS.regular,
-        color: COLORS.textSecondary,
-        paddingLeft: SPACING.small,
-    },
-});
 
 export default RoleSelectionScreen;

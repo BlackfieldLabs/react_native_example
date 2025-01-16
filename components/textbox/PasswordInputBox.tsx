@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   TextInput,
-  Text,
   StyleSheet,
   Animated,
   TouchableOpacity,
 } from 'react-native';
-import { BORDERS, COLORS, FONT_SIZES, HEIGHT, SPACING, FONTS } from '../../styles/theme';
+import { COLORS, FONT_SIZES, HEIGHT, FONTS } from '../../styles/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import sharedStyles from '../../styles/sharedStyles';
 
 /**
  * A reusable password input component with floating label behavior and a toggle for showing/hiding the password.
@@ -75,18 +75,18 @@ const PasswordInputBox = ({
   return (
     <View
       style={[
-        styles.container,
+        sharedStyles.textInputBoxContainer,
         { borderColor: isFocused ? borderColor : COLORS.border },
       ]}
     >
       {/* Floating label that animates above the input field */}
-      <Animated.Text style={[styles.label, labelStyle]}>
+      <Animated.Text style={[sharedStyles.textInputBoxLabel, labelStyle]}>
         {placeholder}
       </Animated.Text>
       {/* Input field */}
-      <View style={styles.inputWrapper}>
+      <View style={sharedStyles.PasswordInputBoxInputWrapper}>
         <TextInput
-          style={[styles.input]}
+          style={[sharedStyles.PasswordInputBoxInput]}
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={!isPasswordVisible}
@@ -95,7 +95,7 @@ const PasswordInputBox = ({
         />
       </View>
       <TouchableOpacity
-        style={styles.toggleButton}
+        style={sharedStyles.PasswordInputBoxToggleButton}
         onPress={() => setIsPasswordVisible(!isPasswordVisible)}
       >
         <Icon
@@ -107,62 +107,5 @@ const PasswordInputBox = ({
     </View>
   );
 };
-
-/**
- * Styles for the PasswordInputBox component.
- */
-const styles = StyleSheet.create({
-  /**
-   * Container style for the password input box, including padding, border, and margins.
-   */
-  container: {
-    width: '100%', // Full width of the parent container
-    borderWidth: HEIGHT.border, // Dynamic border width
-    borderRadius: BORDERS.radiusLarge, // Rounded corners
-    paddingHorizontal: SPACING.medium, // Horizontal padding
-    paddingTop: SPACING.medium, // Padding at the top for label space
-    marginBottom: SPACING.medium, // Space between input boxes
-    backgroundColor: COLORS.secondary,
-  },
-  /**
-   * Style for the floating label positioned above the password input box.
-   */
-  label: {
-    position: 'absolute', // Positioned relative to the container
-    left: SPACING.medium, // Space from the left edge
-    backgroundColor: 'transparent',
-    fontFamily: FONTS.regular,
-  },
-  /**
-   * Wrapper for the input field and toggle button.
-   */
-  inputWrapper: {
-    flexDirection: 'row', // Align input and button horizontally
-    alignItems: 'center', // Vertically center elements
-  },
-  /**
-   * Style for the text input field, including font size, height, and padding.
-   */
-  input: {
-    flex: 1, // Take up available space
-    fontSize: FONT_SIZES.medium, // Font size for input text
-    fontFamily: FONTS.regular,
-    height: HEIGHT.textBox, // Dynamic height of the input box
-    paddingVertical: SPACING.small, // Vertical padding inside the input
-    color: COLORS.textPrimary, // Text color for input
-  },
-  /**
-   * Style for the toggle button used to show/hide the password.
-   */
-  toggleButton: {
-    height: '150%',
-    aspectRatio: 1,
-    position: 'absolute',
-    right: SPACING.small,
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default PasswordInputBox;

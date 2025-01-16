@@ -3,6 +3,7 @@ import { TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 //Theme
 import { COLORS, FONT_SIZES, FONTS, HEIGHT } from './styles/theme';
+import sharedStyles from './styles/sharedStyles';
 //Localization
 import { getText } from './localization/localization';
 //Navigation
@@ -22,7 +23,7 @@ const SettingsIcon = () => {
 
   return (
     <TouchableOpacity
-      style={styles.iconButton}
+      style={sharedStyles.settingsIconButton}
       onPress={() => console.log('Settings item pressed')}
     >
       <Icon name="settings" size={HEIGHT.smallImage} color={COLORS.accent} />
@@ -81,11 +82,5 @@ const SettingsScreen = () => {
   // Placeholder for the settings screen
   return null;
 };
-
-const styles = StyleSheet.create({
-  iconButton: {
-    marginRight: 10,
-  },
-});
 
 export default App;

@@ -34,7 +34,9 @@ export const COLORS = {
   };
 
   export const FONTS = {
-    regular: 'Helvetica',
+    regular: 'Helvetica-Regular',
+    bold: 'Helvetica-Bold',
+    test: 'Comic Sans MS',
   };  
 
   export const BORDERS = {

@@ -6,6 +6,7 @@ import {
     Image,
     ImageBackground,
 } from 'react-native';
+import { COLORS, HEIGHT } from '../styles/theme';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
@@ -16,6 +17,7 @@ import TextInputBox from '../components/textbox/TextInputBox';
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
 //Styles
 import sharedStyles from '../styles/sharedStyles';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 //Localization
 import { getText } from '../localization/localization';
 //API Call
@@ -34,8 +36,6 @@ const LoginScreen = () => {
         try {
             console.log('LoginScreen - Initializing token...');
             const uuidString = uuidv4();
-            //setUsername('anandk');
-            //setPassword('anandk_7');
             const response = await VoiceAskAPIService.checkCredentials(username, password, '001', uuidString);
 
             if (response?.access_token) {
@@ -63,11 +63,11 @@ const LoginScreen = () => {
             >
                 <View style={sharedStyles.roundBottomContainerViewStyle}>
                     {/* Image */}
-                    <Image
-                        source={require('../assets/login_user.png')}
-                        style={sharedStyles.imageStyle}
-                        resizeMode="contain"
-                    />
+                    <Icon
+                              name={'account-circle'}
+                              size={HEIGHT.image}
+                              color={COLORS.accent}
+                            />
                     {/* Title */}
                     <Text style={sharedStyles.titleStyle}>{getText('appTitle')}</Text>
                     {/* Subtitle */}
@@ -75,13 +75,13 @@ const LoginScreen = () => {
                     {/* Username Input */}
                     <TextInputBox
                         placeholder= {getText('usernamePlaceholder')}
-                        value={username}//'anandk'//
+                        value={username}
                         onChangeText={setUsername}
                     />
                     {/* Password Input */}
                     <PasswordInputBox
                         placeholder={getText('passwordPlaceholder')}
-                        value={password}//'anandk_7'//
+                        value={password}
                         onChangeText={setPassword}
                         //secureTextEntry
                     />

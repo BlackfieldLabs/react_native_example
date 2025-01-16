@@ -10,7 +10,6 @@ import {
 import { getText } from '../localization/localization';
 //Styles
 import sharedStyles from '../styles/sharedStyles';
-import { COLORS, FONT_SIZES, FONTS } from '../styles/theme';
 //Components
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
 import TextInputBox from '../components/textbox/TextInputBox';
@@ -34,10 +33,10 @@ const SignUpScreen = () => {
 
   return (
     <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView contentContainerStyle={sharedStyles.signUpScrollContainer}>
         {/* Account Information Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{getText('accountInfoTitle')}</Text>
+        <View style={sharedStyles.signUpSection}>
+          <Text style={sharedStyles.signUpSectionTitle}>{getText('accountInfoTitle')}</Text>
           <TextInputBox
             placeholder={getText('usernamePlaceholder')}
             value=""
@@ -56,8 +55,8 @@ const SignUpScreen = () => {
         </View>
 
         {/* Personal Details Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{getText('personalDetailsTitle')}</Text>
+        <View style={sharedStyles.signUpSection}>
+          <Text style={sharedStyles.signUpSectionTitle}>{getText('personalDetailsTitle')}</Text>
           <TextInputBox
             placeholder={getText('namePlaceholder')}
             value=""
@@ -81,8 +80,8 @@ const SignUpScreen = () => {
         </View>
 
         {/* Address Information Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{getText('addressInfoTitle')}</Text>
+        <View style={sharedStyles.signUpSection}>
+          <Text style={sharedStyles.signUpSectionTitle}>{getText('addressInfoTitle')}</Text>
           <TextInputBox
             placeholder={getText('cityPlaceholder')}
             value=""
@@ -114,23 +113,5 @@ const SignUpScreen = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollContainer: {
-    padding: 16,
-    alignItems: 'center',
-  },
-  section: {
-    marginBottom: 24,
-    width: '100%',
-  },
-  sectionTitle: {
-    fontSize: FONT_SIZES.medium,
-    fontFamily: FONTS.regular,
-    marginBottom: 12,
-    color: COLORS.textSecondary,
-  },
-  
-});
 
 export default SignUpScreen;

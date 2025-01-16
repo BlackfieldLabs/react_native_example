@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { COLORS, FONT_SIZES, HEIGHT, SPACING, BORDERS, FONTS } from '../../styles/theme';
+import sharedStyles from '../../styles/sharedStyles';
 
 /**
  * A reusable button component with secondary styling.
@@ -19,36 +19,10 @@ import { COLORS, FONT_SIZES, HEIGHT, SPACING, BORDERS, FONTS } from '../../style
  */
 const SecondaryButton = ({ title, onSecondaryButtonPress }: { title: string; onSecondaryButtonPress: () => void }) => {
   return (
-    <TouchableOpacity style={styles.buttonSecondary} onPress={onSecondaryButtonPress}>
-      <Text style={styles.buttonSecondaryText}>{title}</Text>
+    <TouchableOpacity style={sharedStyles.secondaryButtonSecondary} onPress={onSecondaryButtonPress}>
+      <Text style={sharedStyles.secondaryButtonSecondaryText}>{title}</Text>
     </TouchableOpacity>
   );
 };
-
-/**
- * Styles for the SecondaryButton component.
- *
- * @type {object}
- * @property {object} buttonSecondary - The style for the button container.
- * @property {object} buttonSecondaryText - The style for the button text.
- */
-const styles = StyleSheet.create({
-  buttonSecondary: {
-    width: '100%',
-    height: HEIGHT.button,
-    backgroundColor: COLORS.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: BORDERS.radiusExtraLarge,
-    marginBottom: SPACING.small,
-    borderWidth: HEIGHT.border,
-    borderColor: COLORS.accent,
-  },
-  buttonSecondaryText: {
-    fontSize: FONT_SIZES.medium,
-    fontFamily: FONTS.regular,
-    color: COLORS.accent,
-  },
-});
 
 export default SecondaryButton;

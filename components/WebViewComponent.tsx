@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { COLORS } from '../styles/theme';
+import sharedStyles from '../styles/sharedStyles';
 
 /**
  * A reusable component that renders a WebView inside a container.
@@ -13,7 +13,7 @@ import { COLORS } from '../styles/theme';
  */
 const WebViewComponent = () => {
   return (
-    <View style={styles.webViewContainer}>
+    <View style={sharedStyles.webViewContainer}>
       <WebView
         style={StyleSheet.absoluteFillObject}
         source={{ uri: 'https://dev.kresoja.net/dashboard/1' }}
@@ -21,18 +21,5 @@ const WebViewComponent = () => {
     </View>
   );
 };
-
-/**
- * Styles for the WebViewComponent.
- *
- * @type {object}
- * @property {object} webViewContainer - The container style for the WebView, occupying 5/6 of the screen.
- */
-const styles = StyleSheet.create({
-  webViewContainer: {
-    flex: 5,
-    backgroundColor: COLORS.background,
-  },
-});
 
 export default WebViewComponent;
