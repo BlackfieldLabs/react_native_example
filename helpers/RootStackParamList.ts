@@ -7,6 +7,7 @@ export type RootStackParamList = {
   SignUp: undefined;
   Main: { token: string }; // `Main` expects a `token` parameter
   SelectRole: undefined;
+  Installation: undefined;
 };
 
 // Type for `useNavigation`

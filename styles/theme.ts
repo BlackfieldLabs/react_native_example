@@ -1,5 +1,6 @@
 export const COLORS = {
-    primary: '#eaf0fd',
+    navigation: '#eaf0fd',
+    primary: 'f6f6f6',
     secondary: '#fcfcfc',
     accent: '#4280d3',
     border: '#efefef',
@@ -7,11 +8,13 @@ export const COLORS = {
     textSecondary: '#bcbec2',
     background: '#fff',
     error: '#ff4d4f',
+    selection: '#9948fe',
   };
 
   export const FONT_SIZES = {
     small: 12,
     medium: 16,
+    average: 22,
     large: 24,
     title: 32,
   };

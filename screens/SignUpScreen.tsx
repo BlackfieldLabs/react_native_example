@@ -33,7 +33,7 @@ const SignUpScreen = () => {
 
   return (
     <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
-      <ScrollView contentContainerStyle={sharedStyles.signUpScrollContainer}>
+      <ScrollView contentContainerStyle={sharedStyles.scrollContainer}>
         {/* Account Information Section */}
         <View style={sharedStyles.signUpSection}>
           <Text style={sharedStyles.signUpSectionTitle}>{getText('accountInfoTitle')}</Text>

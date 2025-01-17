@@ -15,6 +15,7 @@ import LoginScreen from './screens/LoginScreen';
 import MainLayout from './screens/MainLayout';
 import SignUpScreen from './screens/SignUpScreen';
 import RoleSelectionScreen from './screens/RoleSelectionScreen';
+import InstallationScreen from './screens/InstallationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,7 +41,7 @@ const App = () => {
           animation: 'slide_from_right',
           gestureEnabled: true,
           headerStyle: {
-            backgroundColor: COLORS.background, // Background color for the navigation bar
+            backgroundColor: COLORS.navigation, // Background color for the navigation bar
           },
           headerTitleStyle: {
             fontFamily: FONTS.regular, // Custom font for the navigation bar title
@@ -72,6 +73,11 @@ const App = () => {
           name="SelectRole"
           component={RoleSelectionScreen}
           options={{ title: getText('roleSelectionTitle') }}
+        />
+        <Stack.Screen
+          name="Installation"
+          component={InstallationScreen}
+          options={{ title: getText('installationTitle') }}
         />
       </Stack.Navigator>
     </NavigationContainer>

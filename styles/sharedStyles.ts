@@ -8,7 +8,10 @@ const sharedStyles = StyleSheet.create({
     },
     containerStyle: {
         flex: 1,
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.navigation,
+    },
+    scrollContainer: {
+        padding: 16,
     },
     backgroundImageContainerStyle: {
         flex: 1,
@@ -42,6 +45,28 @@ const sharedStyles = StyleSheet.create({
     },
     settingsIconButton: {
         marginRight: 10,
+    },
+    sectionTop: {
+        padding: SPACING.medium,
+        borderWidth: HEIGHT.border,
+        borderColor: COLORS.border,
+        borderTopLeftRadius: BORDERS.radiusMedium,
+        borderTopRightRadius: BORDERS.radiusMedium,
+        backgroundColor: COLORS.background,
+    },
+    sectionMiddle: {
+        padding: SPACING.medium,
+        borderWidth: HEIGHT.border,
+        borderColor: COLORS.border,
+        backgroundColor: COLORS.background,
+    },
+    sectionBottom: {
+        padding: SPACING.medium,
+        borderWidth: HEIGHT.border,
+        borderColor: COLORS.border,
+        borderBottomLeftRadius: BORDERS.radiusMedium,
+        borderBottomRightRadius: BORDERS.radiusMedium,
+        backgroundColor: COLORS.background,
     },
     /**
      * Wrapper for the input field and toggle button.
@@ -139,7 +164,7 @@ const sharedStyles = StyleSheet.create({
     // Speach component
     speechComponentBottomContainer: {
         flex: 1, // 1/5 of the screen
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.navigation,
         justifyContent: 'center', // Center content vertically
         alignItems: 'center', // Center content horizontally
     },
@@ -184,10 +209,6 @@ const sharedStyles = StyleSheet.create({
         borderRadius: BORDERS.radiusExtraLarge, // Makes it circular
     },
     //Sign up
-    signUpScrollContainer: {
-        padding: 16,
-        alignItems: 'center',
-    },
     signUpSection: {
         marginBottom: 24,
         width: '100%',

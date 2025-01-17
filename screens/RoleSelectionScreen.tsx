@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
     View,
     Text,
-    StyleSheet,
     ScrollView,
     TouchableOpacity,
     SafeAreaView,
@@ -13,9 +12,13 @@ import { COLORS, HEIGHT } from '../styles/theme';
 import sharedStyles from '../styles/sharedStyles';
 //Components
 import AccentButton from '../components/button/AccentButton';
+//Navigation
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '../helpers/RootStackParamList';
 
 const RoleSelectionScreen = () => {
     const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+    const navigation = useNavigation<NavigationProp>();
 
     const roles = [
         {
@@ -92,6 +95,7 @@ const RoleSelectionScreen = () => {
                 <AccentButton
                     title="Proceed"
                     onAccentButtonPress={() => {
+                        navigation.navigate('Installation');
                         console.log('Selected roles:', selectedRoles);
                     }}
                 />
