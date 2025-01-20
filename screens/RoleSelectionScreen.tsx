@@ -75,7 +75,7 @@ const RoleSelectionScreen = () => {
 
                             {/* Second Column: Title and Subtitle */}
                             <View style={sharedStyles.roleSelectionCardContent}>
-                                <Text style={sharedStyles.roleSelectionCardTitle}>{role.title}</Text>
+                                <Text style={sharedStyles.cardTitle}>{role.title}</Text>
                                 <Text style={sharedStyles.roleSelectionCardSubtitle}>{role.subtitle}</Text>
                             </View>
 

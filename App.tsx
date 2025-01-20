@@ -16,6 +16,7 @@ import MainLayout from './screens/MainLayout';
 import SignUpScreen from './screens/SignUpScreen';
 import RoleSelectionScreen from './screens/RoleSelectionScreen';
 import InstallationScreen from './screens/InstallationScreen';
+import BeneficiaryScreen from './screens/BeneficiaryScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -78,6 +79,11 @@ const App = () => {
           name="Installation"
           component={InstallationScreen}
           options={{ title: getText('installationTitle') }}
+        />
+        <Stack.Screen
+          name="Beneficiary"
+          component={BeneficiaryScreen}
+          options={{ title: getText('beneficiaryTitle') }}
         />
       </Stack.Navigator>
     </NavigationContainer>

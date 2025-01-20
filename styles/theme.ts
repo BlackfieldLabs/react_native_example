@@ -14,7 +14,7 @@ export const COLORS = {
   export const FONT_SIZES = {
     small: 12,
     medium: 16,
-    average: 22,
+    average: 20,
     large: 24,
     title: 32,
   };

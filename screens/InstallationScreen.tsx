@@ -8,14 +8,30 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { Device } from '../helpers/Device';
+//Navigation
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '../helpers/RootStackParamList';
+//Localization
 import { getText } from '../localization/localization';
 //Style
 import { BORDERS, COLORS, FONT_SIZES, FONTS, HEIGHT, SPACING } from '../styles/theme';
 import sharedStyles from '../styles/sharedStyles';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const InstallationScreen = () => {
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
+  const navigation = useNavigation<NavigationProp>();
+
+  const devices: Device[] = [
+    new Device(1, -60, "Sijalica", "192.168.1.1"),
+    new Device(11, -78, "Plug", "192.168.1.2"),
+    new Device(111, -79, "Zvucnik", "192.168.1.3"),
+    new Device(1111, -82, "Kamera", "192.168.1.4"),
+    new Device(11111, -165, "Senzor", "192.168.1.5"),
+    new Device(111111, -190, "Door/window senzor", "192.168.1.6"),
+    new Device(2, -195, "Door/window senzor 2", "192.168.1.7"),
+  ];
 
   const handleRowPress = (index: number) => {
     setSelectedRow(index === selectedRow ? null : index);
@@ -23,6 +39,11 @@ const InstallationScreen = () => {
 
   const handlePress = (title: string) => {
     console.log(`${title} button pressed`);
+  };
+
+  const nextButtonPressed = () => {
+    console.log('Next button pressed.');
+    navigation.navigate('Beneficiary', {devices});
   };
 
   return (
@@ -48,9 +69,9 @@ const InstallationScreen = () => {
             <Text style={[styles.statusText, styles.columnTitle ]}>{getText('rssiColumn')}</Text>
             <Text style={[styles.columnBig]}></Text>
           </View>
-          {[1, 2, 3, 4, 5, 6].map((item, index) => (
+          {devices.map((device, index) => (
             <TouchableOpacity
-              key={index}
+              key={device.id}
               style={[
                 styles.listRowContainer,
                 selectedRow === index && { borderColor: COLORS.selection },
@@ -64,20 +85,20 @@ const InstallationScreen = () => {
                   color={selectedRow === index ? COLORS.accent : COLORS.textSecondary}
                 />
               </View>
-              <Text style={[styles.listItem, styles.columnSmall]}>-12{index + 1}</Text>
-              <Text style={[styles.listItem, styles.columnBig]}>192.168.1.{index + 1}</Text>
+              <Text style={[styles.listItem, styles.columnSmall]}>{device.rssi}</Text>
+              <Text style={[styles.listItem, styles.columnBig]}>{device.deviceName}</Text>
             </TouchableOpacity>
           ))}
         </View>
         {/* Section 3 */}
         <View style={[sharedStyles.sectionMiddle, styles.row]}>
-          {[getText('connectButton'), getText('reportWiFisButton')].map((title) => (
+          {[getText('roomTypeButton'), getText('customDecriptionButton')].map((title) => (
             <TouchableOpacity
               key={title}
               style={[styles.button, styles.secondaryButton, styles.halfWidthButton]}
               onPress={() => handlePress(title)}
             >
-              <MaterialIcons name={(title === getText('connectButton') ? 'home' : 'edit')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
+              <MaterialIcons name={(title === getText('roomTypeButton') ? 'home' : 'edit')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
               <Text style={styles.buttonTextPrimary}>{title}</Text>
             </TouchableOpacity>
           ))}
@@ -92,7 +113,7 @@ const InstallationScreen = () => {
                 style={[styles.button, styles.secondaryButton, styles.halfWidthButton]}
                 onPress={() => handlePress(title)}
               >
-                <MaterialIcons name="wifi" size={HEIGHT.smallImage} color="white" style={styles.icon} />
+                <MaterialIcons name={(title === getText('connectButton') ? 'bluetooth' : 'wifi')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
                 <Text style={styles.buttonTextPrimary}>{title}</Text>
               </TouchableOpacity>
             ))}
@@ -117,7 +138,7 @@ const InstallationScreen = () => {
                 style={[[styles.button, styles.secondaryButton, styles.halfWidthButton]]}
                 onPress={() => handlePress(title)}
               >
-                <MaterialIcons name="lock" size={HEIGHT.smallImage} color="white" style={styles.icon} />
+                <MaterialIcons name={(title === getText('credentialsButton') ? 'lock' : 'palette')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
                 <Text style={styles.buttonTextPrimary}>{title}</Text>
               </TouchableOpacity>
             ))}
@@ -150,7 +171,7 @@ const InstallationScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, styles.accentButton, styles.halfWidthButton]}
-            onPress={() => handlePress(getText('nextButton'))}
+            onPress={() => nextButtonPressed()}
           >
             <MaterialIcons name="arrow-forward" size={HEIGHT.smallImage} color="white" style={styles.iconAccent} />
             <Text style={styles.buttonTextAccent}>{getText('nextButton')}</Text>
@@ -187,12 +208,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    //paddingVertical: SPACING.small,
     fontFamily: FONTS.regular,
-    fontSize: FONT_SIZES.average,
-    color: COLORS.textSecondary,
-    //height: HEIGHT.image,
-    //backgroundColor: 'red',
+    fontSize: FONT_SIZES.medium,
+    color: COLORS.textPrimary,
   },
   columnTitle: {
     flex: 1,

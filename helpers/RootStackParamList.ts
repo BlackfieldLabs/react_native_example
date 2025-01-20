@@ -1,5 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Device } from '../helpers/Device';
 
 // Define your ParamList
 export type RootStackParamList = {
@@ -8,6 +9,7 @@ export type RootStackParamList = {
   Main: { token: string }; // `Main` expects a `token` parameter
   SelectRole: undefined;
   Installation: undefined;
+  Beneficiary: { devices: Device[]};
 };
 
 // Type for `useNavigation`

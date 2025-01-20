@@ -20,7 +20,6 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
 
 const SignUpScreen = () => {
-
   const navigation = useNavigation<NavigationProp>();
   const handleCreateUser = () => {
     console.log('Create User button pressed');

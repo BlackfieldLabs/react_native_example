@@ -236,7 +236,7 @@ const sharedStyles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: COLORS.background,
         borderRadius: BORDERS.radiusLarge,
-        borderWidth: 1,
+        borderWidth: HEIGHT.border,
         borderColor: COLORS.border,
         padding: SPACING.medium,
         marginBottom: SPACING.medium,
@@ -258,7 +258,7 @@ const sharedStyles = StyleSheet.create({
         flex: 3,
         justifyContent: 'center',
     },
-    roleSelectionCardTitle: {
+    cardTitle: {
         fontSize: FONT_SIZES.large,
         fontFamily: FONTS.regular,
         color: COLORS.textPrimary,
@@ -275,6 +275,10 @@ const sharedStyles = StyleSheet.create({
     webViewContainer: {
         flex: 5,
         backgroundColor: COLORS.background,
+    },
+    center: {
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 });
 
