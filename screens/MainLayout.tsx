@@ -16,7 +16,7 @@ import SpeechRecognitionComponent from '../components/SpeechRecognitionComponent
 //Styles
 import sharedStyles from '../styles/sharedStyles';
 //API Call
-import VoiceAskAPIService from '../services/VoiceAskAPIService';
+import VoiceAskAPIService from '../services/APIService';
 //UUID
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';

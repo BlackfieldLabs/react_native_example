@@ -63,6 +63,7 @@ const en = {
   proceedButtonTitle: 'Proceed',
   takePhotoTitle: 'Take another photo',
   takePhotoSubtitle: 'Take a photo of beneficiary',
+  checkingCredentials: 'Checking credentials...',
 };
 
   const hr = {
