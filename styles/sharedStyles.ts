@@ -43,6 +43,12 @@ const sharedStyles = StyleSheet.create({
         color: COLORS.textPrimary,
         marginBottom: 20,
     },
+    buttonTextPrimary: {
+      color: COLORS.textPrimary,
+      fontSize: FONT_SIZES.medium,
+      fontFamily: FONTS.regular,
+      marginLeft: SPACING.small,
+    },
     settingsIconButton: {
         marginRight: 10,
     },

@@ -37,7 +37,7 @@ const en = {
   goToChartsButton: 'Go to Charts',
   nextButton: 'Next',
   roomTypeButton: 'Room type',
-  customDecriptionButton: 'Custom description',
+  customDecriptionButton: 'Custom desc',
   connectionButton: 'Connection',
   statusText: 'STATUS',
   selectNetworkButton: 'Select network',

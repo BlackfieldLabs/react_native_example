@@ -84,7 +84,7 @@ const BeneficiaryScreen = () => {
                 <View>
                     {devices.map((device, index) => (
                         <View key={index} style={[styles.button]}>
-                            <Text>{device.deviceName}</Text>
+                            <Text style={sharedStyles.buttonTextPrimary}>{device.deviceName}</Text>
                         </View>
                     ))}
                 </View>

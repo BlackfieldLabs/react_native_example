@@ -58,7 +58,7 @@ const InstallationScreen = () => {
               onPress={() => handlePress(title)}
             >
               <MaterialIcons name={(title === getText('cameraButton') ? 'camera-alt' : title === getText('clearButton') ? 'delete' : 'touch-app')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
-              <Text style={styles.buttonTextPrimary}>{title}</Text>
+              <Text style={sharedStyles.buttonTextPrimary}>{title}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -99,7 +99,7 @@ const InstallationScreen = () => {
               onPress={() => handlePress(title)}
             >
               <MaterialIcons name={(title === getText('roomTypeButton') ? 'home' : 'edit')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
-              <Text style={styles.buttonTextPrimary}>{title}</Text>
+              <Text style={sharedStyles.buttonTextPrimary}>{title}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -114,7 +114,7 @@ const InstallationScreen = () => {
                 onPress={() => handlePress(title)}
               >
                 <MaterialIcons name={(title === getText('connectButton') ? 'bluetooth' : 'wifi')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
-                <Text style={styles.buttonTextPrimary}>{title}</Text>
+                <Text style={sharedStyles.buttonTextPrimary}>{title}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -128,6 +128,7 @@ const InstallationScreen = () => {
             </TouchableOpacity>
             <TextInput
               placeholder={getText('enterWiFiPassPlaceholder')}
+              placeholderTextColor={COLORS.textPrimary}
               style={[styles.textBox, styles.halfWidthButton]}
             />
           </View>
@@ -139,7 +140,7 @@ const InstallationScreen = () => {
                 onPress={() => handlePress(title)}
               >
                 <MaterialIcons name={(title === getText('credentialsButton') ? 'lock' : 'palette')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
-                <Text style={styles.buttonTextPrimary}>{title}</Text>
+                <Text style={sharedStyles.buttonTextPrimary}>{title}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -152,7 +153,7 @@ const InstallationScreen = () => {
             onPress={() => handlePress(getText('connectionButton'))}
           >
             <MaterialIcons name="link" size={HEIGHT.smallImage} color="white" style={styles.icon} />
-            <Text style={styles.buttonTextPrimary}>{getText('connectionButton')}</Text>
+            <Text style={sharedStyles.buttonTextPrimary}>{getText('connectionButton')}</Text>
           </TouchableOpacity>
           <View style={styles.statusContainer}>
             <Text style={styles.statusText}>{getText('statusText')}</Text>
@@ -167,7 +168,7 @@ const InstallationScreen = () => {
             onPress={() => handlePress(getText('goToChartsButton'))}
           >
             <MaterialIcons name="bar-chart" size={HEIGHT.smallImage} color="white" style={styles.icon} />
-            <Text style={styles.buttonTextPrimary}>{getText('goToChartsButton')}</Text>
+            <Text style={sharedStyles.buttonTextPrimary}>{getText('goToChartsButton')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, styles.accentButton, styles.halfWidthButton]}
@@ -246,12 +247,6 @@ const styles = StyleSheet.create({
     flex: 1,
     maxWidth: '50%',
   },
-  buttonTextPrimary: {
-    color: COLORS.textPrimary,
-    fontSize: FONT_SIZES.medium,
-    fontFamily: FONTS.regular,
-    marginLeft: SPACING.small,
-  },
   buttonTextAccent: {
     color: 'white',
     fontSize: FONT_SIZES.medium,
@@ -306,6 +301,7 @@ const styles = StyleSheet.create({
     padding: SPACING.small,
     marginHorizontal: SPACING.extraSmall,
     borderRadius: BORDERS.radiusLarge,
+    textDecorationColor: COLORS.secondary,
   },
 });
 
