@@ -30,7 +30,7 @@ interface Props {
 
 const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
     const [isListening, setIsListening] = useState<boolean>(false);
-    console.log('SpeechRecognitionComponent - Is listening: ', isListening);
+    console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Is listening: `, isListening);
     const [results, setResults] = useState<string[]>([]);
 
     useImperativeHandle(ref, () => ({
@@ -39,7 +39,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 await Voice.stop();
                 props.setIsListening(false);
             } catch (e) {
-                console.error('Error stopping listening:', e);
+                console.error(`[${new Date().toLocaleString()}] Error stopping listening: `, e);
             }
         },
         stopRecognizing: async () => {
@@ -47,7 +47,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 await Voice.destroy();
                 props.setIsListening(false);
             } catch (e) {
-                console.error('Error stopping recognition:', e);
+                console.error(`[${new Date().toLocaleString()}] Error stopping recognition: `, e);
             }
         },
         toggleListening: async () => {
@@ -57,15 +57,15 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
 
     // Handle actions on button click
     const toggleListening = async () => {
-        console.log('SpeechRecognitionComponent -  toggleListening');
+        console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - toggleListening`);
         if (isListening) {
             // Stop listening
             try {
                 await stopRecognizing();
                 setIsListening(false);
-                console.log('SpeechRecognitionComponent -  stopRecognizing');
+                console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent -  stopRecognizing`);
             } catch (error) {
-                console.error('SpeechRecognitionComponent - Error: stopping recognition:', error);
+                console.error(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Error: stopping recognition: `, error);
             }
         } else {
             // Start listening
@@ -73,7 +73,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 await startRecognizing();
                 setIsListening(true);
             } catch (error) {
-                console.error('SpeechRecognitionComponent - Error: starting recognition:', error);
+                console.error(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Error: starting recognition: `, error);
             }
         }
     };
@@ -81,7 +81,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
     // Request microphone permission (Android only)
     const requestMicrophonePermission = async (): Promise<boolean> => {
         if (Platform.OS === 'android') {
-            console.log('SpeechRecognitionComponent - Mic permission - Android!');
+            console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Mic permission - Android!`);
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
                 {
@@ -90,7 +90,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                     buttonPositive: getText('microphonePermissionButton'),
                 }
             );
-            console.log('SpeechRecognitionComponent - Permission granted - Android!');
+            console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Permission granted - Android!`);
             return granted === PermissionsAndroid.RESULTS.GRANTED;
         }
         return true;
@@ -100,25 +100,25 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
     const startRecognizing = async () => {
         const hasPermission = await requestMicrophonePermission();
         if (!hasPermission) {
-            console.log('SpeechRecognitionComponent - startRecognizing!');
+            console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - startRecognizing!`);
             return;
         }
         try {
             await Voice.start('en-US');
             setIsListening(true);
         } catch (error) {
-            console.error('SpeechRecognitionComponent - Voice.start error:', error);
+            console.error(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Voice.start error:`, error);
         }
     };
 
     // Stop listening
     const stopRecognizing = async () => {
         try {
-            console.log('SpeechRecognitionComponent - stopRecognizing!');
+            console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - stopRecognizing!`);
             await Voice.stop();
             setIsListening(false);
         } catch (error) {
-            console.error('SpeechRecognitionComponent - Voice.stop error:', error);
+            console.error(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Voice.stop error: `, error);
         }
     };
 
@@ -126,7 +126,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         try {
             await Voice.cancel();
         } catch (error) {
-            console.error('SpeechRecognitionComponent - ',error);
+            console.error(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - `,error);
         }
     };
 
@@ -134,7 +134,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         try {
             await Voice.destroy();
         } catch (error) {
-            console.error('SpeechRecognitionComponent - ', error);
+            console.error(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - `, error);
         }
     };
 
@@ -147,25 +147,25 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         };
 
         Voice.onSpeechStart = (e: SpeechStartEvent) => {
-            console.log('SpeechRecognitionComponent - onSpeechStart: ', e);
+            console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - onSpeechStart: `, e);
         };
 
         Voice.onSpeechRecognized = (e: SpeechRecognizedEvent) => {
-            console.log('SpeechRecognitionComponent - onSpeechRecognized: ', e);
+            console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - onSpeechRecognized: `, e);
         };
 
         Voice.onSpeechEnd = (e: SpeechEndEvent) => {
-            console.log('SpeechRecognitionComponent - onSpeechEnd: ', e);
+            console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - onSpeechEnd: `, e);
         };
 
         Voice.onSpeechError = (e: SpeechErrorEvent) => {
-            console.log('SpeechRecognitionComponent - onSpeechError: ', e);
+            console.error(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - onSpeechError: `, e);
         };
 
         Voice.onSpeechPartialResults = (e: SpeechResultsEvent) => {
             const speechResults = e.value || [];
             setResults(speechResults);
-            console.log('SpeechRecognitionComponent - onSpeechPartialResults: ', e);
+            console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - onSpeechPartialResults: `, e);
         };
 
         Voice.onSpeechVolumeChanged = (e: SpeechVolumeChangeEvent) => {

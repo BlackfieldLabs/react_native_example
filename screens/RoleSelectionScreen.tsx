@@ -96,7 +96,7 @@ const RoleSelectionScreen = () => {
                     title="Proceed"
                     onAccentButtonPress={() => {
                         navigation.navigate('Installation');
-                        console.log('Selected roles:', selectedRoles);
+                        console.log(`[${new Date().toLocaleString()}] Selected roles:`, selectedRoles);
                     }}
                 />
             </View>

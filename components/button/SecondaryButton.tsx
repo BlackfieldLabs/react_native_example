@@ -14,7 +14,7 @@ import sharedStyles from '../../styles/sharedStyles';
  * @example
  * <SecondaryButton
  *   title="Cancel"
- *   onSecondaryButtonPress={() => console.log('Button Pressed')}
+ *   onSecondaryButtonPress={() => console.log(`[${new Date().toLocaleString()}] Button Pressed')}
  * />
  */
 const SecondaryButton = ({ title, onSecondaryButtonPress }: { title: string; onSecondaryButtonPress: () => void }) => {

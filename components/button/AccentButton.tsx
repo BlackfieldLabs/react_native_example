@@ -14,7 +14,7 @@ import sharedStyles from '../../styles/sharedStyles';
  * @example
  * <AccentButton
  *   title="Submit"
- *   onAccentButtonPress={() => console.log('Button Pressed')}
+ *   onAccentButtonPress={() => console.log(`[${new Date().toLocaleString()}] Button Pressed')}
  * />
  */
 const AccentButton = ({ title, onAccentButtonPress }: { title: string; onAccentButtonPress: () => void }) => {

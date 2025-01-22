@@ -26,7 +26,7 @@ const SettingsIcon = () => {
   return (
     <TouchableOpacity
       style={sharedStyles.settingsIconButton}
-      onPress={() => console.log('Settings item pressed')}
+      onPress={() => console.log(`[${new Date().toLocaleString()}] Settings item pressed`)}
     >
       <Icon name="settings" size={HEIGHT.smallImage} color={COLORS.accent} />
     </TouchableOpacity>
@@ -55,14 +55,15 @@ const App = () => {
           name="Login"
           component={LoginScreen}
           options={
-            { title: getText('loginButton'),  headerShown: false}
+            { title: getText('loginButton'), headerShown: false }
           }
         />
         <Stack.Screen
           name="Main"
           component={MainLayout}
-          options={{ title: getText('mainLayoutTitle'),
-            headerRight: () => <SettingsIcon />, 
+          options={{
+            title: getText('mainLayoutTitle'),
+            headerRight: () => <SettingsIcon />,
           }}
         />
         <Stack.Screen

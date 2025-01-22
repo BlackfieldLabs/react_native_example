@@ -42,7 +42,7 @@ const InstallationScreen = () => {
   };
 
   const nextButtonPressed = () => {
-    console.log('Next button pressed.');
+    console.log(`[${new Date().toLocaleString()}] Next button pressed.`);
     navigation.navigate('Beneficiary', {devices});
   };
 

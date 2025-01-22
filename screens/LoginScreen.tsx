@@ -22,6 +22,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getText } from '../localization/localization';
 //API Call
 import APIService from '../services/APIService';
+import { isTokenValid } from '../services/APIService';
 //UUID
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
@@ -31,31 +32,32 @@ import SecureStorage from '../helpers/SecureStorage';
 const LoginScreen = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [loading, setLoading] = useState(true);
     const navigation = useNavigation<NavigationProp>();
 
     useEffect(() => {
         const checkToken = async () => {
-            const token = await SecureStorage.get(SecureStorage.Keys.AuthToken);
-            const timestampString = await SecureStorage.get(SecureStorage.Keys.TokenTimestamp);
+            console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - checkToken on app start`);
+            const token = await SecureStorage.getToken();
+            const timestampString = await SecureStorage.getData(SecureStorage.Keys.TokenTimestamp);
 
             if (token && timestampString) {
-                const timestamp = parseInt(timestampString, 10);
-                const currentTime = Date.now();
-                const twentyFourHours = 24 * 60 * 60 * 1000;
-                if (currentTime - timestamp <= twentyFourHours) {
+                const valid = await isTokenValid();
+                if (valid) {
+                    console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - Token is valid.`);
                     navigation.navigate('Main');
-                    return;
+                } else {
+                    await SecureStorage.deleteToken();
+                    await SecureStorage.deleteData(SecureStorage.Keys.TokenTimestamp);
+                    console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - Token invalid.`);
                 }
             }
-            setLoading(false);
         };
         checkToken();
-    }, [navigation]);
+    }, []);
 
     const signInPressed = async () => {
         try {
-            console.log('LoginScreen - Initializing token...');
+            console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - signInPressed.`);
             const uuidString = uuidv4();
             const response = await APIService.checkCredentials(username, password, '001', uuidString);
 
@@ -63,30 +65,21 @@ const LoginScreen = () => {
                 const token = response.access_token;
 
                 await SecureStorage.saveTokenWithTimestamp(token);
-                console.log('LoginScreen - Token is stored - NOT SECURE! Token: ', token);
+                console.log(`[${new Date().toLocaleString()}] LoginScreen - Token is stored on checkCredentials response.`);
 
                 navigation.navigate('Main');
             } else {
-                console.error('LoginScreen - Token not found in the response:', response);
+                console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - Token not found in the response: `, response);
             }
         } catch (error) {
-            console.error('LoginScreen - Error during checkCredentials:', error);
+            console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - Error during checkCredentials: `, error);
         }
     };
 
     const signUpPressed = () => {
-        console.log('signUpPressed');
+        console.log(`[${new Date().toLocaleString()}] signUpPressed`);
         navigation.navigate('SignUp');
     };
-
-    if (loading) {
-        return (
-            <View style={sharedStyles.containerStyle}>
-                <ActivityIndicator size="large" color={COLORS.accent} />
-                <Text>{getText('checkingCredentials')}</Text>
-            </View>
-        );
-    }
 
     return (
         <SafeAreaView style={sharedStyles.containerStyle}>

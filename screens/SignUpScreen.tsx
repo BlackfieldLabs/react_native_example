@@ -22,12 +22,12 @@ import { NavigationProp } from '../helpers/RootStackParamList';
 const SignUpScreen = () => {
   const navigation = useNavigation<NavigationProp>();
   const handleCreateUser = () => {
-    console.log('Create User button pressed');
+    console.log(`[${new Date().toLocaleString()}] Create User button pressed`);
     navigation.navigate('SelectRole');
   };
 
   const handleCameraButton = () => {
-    console.log('Camera button pressed');
+    console.log(`[${new Date().toLocaleString()}] Camera button pressed`);
   };
 
   return (
