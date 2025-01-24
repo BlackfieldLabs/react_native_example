@@ -11,7 +11,6 @@ const en = {
   appSubtitle: 'So you know they are well',
   microphonePermissionTitle: 'Microphone Permission',
   microphonePermissionMessage: 'This app requires access to your microphone for speech recognition.',
-  microphonePermissionButton: 'OK',
   toggleSpeechRecognition: 'Click to Speak',
   signUpScreenTitle: 'Sign Up',
   mainLayoutTitle: 'Dashboard',
@@ -60,10 +59,18 @@ const en = {
   sendButtonTitle: 'Send deployment to server',
   submitButtonTitle: 'Submit',
   cancelButtonTitle: 'Cancel',
+  okButtonTitle: 'OK',
+  warningTitle: 'Warning',
+  errorTitle: 'Error',
+  pleaseWaitTitle: 'Please wait...',
   proceedButtonTitle: 'Proceed',
   takePhotoTitle: 'Take another photo',
   takePhotoSubtitle: 'Take a photo of beneficiary',
   checkingCredentials: 'Checking credentials...',
+  messageLogIn: 'Sign In in progress...?',
+  messageLogOut: 'Are you sure you want to Sign Out?',
+  messageWrongCredentials: 'Incorrect username or password. Please try again.',
+  messageLogin: 'Signing in progress, please wait...',
 };
 
   const hr = {

@@ -1,14 +1,15 @@
 export const COLORS = {
-    navigation: '#eaf0fd',
-    primary: 'f6f6f6',
-    secondary: '#fcfcfc',
-    accent: '#4280d3',
-    border: '#efefef',
-    textPrimary: '#000000',
-    textSecondary: '#bcbec2',
-    background: '#fff',
-    error: '#ff4d4f',
-    selection: '#9948fe',
+    navigation: 'rgba(234, 240, 253, 1)',//'#eaf0fd'
+    primary: 'rgba(246, 246, 246, 1)',//'f6f6f6'
+    secondary: 'rgba(252, 252, 252, 1)',//'#fcfcfc'
+    accent: 'rgba(66, 128, 211, 1)',//'#4280d3'
+    border: 'rgba(239, 239, 239, 1)',//'#efefef'
+    textPrimary: 'rgba(0, 0, 0, 1)',//'#000000'
+    textSecondary: 'rgba(188, 190, 194, 1)',//'#bcbec2'
+    background: 'rgba(255, 255, 255, 1)',//'#fff'
+    error: 'rgba(255, 77, 79, 1)',//'#ff4d4f'
+    selection: 'rgba(153, 72, 254, 1)',//'#9948fe'
+    overlay: 'rgba(0, 0, 0, 0.5)',
   };
 
   export const FONT_SIZES = {

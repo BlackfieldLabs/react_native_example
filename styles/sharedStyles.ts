@@ -44,10 +44,10 @@ const sharedStyles = StyleSheet.create({
         marginBottom: 20,
     },
     buttonTextPrimary: {
-      color: COLORS.textPrimary,
-      fontSize: FONT_SIZES.medium,
-      fontFamily: FONTS.regular,
-      marginLeft: SPACING.small,
+        color: COLORS.textPrimary,
+        fontSize: FONT_SIZES.medium,
+        fontFamily: FONTS.regular,
+        marginLeft: SPACING.small,
     },
     settingsIconButton: {
         marginRight: 10,
@@ -285,6 +285,59 @@ const sharedStyles = StyleSheet.create({
     center: {
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    //Alert
+    overlay: {
+        flex: 1,
+        backgroundColor: COLORS.overlay,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    alertContainer: {
+        width: '80%',
+        padding: SPACING.large,
+        backgroundColor: COLORS.secondary,
+        borderRadius: BORDERS.radiusLarge,
+        alignItems: 'center',
+    },
+    title: {
+        fontSize: FONT_SIZES.large,
+        fontFamily: FONTS.bold,
+        marginBottom: SPACING.medium,
+        color: COLORS.textPrimary,
+    },
+    message: {
+        fontSize: FONT_SIZES.medium,
+        fontFamily: FONTS.regular,
+        marginBottom: SPACING.medium,
+        textAlign: 'center',
+        color: COLORS.textPrimary,
+    },
+    spinner: {
+        marginTop: SPACING.medium,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: SPACING.medium,
+    },
+    button: {
+        paddingVertical: SPACING.small,
+        paddingHorizontal: SPACING.large,
+        borderRadius: BORDERS.radiusLarge,
+        borderWidth: HEIGHT.border,
+        marginHorizontal: SPACING.small,
+    },
+    destructiveButton: {
+        borderColor: COLORS.error,
+    },
+    primaryButton: {
+        borderColor: COLORS.accent,
+    },
+    buttonText: {
+        fontSize: FONT_SIZES.medium,
+        fontFamily: FONTS.bold,
+        color: COLORS.textPrimary,
     },
 });
 

@@ -14,6 +14,8 @@ import { NavigationProp } from '../helpers/RootStackParamList';
 //Components
 import WebViewComponent from '../components/WebViewComponent';
 import SpeechRecognitionComponent from '../components/SpeechRecognitionComponent';
+import { useAlert } from '../components/alert/CustomAlertManager';
+import { AlertType } from '../components/alert/AlertTypes';
 //Styles
 import sharedStyles from '../styles/sharedStyles';
 //API Call
@@ -23,11 +25,14 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 //Storage
 import SecureStorage from '../helpers/SecureStorage';
+//Localization
+import { getText } from '../localization/localization';
 
 const MainLayout = () => {
     const [isListening, setIsListening] = useState<boolean>(false);
     const navigation = useNavigation<NavigationProp>();
     const speechRecognitionRef = useRef<any>(null);
+    const { showAlert, createTwoButtonAlert, hideAlert } = useAlert();
 
     const handleSpeechResultsAndCallAI = (results: string[]) => {
         console.log(`[${new Date().toLocaleString()}] MainLayout - Speech Results: `, results);
@@ -67,25 +72,21 @@ const MainLayout = () => {
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
             e.preventDefault();
-            Alert.alert(
-                'Warning',
-                'Are you sure you want to Log-Out?',
-                [
-                    { text: 'Cancel', style: 'cancel', onPress: () => { } },
-                    {
-                        text: 'Log-Out',
-                        style: 'destructive',
-                        onPress: async () => {
-                            SecureStorage.deleteToken();
-                            SecureStorage.deleteData(SecureStorage.Keys.TokenTimestamp);
-                            console.log(`[${new Date().toLocaleString()}] Log-Out`);
-                            navigation.dispatch(e.data.action);
-                        },
-                    },
-                ]
+            createTwoButtonAlert(AlertType.Warning, getText('messageLogOut'),
+                () => {
+                    console.log(`[${new Date().toLocaleString()}] MainLayout - Cancel Pressed`);
+                    hideAlert();
+                },
+                () => {
+                    SecureStorage.deleteToken();
+                    SecureStorage.deleteData(SecureStorage.Keys.TokenTimestamp);
+                    console.log(`[${new Date().toLocaleString()}] Log-Out`);
+                    navigation.dispatch(e.data.action);
+                    hideAlert();
+                }
             );
-        });
 
+        });
         return unsubscribe;
     }, [navigation]);
 

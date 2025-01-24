@@ -4,7 +4,6 @@ import {
     View,
     Text,
     ImageBackground,
-    ActivityIndicator,
 } from 'react-native';
 import { COLORS, HEIGHT } from '../styles/theme';
 //Navigation
@@ -15,6 +14,8 @@ import AccentButton from '../components/button/AccentButton';
 import SecondaryButton from '../components/button/SecondaryButton';
 import TextInputBox from '../components/textbox/TextInputBox';
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
+import { useAlert } from '../components/alert/CustomAlertManager';
+import { AlertType } from '../components/alert/AlertTypes'
 //Styles
 import sharedStyles from '../styles/sharedStyles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -33,22 +34,22 @@ const LoginScreen = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigation = useNavigation<NavigationProp>();
+    const { showAlert, createSingleButtonAlert, hideAlert } = useAlert();
 
     useEffect(() => {
         const checkToken = async () => {
-            console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - checkToken on app start`);
+            console.log(`[${new Date().toLocaleString()}] LoginScreen - checkToken on app start`);
             const token = await SecureStorage.getToken();
             const timestampString = await SecureStorage.getData(SecureStorage.Keys.TokenTimestamp);
-
             if (token && timestampString) {
                 const valid = await isTokenValid();
                 if (valid) {
-                    console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - Token is valid.`);
+                    console.log(`[${new Date().toLocaleString()}] LoginScreen - Token is valid.`);
                     navigation.navigate('Main');
                 } else {
                     await SecureStorage.deleteToken();
                     await SecureStorage.deleteData(SecureStorage.Keys.TokenTimestamp);
-                    console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - Token invalid.`);
+                    console.log(`[${new Date().toLocaleString()}] LoginScreen - Token invalid.`);
                 }
             }
         };
@@ -57,22 +58,34 @@ const LoginScreen = () => {
 
     const signInPressed = async () => {
         try {
-            console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - signInPressed.`);
+            showAlert(AlertType.Progress, getText('messageLogin'));
+            console.log(`[${new Date().toLocaleString()}] LoginScreen - signInPressed.`);
             const uuidString = uuidv4();
             const response = await APIService.checkCredentials(username, password, '001', uuidString);
 
             if (response?.access_token) {
                 const token = response.access_token;
-
+                hideAlert();
                 await SecureStorage.saveTokenWithTimestamp(token);
                 console.log(`[${new Date().toLocaleString()}] LoginScreen - Token is stored on checkCredentials response.`);
-
                 navigation.navigate('Main');
             } else {
-                console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - Token not found in the response: `, response);
+                hideAlert();
+                createSingleButtonAlert(AlertType.Error, getText('messageWrongCredentials'), () => {
+                    console.log(`[${new Date().toLocaleString()}] LoginScreen - Incorrect username or password <3.`);
+                    hideAlert();
+                    console.log(`[${new Date().toLocaleString()}] LoginScreen - Hide alert should be called.`);
+                });
+                console.log(`[${new Date().toLocaleString()}] LoginScreen - Token not found in the response: `, response);
             }
         } catch (error) {
-            console.log(`[${new Date().toLocaleString()}] [${new Date().toLocaleString()}] LoginScreen - Error during checkCredentials: `, error);
+            hideAlert();
+            createSingleButtonAlert(AlertType.Error, getText('messageWrongCredentials'), () => {
+                console.log(`[${new Date().toLocaleString()}] LoginScreen - Incorrect username or password.`);
+                hideAlert();
+                console.log(`[${new Date().toLocaleString()}] LoginScreen - Hide alert should be called.`);
+            });
+            console.log(`[${new Date().toLocaleString()}] LoginScreen - Error during checkCredentials: `, error);
         }
     };
 

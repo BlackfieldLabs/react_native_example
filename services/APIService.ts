@@ -183,7 +183,7 @@ export const isTokenValid = async (): Promise<boolean> => {
 
     const timestamp = parseInt(timestampString, 10);
     const currentTime = Date.now();
-    const twentyFourHours = 1 * 60 * 1000;//24 * 60 * 60 * 1000;
+    const twentyFourHours = 24 * 60 * 60 * 1000;
 
     // Check if the token is older than 24 hours
     if (currentTime - timestamp > twentyFourHours) {

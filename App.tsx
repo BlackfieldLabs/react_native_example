@@ -10,6 +10,8 @@ import { getText } from './localization/localization';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+//Alert
+import { AlertProvider } from './components/alert/CustomAlertManager';
 //Screens
 import LoginScreen from './screens/LoginScreen';
 import MainLayout from './screens/MainLayout';
@@ -35,59 +37,61 @@ const SettingsIcon = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Login"
-        screenOptions={{
-          animation: 'slide_from_right',
-          gestureEnabled: true,
-          headerStyle: {
-            backgroundColor: COLORS.navigation, // Background color for the navigation bar
-          },
-          headerTitleStyle: {
-            fontFamily: FONTS.regular, // Custom font for the navigation bar title
-            fontSize: FONT_SIZES.medium, // Font size
-            color: COLORS.textPrimary, // Font color
-          },
-        }}
-      >
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={
-            { title: getText('loginButton'), headerShown: false }
-          }
-        />
-        <Stack.Screen
-          name="Main"
-          component={MainLayout}
-          options={{
-            title: getText('mainLayoutTitle'),
-            headerRight: () => <SettingsIcon />,
+    <AlertProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{
+            animation: 'slide_from_right',
+            gestureEnabled: true,
+            headerStyle: {
+              backgroundColor: COLORS.navigation, // Background color for the navigation bar
+            },
+            headerTitleStyle: {
+              fontFamily: FONTS.regular, // Custom font for the navigation bar title
+              fontSize: FONT_SIZES.medium, // Font size
+              color: COLORS.textPrimary, // Font color
+            },
           }}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUpScreen}
-          options={{ title: getText('signUpScreenTitle') }}
-        />
-        <Stack.Screen
-          name="SelectRole"
-          component={RoleSelectionScreen}
-          options={{ title: getText('roleSelectionTitle') }}
-        />
-        <Stack.Screen
-          name="Installation"
-          component={InstallationScreen}
-          options={{ title: getText('installationTitle') }}
-        />
-        <Stack.Screen
-          name="Beneficiary"
-          component={BeneficiaryScreen}
-          options={{ title: getText('beneficiaryTitle') }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+        >
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={
+              { title: getText('loginButton'), headerShown: false }
+            }
+          />
+          <Stack.Screen
+            name="Main"
+            component={MainLayout}
+            options={{
+              title: getText('mainLayoutTitle'),
+              headerRight: () => <SettingsIcon />,
+            }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{ title: getText('signUpScreenTitle') }}
+          />
+          <Stack.Screen
+            name="SelectRole"
+            component={RoleSelectionScreen}
+            options={{ title: getText('roleSelectionTitle') }}
+          />
+          <Stack.Screen
+            name="Installation"
+            component={InstallationScreen}
+            options={{ title: getText('installationTitle') }}
+          />
+          <Stack.Screen
+            name="Beneficiary"
+            component={BeneficiaryScreen}
+            options={{ title: getText('beneficiaryTitle') }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AlertProvider >
   );
 };
 
