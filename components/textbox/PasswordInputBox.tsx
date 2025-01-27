@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   TextInput,
-  StyleSheet,
   Animated,
   TouchableOpacity,
+  TextInputProps,
 } from 'react-native';
 import { COLORS, FONT_SIZES, HEIGHT, FONTS } from '../../styles/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -37,13 +37,14 @@ const PasswordInputBox = ({
   onChangeText,
   borderColor = COLORS.accent,
   placeholderColor = COLORS.textSecondary,
+  ...rest
 }: {
   placeholder: string;
   value: string;
   onChangeText: (text: string) => void;
   borderColor?: string;
   placeholderColor?: string;
-}) => {
+} & TextInputProps) => {
   const [isFocused, setIsFocused] = useState(false); // Tracks if the input is focused
   const [isPasswordVisible, setIsPasswordVisible] = useState(false); // Toggles password visibility
   const animatedLabel = useRef(new Animated.Value(value ? 1 : 0)).current; // Controls label animation

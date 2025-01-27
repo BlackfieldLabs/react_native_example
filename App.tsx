@@ -19,6 +19,7 @@ import SignUpScreen from './screens/SignUpScreen';
 import RoleSelectionScreen from './screens/RoleSelectionScreen';
 import InstallationScreen from './screens/InstallationScreen';
 import BeneficiaryScreen from './screens/BeneficiaryScreen';
+import CameraComponent from './screens/CameraComponent';
 
 const Stack = createNativeStackNavigator();
 
@@ -88,6 +89,11 @@ const App = () => {
             name="Beneficiary"
             component={BeneficiaryScreen}
             options={{ title: getText('beneficiaryTitle') }}
+          />
+          <Stack.Screen
+            name="Camera"
+            component={CameraComponent}
+            options={{ title: getText('mobileCameraViewTitle') }}
           />
         </Stack.Navigator>
       </NavigationContainer>

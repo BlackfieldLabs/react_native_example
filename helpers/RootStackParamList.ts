@@ -10,6 +10,7 @@ export type RootStackParamList = {
   SelectRole: undefined;
   Installation: undefined;
   Beneficiary: { devices: Device[]};
+  Camera: undefined;
 };
 
 // Type for `useNavigation`

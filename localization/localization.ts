@@ -20,7 +20,7 @@ const en = {
   emailPlaceholder: 'Email',
   telephonePlaceholder: 'Telephone number',
   cityPlaceholder: 'City',
-  streetNumberPlaceholder: 'Street and number',
+  streetAndNumberPlaceholder: 'Street and number',
   statePlaceholder: 'State',
   zipCodePlaceholder: 'Zip code',
   createUserButton: 'Create User',
@@ -72,6 +72,12 @@ const en = {
   messageWrongCredentials: 'Incorrect username or password. Please try again.',
   messageLogin: 'Signing in progress, please wait...',
   messageEmptyLogin: 'You need to enter username and password before you continue.',
+  scanQRCodeTitle: "Scan QR Code on a device",
+  scanQRCodeSubtitle: "Your device will be added to the device list",
+  takePictureTitle: "Take a picture of the beneficiary",
+  takePictureSubtitle: "A person that receives help",
+  mobileCameraViewTitle: "Mobile camera view",
+  takeAPictureTitle: "Take a picture",
 };
 
 const hr = {

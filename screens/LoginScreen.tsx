@@ -123,12 +123,14 @@ const LoginScreen = () => {
                         placeholder={getText('usernamePlaceholder')}
                         value={username}
                         onChangeText={setUsername}
+                        autoCapitalize="none"
                     />
                     {/* Password Input */}
                     <PasswordInputBox
                         placeholder={getText('passwordPlaceholder')}
                         value={password}
                         onChangeText={setPassword}
+                        autoCapitalize="none"
                     //secureTextEntry
                     />
                     {/* Sign In Button */}

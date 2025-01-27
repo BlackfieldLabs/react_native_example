@@ -339,6 +339,15 @@ const sharedStyles = StyleSheet.create({
         fontFamily: FONTS.bold,
         color: COLORS.textPrimary,
     },
+    //CameraView
+    rowContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: COLORS.background,
+        borderWidth: HEIGHT.border,
+        borderColor: COLORS.border,
+        padding: SPACING.medium,
+    },
 });
 
 export default sharedStyles;
