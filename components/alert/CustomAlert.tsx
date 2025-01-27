@@ -4,10 +4,12 @@ import {
     View,
     Text,
     TouchableOpacity,
-    ActivityIndicator,
 } from 'react-native';
+//Styles
 import sharedStyles from '../../styles/sharedStyles';
+//Localization
 import { getText } from '../../localization/localization';
+//Helpers
 import { AlertType } from './AlertTypes';
 
 type CustomAlertProps = {
@@ -40,7 +42,7 @@ type CustomAlertProps = {
               style={[sharedStyles.button, sharedStyles.primaryButton]}
               onPress={() => {
                 console.log(`[${new Date().toLocaleString()}] CustomAlert - OK button clicked`);
-                onConfirm?.(); // Trigger the onConfirm callback
+                onConfirm?.();
             }}
             >
               <Text style={sharedStyles.buttonText}>{getText('okButtonTitle')}</Text>
@@ -63,7 +65,7 @@ type CustomAlertProps = {
                     style={[sharedStyles.button, sharedStyles.primaryButton]}
                     onPress={() => {
                         console.log(`[${new Date().toLocaleString()}] CustomAlert - OK button clicked`);
-                        onConfirm?.(); // Trigger the onConfirm callback
+                        onConfirm?.();
                     }}
                 >
                     <Text style={sharedStyles.buttonText}>{getText('okButtonTitle')}</Text>
@@ -71,8 +73,8 @@ type CustomAlertProps = {
             </View>
         );
       }
-  
-      return null; // No buttons if neither `onClose` nor `onConfirm` is defined
+      //No buttons if neither `onClose` nor `onConfirm` is defined
+      return null; 
     };
   
     return (

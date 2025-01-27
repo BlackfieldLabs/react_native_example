@@ -71,48 +71,49 @@ const en = {
   messageLogOut: 'Are you sure you want to Sign Out?',
   messageWrongCredentials: 'Incorrect username or password. Please try again.',
   messageLogin: 'Signing in progress, please wait...',
+  messageEmptyLogin: 'You need to enter username and password before you continue.',
 };
 
-  const hr = {
-    usernamePlaceholder: 'Unesite korisničko ime',
-    passwordPlaceholder: 'Unesite lozinku',
-    loginButton: 'Prijava',
-    signUpButton: 'Registracija',
-    appTitle: 'WellNuo',
-    appSubtitle: 'Da znate da su dobro',
-    microphonePermissionTitle: 'Dozvola za mikrofon',
-    microphonePermissionMessage: 'Ova aplikacija zahtijeva pristup mikrofonu za prepoznavanje govora.',
-    microphonePermissionButton: 'U redu',
-    toggleSpeechRecognition: 'Kliknite za govor',
-    signUpScreenTitle: 'Registracija',
-    mainLayoutTitle: 'Nadzorna ploča',
-  };
+const hr = {
+  usernamePlaceholder: 'Unesite korisničko ime',
+  passwordPlaceholder: 'Unesite lozinku',
+  loginButton: 'Prijava',
+  signUpButton: 'Registracija',
+  appTitle: 'WellNuo',
+  appSubtitle: 'Da znate da su dobro',
+  microphonePermissionTitle: 'Dozvola za mikrofon',
+  microphonePermissionMessage: 'Ova aplikacija zahtijeva pristup mikrofonu za prepoznavanje govora.',
+  microphonePermissionButton: 'U redu',
+  toggleSpeechRecognition: 'Kliknite za govor',
+  signUpScreenTitle: 'Registracija',
+  mainLayoutTitle: 'Nadzorna ploča',
+};
 
-  // Type for the keys in the language objects
-  type LanguageKeys = keyof typeof en;
+// Type for the keys in the language objects
+type LanguageKeys = keyof typeof en;
 
-  // Export default language and utilities
-  const LANGUAGES = { en };
-  let currentLanguage: keyof typeof LANGUAGES = 'en';
+// Export default language and utilities
+const LANGUAGES = { en };
+let currentLanguage: keyof typeof LANGUAGES = 'en';
 
-  /**
-   * Get text for the current language by key.
-   * @param {LanguageKeys} key - The key for the text string.
-   * @returns {string} - The localized string or the key if not found.
-   */
-  export const getText = (key: LanguageKeys): string => {
-    const text = LANGUAGES[currentLanguage][key];
-    return text || key;
-  };
+/**
+ * Get text for the current language by key.
+ * @param {LanguageKeys} key - The key for the text string.
+ * @returns {string} - The localized string or the key if not found.
+ */
+export const getText = (key: LanguageKeys): string => {
+  const text = LANGUAGES[currentLanguage][key];
+  return text || key;
+};
 
-  /**
-   * Set the current language.
-   * @param {keyof typeof LANGUAGES} lang - The language code to set (e.g., 'en', 'hr').
-   */
-  export const setLanguage = (lang: keyof typeof LANGUAGES): void => {
-    if (LANGUAGES[lang]) {
-      currentLanguage = lang;
-    }
-  };
+/**
+ * Set the current language.
+ * @param {keyof typeof LANGUAGES} lang - The language code to set (e.g., 'en', 'hr').
+ */
+export const setLanguage = (lang: keyof typeof LANGUAGES): void => {
+  if (LANGUAGES[lang]) {
+    currentLanguage = lang;
+  }
+};
 
-  export default LANGUAGES;
+export default LANGUAGES;

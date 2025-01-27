@@ -101,7 +101,7 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
         visible={alertVisible}
         onClose={alertOptions?.onCancel}
         onConfirm={alertOptions?.onConfirm}
-        hideCancelButton={alertOptions?.hideCancelButton} // Pass the hideCancelButton prop
+        hideCancelButton={alertOptions?.hideCancelButton}
       />
     </AlertContext.Provider>
   );
