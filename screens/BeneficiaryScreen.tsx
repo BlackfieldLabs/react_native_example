@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, SafeAreaView, ScrollView, View, Text, FlatList } from "react-native";
+import { StyleSheet, SafeAreaView, ScrollView, View, Text, TouchableOpacity, Image } from "react-native";
 import { Device } from "../helpers/Device";
 //Navigation
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -13,10 +13,13 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 //Components
 import AccentButton from "../components/button/AccentButton";
 import TextInputBox from "../components/textbox/TextInputBox";
+import { CameraMode } from "./CameraComponent";
 
 type BeneficiaryScreenRouteProp = RoutePropType<'Beneficiary'>;
 
 const BeneficiaryScreen = () => {
+    const [capturedPhotoUri, setCapturedPhotoUri] = useState<string | null>(null);
+
     const route = useRoute<BeneficiaryScreenRouteProp>();
     const { devices } = route.params;
     const navigation = useNavigation<NavigationProp>();
@@ -28,6 +31,13 @@ const BeneficiaryScreen = () => {
     const [pronounsValue, setPronounsValue] = React.useState<string>("");
     const [yearValue, setYearValue] = React.useState<string>("");
     const [petsCount, setPetsCount] = React.useState<string>("");
+
+    const takeAnotherPhotoPressed = () => {
+        navigation.navigate("Camera", {
+            mode: CameraMode.PHOTO,
+            onPhotoTaken: (uri) => setCapturedPhotoUri(uri),
+        });
+    }
 
     return (
         <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
@@ -75,11 +85,27 @@ const BeneficiaryScreen = () => {
                     />
                 </View>
                 <Text style={[styles.spacings, sharedStyles.titleStyle]}>{getText('titleChangeBeneficiaryPhoto')}</Text>
-                <View style={[sharedStyles.sectionMiddle, sharedStyles.center, styles.cornerRadiusLarge]}>
-                    <MaterialIcons name="add-photo-alternate" size={HEIGHT.image} color={COLORS.textSecondary} />
-                    <Text style={[sharedStyles.cardTitle]}>{getText('takePhotoTitle')}</Text>
-                    <Text style={[sharedStyles.subtitleStyle, styles.secondaryTextColor]}>{getText('takePhotoSubtitle')}</Text>
-                </View>
+                <TouchableOpacity
+                    onPress={() => takeAnotherPhotoPressed()}
+                    activeOpacity={0.7} // Adjust opacity effect on click
+                >
+                    <View style={[sharedStyles.sectionMiddle, sharedStyles.center, styles.cornerRadiusLarge]}>
+                        <MaterialIcons name="add-photo-alternate" size={HEIGHT.image} color={COLORS.textSecondary} />
+                        <Text style={[sharedStyles.cardTitle]}>{getText('takePhotoTitle')}</Text>
+                        <Text style={[sharedStyles.subtitleStyle, styles.secondaryTextColor]}>{getText('takePhotoSubtitle')}</Text>
+                    </View>
+                </TouchableOpacity>
+
+                {/* Show the Captured Photo if Available */}
+                {capturedPhotoUri && (
+                    <View style={styles.photoContainer}>
+                        <Image source={{ uri: capturedPhotoUri }} style={styles.capturedImage} />
+                        <Text style={[sharedStyles.cardTitle, styles.photoText]}>
+                            {getText('photoCapturedText')}
+                        </Text>
+                    </View>
+                )}
+
                 <Text style={[styles.spacings, sharedStyles.titleStyle]}>{getText('titleListOfDevicesInDeployment')}</Text>
                 <View>
                     {devices.map((device, index) => (
@@ -123,6 +149,20 @@ const styles = StyleSheet.create({
         borderRadius: BORDERS.radiusLarge,
         height: HEIGHT.button,
         backgroundColor: COLORS.border,
+    },
+    photoContainer: {
+        alignItems: 'center',
+        marginTop: SPACING.medium,
+    },
+    capturedImage: {
+        width: 150,
+        height: 150,
+        borderRadius: 10,
+        marginTop: 10,
+    },
+    photoText: {
+        marginTop: 5,
+        color: COLORS.textPrimary,
     },
 });
 

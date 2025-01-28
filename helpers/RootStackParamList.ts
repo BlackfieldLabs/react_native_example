@@ -1,6 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Device } from '../helpers/Device';
+import { CameraMode } from '../screens/CameraComponent';
 
 // Define your ParamList
 export type RootStackParamList = {
@@ -10,7 +11,10 @@ export type RootStackParamList = {
   SelectRole: undefined;
   Installation: undefined;
   Beneficiary: { devices: Device[]};
-  Camera: undefined;
+  Camera: {
+    mode: CameraMode;
+    onPhotoTaken?: (uri: string) => void;
+  };
 };
 
 // Type for `useNavigation`

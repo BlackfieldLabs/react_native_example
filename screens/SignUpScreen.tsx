@@ -18,6 +18,7 @@ import SecondaryButton from '../components/button/SecondaryButton';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
+import { CameraMode } from './CameraComponent';
 
 const SignUpScreen = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -55,7 +56,7 @@ const SignUpScreen = () => {
 
   const handleCameraButton = () => {
     console.log(`[${new Date().toLocaleString()}] Camera button pressed`);
-    navigation.navigate('Camera');
+    navigation.navigate('Camera', {mode: CameraMode.PHOTO});
   };
 
   return (

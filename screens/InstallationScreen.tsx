@@ -12,6 +12,7 @@ import { Device } from '../helpers/Device';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
+import { CameraMode } from './CameraComponent';
 //Localization
 import { getText } from '../localization/localization';
 //Style
@@ -38,12 +39,15 @@ const InstallationScreen = () => {
   };
 
   const handlePress = (title: string) => {
-    console.log(`${title} button pressed`);
+    console.log(`[${new Date().toLocaleString()}]${title} button pressed`);
+    if (title === getText('cameraButton')) {
+      navigation.navigate('Camera', { mode: CameraMode.QR });
+    }
   };
 
   const nextButtonPressed = () => {
     console.log(`[${new Date().toLocaleString()}] Next button pressed.`);
-    navigation.navigate('Beneficiary', {devices});
+    navigation.navigate('Beneficiary', { devices });
   };
 
   return (
@@ -65,8 +69,8 @@ const InstallationScreen = () => {
         {/* Section 2 */}
         <View style={sharedStyles.sectionMiddle}>
           <View style={styles.listHeader}>
-            <Text style={[styles.statusText, styles.columnTitle ]}>{getText('deployColumn')}</Text>
-            <Text style={[styles.statusText, styles.columnTitle ]}>{getText('rssiColumn')}</Text>
+            <Text style={[styles.statusText, styles.columnTitle]}>{getText('deployColumn')}</Text>
+            <Text style={[styles.statusText, styles.columnTitle]}>{getText('rssiColumn')}</Text>
             <Text style={[styles.columnBig]}></Text>
           </View>
           {devices.map((device, index) => (

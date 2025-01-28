@@ -20,8 +20,9 @@ import RoleSelectionScreen from './screens/RoleSelectionScreen';
 import InstallationScreen from './screens/InstallationScreen';
 import BeneficiaryScreen from './screens/BeneficiaryScreen';
 import CameraComponent from './screens/CameraComponent';
+import { RootStackParamList } from './helpers/RootStackParamList';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const SettingsIcon = () => {
   const navigation = useNavigation(); // Access navigation using the hook
