@@ -28,7 +28,7 @@ const CameraComponent = () => {
           console.log("Photo taken: ", data.uri);
         }*/
     };
-    
+
     return (
         <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
             {/* Camera View */}
