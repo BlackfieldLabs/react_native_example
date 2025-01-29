@@ -90,22 +90,19 @@ const BeneficiaryScreen = () => {
                     activeOpacity={0.7} // Adjust opacity effect on click
                 >
                     <View style={[sharedStyles.sectionMiddle, sharedStyles.center, styles.cornerRadiusLarge]}>
-                        <MaterialIcons name="add-photo-alternate" size={HEIGHT.image} color={COLORS.textSecondary} />
+                        {/* Show the Captured Photo if Available */}
+                        {capturedPhotoUri && (
+                            <View style={styles.photoContainer}>
+                                <Image source={{ uri: capturedPhotoUri }} style={styles.capturedImage} />
+                            </View>
+                        )}
+                        {!capturedPhotoUri && (
+                            <MaterialIcons name="add-photo-alternate" size={HEIGHT.image} color={COLORS.textSecondary} />
+                        )}
                         <Text style={[sharedStyles.cardTitle]}>{getText('takePhotoTitle')}</Text>
                         <Text style={[sharedStyles.subtitleStyle, styles.secondaryTextColor]}>{getText('takePhotoSubtitle')}</Text>
                     </View>
                 </TouchableOpacity>
-
-                {/* Show the Captured Photo if Available */}
-                {capturedPhotoUri && (
-                    <View style={styles.photoContainer}>
-                        <Image source={{ uri: capturedPhotoUri }} style={styles.capturedImage} />
-                        <Text style={[sharedStyles.cardTitle, styles.photoText]}>
-                            {getText('photoCapturedText')}
-                        </Text>
-                    </View>
-                )}
-
                 <Text style={[styles.spacings, sharedStyles.titleStyle]}>{getText('titleListOfDevicesInDeployment')}</Text>
                 <View>
                     {devices.map((device, index) => (

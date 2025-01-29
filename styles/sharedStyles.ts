@@ -271,7 +271,7 @@ const sharedStyles = StyleSheet.create({
         paddingLeft: SPACING.small,
     },
     roleSelectionCardSubtitle: {
-        width: '50%',
+        width: '100%',
         fontSize: FONT_SIZES.medium,
         fontFamily: FONTS.regular,
         color: COLORS.textSecondary,
@@ -341,12 +341,12 @@ const sharedStyles = StyleSheet.create({
     },
     //CameraView
     rowContainer: {
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: COLORS.background,
-        borderWidth: HEIGHT.border,
-        borderColor: COLORS.border,
-        padding: SPACING.medium,
+        paddingLeft: SPACING.medium,
+        height: HEIGHT.button,
     },
 });
 

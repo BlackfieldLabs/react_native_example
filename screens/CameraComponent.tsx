@@ -118,23 +118,21 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                     </View>
                 )}
             </View>
-            <View style={styles.infoContainer}>
-                <View style={sharedStyles.rowContainer}>
-                    <View style={sharedStyles.roleSelectionCardIconBackground}>
-                        <MaterialIcons
-                            name={mode === CameraMode.QR ? "qr-code-scanner" : "account-box"}
-                            size={HEIGHT.image}
-                            color={COLORS.textSecondary}
-                        />
-                    </View>
-                    <View style={styles.textContainer}>
-                        <Text style={sharedStyles.cardTitle}>
-                            {mode === CameraMode.QR ? getText("scanQRCodeTitle") : getText("takePictureTitle")}
-                        </Text>
-                        <Text style={sharedStyles.roleSelectionCardSubtitle}>
-                            {mode === CameraMode.QR ? getText("scanQRCodeSubtitle") : getText("takePictureSubtitle")}
-                        </Text>
-                    </View>
+            <View style={sharedStyles.rowContainer}>
+                <View style={sharedStyles.roleSelectionCardIconBackground}>
+                    <MaterialIcons
+                        name={mode === CameraMode.QR ? "qr-code-scanner" : "account-box"}
+                        size={HEIGHT.image}
+                        color={COLORS.textSecondary}
+                    />
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={sharedStyles.cardTitle}>
+                        {mode === CameraMode.QR ? getText("scanQRCodeTitle") : getText("takePictureTitle")}
+                    </Text>
+                    <Text style={sharedStyles.roleSelectionCardSubtitle}>
+                        {mode === CameraMode.QR ? getText("scanQRCodeSubtitle") : getText("takePictureSubtitle")}
+                    </Text>
                 </View>
             </View>
         </SafeAreaView>
@@ -145,20 +143,14 @@ export default CameraComponent;
 
 const styles = StyleSheet.create({
     cameraContainer: {
-        flex: 6,
+        flex: 7,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: COLORS.background,
-        paddingLeft: SPACING.large,
-        paddingRight: SPACING.large,
-        paddingTop: SPACING.large,
     },
     cameraView: {
         width: "100%",
         height: "100%",
-    },
-    infoContainer: {
-        flex: 1,
     },
     textContainer: {
         flex: 1,
