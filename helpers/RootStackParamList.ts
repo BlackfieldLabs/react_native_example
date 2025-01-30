@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Device } from '../helpers/Device';
+import { Device as BleDevice } from 'react-native-ble-plx';
 import { CameraMode } from '../screens/CameraComponent';
 
 // Define your ParamList
@@ -10,7 +10,7 @@ export type RootStackParamList = {
   Main: undefined;//{ token: string }; // `Main` expects a `token` parameter
   SelectRole: undefined;
   Installation: undefined;
-  Beneficiary: { devices: Device[]};
+  Beneficiary: { scannedDevices: BleDevice[]};
   Camera: {
     mode: CameraMode;
     onPhotoTaken?: (uri: string) => void;

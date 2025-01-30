@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, ScrollView, View, Text, TouchableOpacity, Image } from "react-native";
-import { Device } from "../helpers/Device";
 //Navigation
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NavigationProp, RoutePropType } from '../helpers/RootStackParamList';
@@ -14,6 +13,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AccentButton from "../components/button/AccentButton";
 import TextInputBox from "../components/textbox/TextInputBox";
 import { CameraMode } from "./CameraComponent";
+//BLE
+import { Device as BleDevice } from 'react-native-ble-plx';
 
 type BeneficiaryScreenRouteProp = RoutePropType<'Beneficiary'>;
 
@@ -21,7 +22,7 @@ const BeneficiaryScreen = () => {
     const [capturedPhotoUri, setCapturedPhotoUri] = useState<string | null>(null);
 
     const route = useRoute<BeneficiaryScreenRouteProp>();
-    const { devices } = route.params;
+    const { scannedDevices } = route.params;
     const navigation = useNavigation<NavigationProp>();
 
     const [nameValue, setNameValue] = React.useState<string>("");
@@ -105,9 +106,9 @@ const BeneficiaryScreen = () => {
                 </TouchableOpacity>
                 <Text style={[styles.spacings, sharedStyles.titleStyle]}>{getText('titleListOfDevicesInDeployment')}</Text>
                 <View>
-                    {devices.map((device, index) => (
+                    {scannedDevices.map((device, index) => (
                         <View key={index} style={[styles.button]}>
-                            <Text style={sharedStyles.buttonTextPrimary}>{device.deviceName}</Text>
+                            <Text style={sharedStyles.buttonTextPrimary}>{device.name}</Text>
                         </View>
                     ))}
                 </View>

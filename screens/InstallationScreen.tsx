@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,8 +7,9 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
-import { Device } from '../helpers/Device';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
@@ -19,35 +20,100 @@ import { getText } from '../localization/localization';
 import { BORDERS, COLORS, FONT_SIZES, FONTS, HEIGHT, SPACING } from '../styles/theme';
 import sharedStyles from '../styles/sharedStyles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+//BLE
+import { BleManager, Device as BleDevice } from 'react-native-ble-plx';
+
+const manager = new BleManager();
 
 const InstallationScreen = () => {
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const navigation = useNavigation<NavigationProp>();
-
-  const devices: Device[] = [
-    new Device(1, -60, "Sijalica", "192.168.1.1"),
-    new Device(11, -78, "Plug", "192.168.1.2"),
-    new Device(111, -79, "Zvucnik", "192.168.1.3"),
-    new Device(1111, -82, "Kamera", "192.168.1.4"),
-    new Device(11111, -165, "Senzor", "192.168.1.5"),
-    new Device(111111, -190, "Door/window senzor", "192.168.1.6"),
-    new Device(2, -195, "Door/window senzor 2", "192.168.1.7"),
-  ];
+  const [scannedDevices, setScannedDevices] = useState<BleDevice[]>([]);
+  const [scanning, setScanning] = useState(false);
 
   const handleRowPress = (index: number) => {
     setSelectedRow(index === selectedRow ? null : index);
   };
 
   const handlePress = (title: string) => {
-    console.log(`[${new Date().toLocaleString()}]${title} button pressed`);
+    console.log(`[${new Date().toLocaleString()}] ${title} Button pressed`);
     if (title === getText('cameraButton')) {
       navigation.navigate('Camera', { mode: CameraMode.QR });
     }
+    if (title === getText('scanButton')) {
+      toggleScan();
+    }
   };
+
+  const toggleScan = () => {
+    if (scanning) {
+      stopScan();
+    } else {
+      startScan();
+    }
+  };
+
+  const startScan = async () => {
+    const hasPermissions = await requestBluetoothPermissions();
+    if (!hasPermissions) {
+      console.error(`[${new Date().toLocaleString()}] Bluetooth permissions not granted`);
+      return;
+    }
+
+    setScanning(true);
+    setScannedDevices([]);
+    manager.startDeviceScan(null, null, (error, device) => {
+      if (error) {
+        console.error(`[${new Date().toLocaleString()}] BLE Scan Error:`, error);
+        stopScan();
+        return;
+      }
+      if (device && device.name) {
+        setScannedDevices((prevDevices) => {
+          const exists = prevDevices.some((d) => d.id === device.id);
+          return exists ? prevDevices : [...prevDevices, device];
+        });
+      }
+    });
+  };
+
+  const stopScan = () => {
+    setScanning(false);
+    manager.stopDeviceScan();
+    console.log(`[${new Date().toLocaleString()}] Scanning stopped.`);
+  };
+
+  const requestBluetoothPermissions = async () => {
+    if (Platform.OS === 'android') {
+      if (Platform.Version >= 31) {
+        const result = await PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN,
+          PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
+        ]);
+
+        return (
+          result[PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN] === PermissionsAndroid.RESULTS.GRANTED &&
+          result[PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT] === PermissionsAndroid.RESULTS.GRANTED
+        );
+      } else {
+        const result = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
+        return result === PermissionsAndroid.RESULTS.GRANTED;
+      }
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    return () => {
+      stopScan();
+    };
+  }, []);
 
   const nextButtonPressed = () => {
     console.log(`[${new Date().toLocaleString()}] Next button pressed.`);
-    navigation.navigate('Beneficiary', { devices });
+    navigation.navigate('Beneficiary', { scannedDevices });
   };
 
   return (
@@ -73,7 +139,7 @@ const InstallationScreen = () => {
             <Text style={[styles.statusText, styles.columnTitle]}>{getText('rssiColumn')}</Text>
             <Text style={[styles.columnBig]}></Text>
           </View>
-          {devices.map((device, index) => (
+          {scannedDevices.map((device, index) => (
             <TouchableOpacity
               key={device.id}
               style={[
@@ -90,7 +156,7 @@ const InstallationScreen = () => {
                 />
               </View>
               <Text style={[styles.listItem, styles.columnSmall]}>{device.rssi}</Text>
-              <Text style={[styles.listItem, styles.columnBig]}>{device.deviceName}</Text>
+              <Text style={[styles.listItem, styles.columnBig]}>{device.name}</Text>
             </TouchableOpacity>
           ))}
         </View>
