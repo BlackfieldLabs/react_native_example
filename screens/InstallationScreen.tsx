@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -25,10 +25,26 @@ import { BleManager, Device as BleDevice } from 'react-native-ble-plx';
 //Alert
 import { useAlert } from '../components/alert/CustomAlertManager';
 import { AlertType } from '../components/alert/AlertTypes'
+//Popover
+import Popover from 'react-native-popover-view';
 
 const manager = new BleManager();
 
 const InstallationScreen = () => {
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [popoverVisible, setPopoverVisible] = useState(false);
+  const buttonRef = useRef<React.ElementRef<typeof TouchableOpacity> | null>(null);
+  const colors = [
+    { label: 'Red', value: 'red' },
+    { label: 'Blue', value: 'blue' },
+    { label: 'Purple', value: 'purple' },
+  ];
+
+  const handleColorSelect = (color: string) => {
+    setSelectedColor(color);
+    setPopoverVisible(false);
+  };
+
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const navigation = useNavigation<NavigationProp>();
   const [scannedDevices, setScannedDevices] = useState<BleDevice[]>([]);
@@ -47,6 +63,12 @@ const InstallationScreen = () => {
     if (title === getText('scanButton')) {
       toggleScan();
     }
+    if (title === getText('colorButton')) {
+      console.log(`[${new Date().toLocaleString()}] ${title} Button pressed`);
+      if (title === getText('colorButton')) {
+        setPopoverVisible(true);
+      }
+    };
   };
 
   const toggleScan = () => {
@@ -71,7 +93,7 @@ const InstallationScreen = () => {
     setScannedDevices([]);
     manager.startDeviceScan(null, null, (error, device) => {
       if (error) {
-        const message =  getText('bluetoothScanErrorMessage') + error;
+        const message = getText('bluetoothScanErrorMessage') + error;
         createSingleButtonAlert(AlertType.Error, message, () => {
           console.log(`[${new Date().toLocaleString()}] `, message);
         });
@@ -213,16 +235,57 @@ const InstallationScreen = () => {
             />
           </View>
           <View style={styles.row}>
-            {[getText('credentialsButton'), getText('colorButton')].map((title) => (
-              <TouchableOpacity
-                key={title}
-                style={[[styles.button, styles.secondaryButton, styles.halfWidthButton]]}
-                onPress={() => handlePress(title)}
-              >
-                <MaterialIcons name={(title === getText('credentialsButton') ? 'lock' : 'palette')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
-                <Text style={sharedStyles.buttonTextPrimary}>{title}</Text>
-              </TouchableOpacity>
-            ))}
+            <TouchableOpacity
+              key={getText('credentialsButton')}
+              style={[[styles.button, styles.secondaryButton, styles.halfWidthButton]]}
+              onPress={() => handlePress(getText('credentialsButton'))}
+            >
+              <MaterialIcons name={'lock'} size={HEIGHT.smallImage} color="white" style={styles.icon} />
+              <Text style={sharedStyles.buttonTextPrimary}>{getText('credentialsButton')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              ref={buttonRef}
+              key={getText('colorButton')}
+              style={[styles.colorButton, styles.secondaryButton,styles.halfWidthButton]}
+              onPress={() => handlePress(getText('colorButton'))}
+            >
+              <MaterialIcons name="palette" size={HEIGHT.smallImage} color="white" style={styles.icon} />
+              <Text style={sharedStyles.buttonTextPrimary}>{getText('colorButton')}</Text>
+
+              {/* Selected Color Indicator (Inside Button) */}
+              {selectedColor && (
+                <View style={[styles.colorIndicator, { backgroundColor: selectedColor }]} />
+              )}
+            </TouchableOpacity>
+            {/* Popover for Color Selection */}
+            <Popover
+              isVisible={popoverVisible}
+              from={buttonRef}
+              onRequestClose={() => setPopoverVisible(false)}
+              popoverStyle={styles.roundedPopover}
+              backgroundStyle={{ backgroundColor: COLORS.overlay }}
+            >
+              <View style={styles.popoverContainer}>
+                {/* Title */}
+                <Text style={sharedStyles.titleStyle}>Pick a color</Text>
+
+                {/* Color Options with Dividers */}
+                {colors.map((color, index) => (
+                  <View key={color.value}>
+                    <TouchableOpacity
+                      style={styles.popoverItem}
+                      onPress={() => handleColorSelect(color.value)}
+                    >
+                      <Text style={[sharedStyles.buttonText, { color: COLORS.textPrimary }]}>{color.label}</Text>
+                      <View style={[styles.colorPreview, { backgroundColor: color.value }]} />
+                    </TouchableOpacity>
+
+                    {/* Divider except for the last item */}
+                    {index < colors.length - 1 && <View style={styles.divider} />}
+                  </View>
+                ))}
+              </View>
+            </Popover>
           </View>
         </View>
 
@@ -382,6 +445,55 @@ const styles = StyleSheet.create({
     marginHorizontal: SPACING.extraSmall,
     borderRadius: BORDERS.radiusLarge,
     textDecorationColor: COLORS.secondary,
+  },
+  colorIndicator: {
+    width: HEIGHT.smallImage,
+    height: HEIGHT.smallImage,
+    borderRadius: BORDERS.radiusLarge,
+    marginLeft: SPACING.small,
+    borderWidth: HEIGHT.border,
+    borderColor: COLORS.textPrimary,
+  },
+  colorButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: SPACING.small,
+    borderRadius: BORDERS.radiusLarge,
+    height: HEIGHT.button,
+    backgroundColor: COLORS.border,
+    justifyContent: 'space-between',
+    paddingHorizontal: SPACING.medium,
+  },
+  roundedPopover: {
+    borderRadius: BORDERS.radiusLarge,
+    overflow: 'hidden',
+    backgroundColor: COLORS.background,
+  },
+  popoverContainer: {
+    width: '100%',
+    padding: SPACING.small,
+    backgroundColor: COLORS.background,
+    borderRadius: BORDERS.radiusLarge,
+  },
+  popoverItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: SPACING.small,
+    paddingHorizontal: SPACING.medium,
+  },
+  colorPreview: {
+    width: HEIGHT.smallImage,
+    height: HEIGHT.smallImage,
+    borderRadius: BORDERS.radiusLarge,
+    marginRight: SPACING.small,
+    borderWidth: HEIGHT.border,
+    borderColor: COLORS.textPrimary,
+    marginLeft: SPACING.small,
+  },
+  divider: {
+    height: HEIGHT.border,
+    backgroundColor: COLORS.border,
+    marginVertical: SPACING.extraSmall,
   },
 });
 
