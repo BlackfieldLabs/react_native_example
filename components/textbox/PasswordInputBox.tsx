@@ -45,9 +45,9 @@ const PasswordInputBox = ({
   borderColor?: string;
   placeholderColor?: string;
 } & TextInputProps) => {
-  const [isFocused, setIsFocused] = useState(false); // Tracks if the input is focused
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false); // Toggles password visibility
-  const animatedLabel = useRef(new Animated.Value(value ? 1 : 0)).current; // Controls label animation
+  const [isFocused, setIsFocused] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const animatedLabel = useRef(new Animated.Value(value ? 1 : 0)).current;
 
   useEffect(() => {
     Animated.timing(animatedLabel, {

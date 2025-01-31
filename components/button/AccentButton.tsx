@@ -3,18 +3,19 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import sharedStyles from '../../styles/sharedStyles';
 
 /**
- * A reusable button component with accent styling.
+ * A reusable accent button component with predefined styling.
+ * Typically used for primary actions that require emphasis.
  *
  * @component
- * @param {object} props - The component props.
+ * @param {Object} props - The component props.
  * @param {string} props.title - The text to display on the button.
- * @param {() => void} props.onAccentButtonPress - Callback function to execute when the button is pressed.
- * @returns {JSX.Element} The styled accent button.
+ * @param {() => void} props.onAccentButtonPress - Callback function executed when the button is pressed.
+ * @returns {JSX.Element} A touchable accent button with a label.
  *
  * @example
  * <AccentButton
  *   title="Submit"
- *   onAccentButtonPress={() => console.log(`[${new Date().toLocaleString()}] Button Pressed')}
+ *   onAccentButtonPress={() => console.log(`[${new Date().toLocaleString()}] Accent button pressed`)}
  * />
  */
 const AccentButton = ({ title, onAccentButtonPress }: { title: string; onAccentButtonPress: () => void }) => {

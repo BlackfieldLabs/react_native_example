@@ -17,11 +17,13 @@ import Voice, {
     SpeechEndEvent,
 } from '@react-native-voice/voice';
 //Styles
-import sharedStyles from '../styles/sharedStyles';
+import { COLORS, FONT_SIZES, SPACING, BORDERS, FONTS } from '../styles/theme';
 //Localization
 import { getText } from '../localization/localization';
+//Alert
+import { useAlert } from '../components/alert/CustomAlertManager';
+import { AlertType } from '../components/alert/AlertTypes'
 
-//TODO: Refactor this class
 interface Props {
     onResults: (results: string[]) => void;
     isListening: boolean;
@@ -32,6 +34,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
     const [isListening, setIsListening] = useState<boolean>(false);
     console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Is listening: `, isListening);
     const [results, setResults] = useState<string[]>([]);
+      const { createSingleButtonAlert } = useAlert();
 
     useImperativeHandle(ref, () => ({
         stopListening: async () => {
@@ -39,7 +42,10 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 await Voice.stop();
                 props.setIsListening(false);
             } catch (e) {
-                console.error(`[${new Date().toLocaleString()}] Error stopping listening: `, e);
+                const message = getText('messageErrorStoppingListenning') + e;
+                createSingleButtonAlert(AlertType.Error, message, () => {
+                    console.log(`[${new Date().toLocaleString()}] Error stopping listening: `, e);
+                });
             }
         },
         stopRecognizing: async () => {
@@ -47,7 +53,10 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 await Voice.destroy();
                 props.setIsListening(false);
             } catch (e) {
-                console.error(`[${new Date().toLocaleString()}] Error stopping recognition: `, e);
+                const message = getText('messageErrorStoppingRecognition') + e;
+                createSingleButtonAlert(AlertType.Error, message, () => {
+                    console.log(`[${new Date().toLocaleString()}] Error stopping recognition: `, e);
+                });
             }
         },
         toggleListening: async () => {
@@ -55,7 +64,6 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         },
     }));
 
-    // Handle actions on button click
     const toggleListening = async () => {
         console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - toggleListening`);
         if (isListening) {
@@ -78,7 +86,6 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         }
     };
 
-    // Request microphone permission (Android only)
     const requestMicrophonePermission = async (): Promise<boolean> => {
         if (Platform.OS === 'android') {
             console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Mic permission - Android!`);
@@ -87,7 +94,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 {
                     title: getText('microphonePermissionTitle'),
                     message: getText('microphonePermissionMessage'),
-                    buttonPositive: getText('microphonePermissionButton'),
+                    buttonPositive: getText('okButtonTitle'),
                 }
             );
             console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Permission granted - Android!`);
@@ -96,7 +103,6 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         return true;
     };
 
-    // Start listening
     const startRecognizing = async () => {
         const hasPermission = await requestMicrophonePermission();
         if (!hasPermission) {
@@ -111,7 +117,6 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         }
     };
 
-    // Stop listening
     const stopRecognizing = async () => {
         try {
             console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - stopRecognizing!`);
@@ -138,7 +143,6 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         }
     };
 
-    // Initialize voice listeners
     useEffect(() => {
         Voice.onSpeechResults = (e: SpeechResultsEvent) => {
             const speechResults = e.value || [];
@@ -169,7 +173,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
         };
 
         Voice.onSpeechVolumeChanged = (e: SpeechVolumeChangeEvent) => {
-            //console.log("SpeechRecognitionComponent - onSpeechVolumeChanged: ", e);
+            console.log("SpeechRecognitionComponent - onSpeechVolumeChanged: ", e);
         };
 
         return () => {
@@ -178,31 +182,80 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
     }, []);
 
     return (
-        <View style={sharedStyles.speechComponentBottomContainer}>
-            <View style={sharedStyles.speechComponentWhiteView}>
+        <View style={styles.speechComponentBottomContainer}>
+            <View style={styles.speechComponentWhiteView}>
                 <ImageBackground
-                    source={require('../assets/squiggly_line.png')} // Path to your image
-                    style={StyleSheet.absoluteFillObject} // Covers the entire whiteView
-                    imageStyle={{ borderRadius: 30 }} // Matches the whiteView's rounded corners
+                    source={require('../assets/squiggly_line.png')}
+                    style={StyleSheet.absoluteFillObject}
+                    imageStyle={{ borderRadius: BORDERS.radiusExtraLarge }}
                 />
-                <Text style={sharedStyles.speechComponentWhiteViewTitleText}>Julia</Text>
-                <Text style={sharedStyles.speechComponentWhiteViewSubtitleText}>
+                <Text style={styles.speechComponentWhiteViewTitleText}>Julia</Text>
+                <Text style={styles.speechComponentWhiteViewSubtitleText}>
                     {results.length > 0 ? results[0] : getText('toggleSpeechRecognition')}
                 </Text>
                 <TouchableOpacity
-                    style={sharedStyles.speechComponentRoundButton}
+                    style={styles.speechComponentRoundButton}
                     onPress={toggleListening}
                     accessibilityLabel="Toggle Speech Recognition">
                     <Image
                         source={isListening
-                            ? require('../assets/stop_siri_image.png') // Replace with a "Stop" image
-                            : require('../assets/start_siri_image.png')} // Replace with a "Start" image
-                        style={sharedStyles.speechComponentRoundButtonImage}
+                            ? require('../assets/stop_siri_image.png')
+                            : require('../assets/start_siri_image.png')}
+                        style={styles.speechComponentRoundButtonImage}
                     />
                 </TouchableOpacity>
             </View>
         </View>
     );
+});
+
+const styles = StyleSheet.create({
+    speechComponentBottomContainer: {
+        flex: 1, // 1/5 of the screen
+        backgroundColor: COLORS.navigation,
+        justifyContent: 'center', // Center content vertically
+        alignItems: 'center', // Center content horizontally
+    },
+    speechComponentWhiteView: {
+        backgroundColor: COLORS.background,
+        width: '95%', // 95% of the container's width
+        height: '80%', // 80% of the container's height
+        borderRadius: 30,
+        justifyContent: 'center', // Center content vertically
+        alignItems: 'flex-start', // Center content horizontally
+        paddingLeft: 20, // Adds padding from the left edge
+        overflow: 'hidden',
+    },
+    speechComponentWhiteViewTitleText: {
+        fontSize: FONT_SIZES.large,
+        fontFamily: FONTS.bold,
+        color: COLORS.textPrimary,
+        textAlign: 'left',
+        backgroundColor: COLORS.background,
+    },
+    speechComponentWhiteViewSubtitleText: {
+        fontSize: 18,
+        fontFamily: FONTS.regular,
+        color: COLORS.textSecondary,
+        textAlign: 'left',
+        backgroundColor: COLORS.background,
+        maxWidth: '60%', // Ensure text stays within white view
+        flexWrap: 'wrap', // Allow text to wrap if it's too long
+    },
+    speechComponentRoundButton: {
+        height: '75%', // 75% of the container's height
+        aspectRatio: 1, // Ensures width equals height
+        position: 'absolute',
+        right: SPACING.extraLarge, // Distance from the right edge
+        backgroundColor: 'transparent',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    speechComponentRoundButtonImage: {
+        height: '100%', // Relative to parent height
+        aspectRatio: 1, // Ensures width equals height
+        borderRadius: BORDERS.radiusExtraLarge, // Makes it circular
+    },
 });
 
 export default SpeechRecognitionComponent;

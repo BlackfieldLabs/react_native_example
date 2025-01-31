@@ -4,26 +4,27 @@ import { COLORS, FONT_SIZES, FONTS } from '../../styles/theme';
 import sharedStyles from '../../styles/sharedStyles';
 
 /**
- * A reusable text input component with floating label behavior for forms and user input.
+ * A reusable text input component with floating label animation.
+ * The label moves above the input field when it gains focus or contains text.
  *
  * @component
  * @param {object} props - The component props.
- * @param {string} props.placeholder - The placeholder text displayed in the input field.
- * @param {string} props.value - The current value of the input field.
- * @param {(text: string) => void} props.onChangeText - Callback function triggered when the input text changes.
- * @param {boolean} [props.secureTextEntry=false] - Whether the input field should hide the text for password entry.
- * @param {string} [props.borderColor=COLORS.accent] - The color of the input field border when focused.
- * @param {string} [props.placeholderColor=COLORS.textSecondary] - The color of the placeholder text.
- * @param {TextInputProps} [props.rest] - Additional props for the TextInput component.
- * @returns {JSX.Element} A styled text input component with floating label behavior.
+ * @param {string} props.placeholder - The text displayed inside the input field before user input.
+ * @param {string} props.value - The controlled value of the text input.
+ * @param {(text: string) => void} props.onChangeText - Callback triggered when the input value changes.
+ * @param {boolean} [props.secureTextEntry=false] - If true, hides input text (useful for passwords).
+ * @param {string} [props.borderColor=COLORS.accent] - The border color when the input is focused.
+ * @param {string} [props.placeholderColor=COLORS.textSecondary] - The color of the floating label.
+ * @param {TextInputProps} [props.rest] - Additional props passed to the TextInput component.
+ * @returns {JSX.Element} A text input field with floating label animation.
  *
  * @example
  * <TextInputBox
- *   placeholder="Enter your username"
- *   value={username}
- *   onChangeText={(text) => setUsername(text)}
- *   borderColor={COLORS.accent}
- *   placeholderColor={COLORS.textSecondary}
+ *   placeholder="Enter your email"
+ *   value={email}
+ *   onChangeText={(text) => setEmail(text)}
+ *   secureTextEntry={false}
+ *   borderColor={COLORS.primary}
  * />
  */
 const TextInputBox = ({
@@ -42,8 +43,8 @@ const TextInputBox = ({
   borderColor?: string;
   placeholderColor?: string;
 } & TextInputProps) => {
-  const [isFocused, setIsFocused] = useState(false); // Tracks if the input is focused
-  const animatedLabel = useRef(new Animated.Value(value ? 1 : 0)).current; // Controls label animation
+  const [isFocused, setIsFocused] = useState(false)
+  const animatedLabel = useRef(new Animated.Value(value ? 1 : 0)).current;
 
   useEffect(() => {
     Animated.timing(animatedLabel, {
@@ -86,7 +87,7 @@ const TextInputBox = ({
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
-        placeholder={''} // Empty placeholder to avoid duplication with the floating label
+        placeholder={''}
         {...rest} // Pass additional props
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}

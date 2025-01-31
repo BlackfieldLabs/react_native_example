@@ -59,7 +59,7 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                 }
             );
             if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-                createSingleButtonAlert(AlertType.Warning, getText('cameraPermissionDeniedMesage'), () => {
+                createSingleButtonAlert(AlertType.Warning, getText('cameraPermissionDeniedMessage'), () => {
                     console.log(`[${new Date().toLocaleString()}] CameraComponent - Permission denied!`);
                 });
             }

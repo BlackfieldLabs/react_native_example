@@ -1,5 +1,11 @@
+/**
+ * SecureStorage module for handling secure data storage using React Native Keychain.
+ */
 import * as Keychain from 'react-native-keychain';
 
+/**
+ * SecureStorage provides keys for storing authentication tokens and user credentials.
+ */
 class SecureStorage {
     static Keys = {
         AuthToken: 'authToken',
@@ -9,6 +15,11 @@ class SecureStorage {
         Password: 'password',
     };
 
+    /**
+     * Saves an authentication token along with a timestamp.
+     * @param {string} token - The authentication token to be stored.
+     * @returns {Promise<void>}
+     */
     static async saveTokenWithTimestamp(token: string): Promise<void> {
         try {
             const timestamp = Date.now().toString();
@@ -21,25 +32,24 @@ class SecureStorage {
     }
 
     /**
-     * Save data in the Keychain.
-     * @param key - Unique key to identify the data (use SecureStorage.Keys).
-     * @param value - The value to save.
+     * Saves a token securely in the Keychain.
+     * @param {string} value - The token value to be stored.
+     * @returns {Promise<boolean>} - True if the token was saved successfully.
      */
     static async saveToken(value: string): Promise<boolean> {
         try {
-            await Keychain.setGenericPassword(SecureStorage.Keys.AuthToken, value); // Save the data securely
+            await Keychain.setGenericPassword(SecureStorage.Keys.AuthToken, value);
             console.log(`[${new Date().toLocaleString()}] SecureStorage - Successfully saved key: ${SecureStorage.Keys.AuthToken}`);
-            return true; // Return true if successful
+            return true;
         } catch (error) {
             console.error(`[${new Date().toLocaleString()}] SecureStorage - Error saving key: ${SecureStorage.Keys.AuthToken}`, error);
-            return false; // Return false if there was an error
+            return false;
         }
     }
 
     /**
-     * Retrieve data from the Keychain.
-     * @param key - Unique key to identify the data (use SecureStorage.Keys).
-     * @returns The saved value or null if not found.
+     * Retrieves a stored authentication token from the Keychain.
+     * @returns {Promise<string | null>} - The retrieved token or null if not found.
      */
     static async getToken(): Promise<string | null> {
         try {
@@ -57,8 +67,8 @@ class SecureStorage {
     }
 
     /**
-     * Delete data from the Keychain.
-     * @param key - Unique key to identify the data (use SecureStorage.Keys).
+     * Deletes the authentication token from the Keychain.
+     * @returns {Promise<void>}
      */
     static async deleteToken(): Promise<void> {
         try {
@@ -75,17 +85,28 @@ class SecureStorage {
         }
     }
 
+    /**
+     * Saves a key-value pair securely in the Keychain.
+     * @param {string} key - The key under which to store the data.
+     * @param {string} value - The value to be stored.
+     * @returns {Promise<boolean>} - True if the data was saved successfully.
+     */
     static async saveData(key: string, value: string): Promise<boolean> {
         try {
-            await Keychain.setInternetCredentials(key, key, value); // Save the data securely
+            await Keychain.setInternetCredentials(key, key, value);
             console.log(`[${new Date().toLocaleString()}] SecureStorage - saveData Successfully saved key: ${key}`);
-            return true; // Return true if successful
+            return true;
         } catch (error) {
             console.error(`[${new Date().toLocaleString()}] SecureStorage - saveData Error saving key: ${key}`, error);
-            return false; // Return false if there was an error
+            return false;
         }
     }
 
+    /**
+     * Retrieves a value stored under the given key.
+     * @param {string} key - The key for which to retrieve the stored data.
+     * @returns {Promise<string | null>} - The stored value or null if not found.
+     */
     static async getData(key: string): Promise<string | null> {
         try {
             const credentials = await Keychain.getInternetCredentials(key);
@@ -101,6 +122,11 @@ class SecureStorage {
         }
     }
 
+    /**
+     * Deletes a stored value associated with the given key.
+     * @param {string} key - The key to be removed.
+     * @returns {Promise<void>}
+     */
     static async deleteData(key: string): Promise<void> {
         try {
             const credentials = await Keychain.getInternetCredentials(key);

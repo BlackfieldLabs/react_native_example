@@ -115,7 +115,7 @@ const BeneficiaryScreen = () => {
                 <AccentButton
                     title={getText('sendButtonTitle')}
                     onAccentButtonPress={() => {
-                        //Todo: tamara
+                        //Do something
                     }}
                 />
             </ScrollView>

@@ -167,53 +167,6 @@ const sharedStyles = StyleSheet.create({
         fontFamily: FONTS.regular,
         color: COLORS.background,
     },
-    // Speach component
-    speechComponentBottomContainer: {
-        flex: 1, // 1/5 of the screen
-        backgroundColor: COLORS.navigation,
-        justifyContent: 'center', // Center content vertically
-        alignItems: 'center', // Center content horizontally
-    },
-    speechComponentWhiteView: {
-        backgroundColor: COLORS.background,
-        width: '95%', // 95% of the container's width
-        height: '80%', // 80% of the container's height
-        borderRadius: 30,
-        justifyContent: 'center', // Center content vertically
-        alignItems: 'flex-start', // Center content horizontally
-        paddingLeft: 20, // Adds padding from the left edge
-        overflow: 'hidden',
-    },
-    speechComponentWhiteViewTitleText: {
-        fontSize: FONT_SIZES.large,
-        fontFamily: FONTS.bold,
-        color: COLORS.textPrimary,
-        textAlign: 'left',
-        backgroundColor: COLORS.background,
-    },
-    speechComponentWhiteViewSubtitleText: {
-        fontSize: 18,
-        fontFamily: FONTS.regular,
-        color: COLORS.textSecondary,
-        textAlign: 'left',
-        backgroundColor: COLORS.background,
-        maxWidth: '60%', // Ensure text stays within white view
-        flexWrap: 'wrap', // Allow text to wrap if it's too long
-    },
-    speechComponentRoundButton: {
-        height: '75%', // 75% of the container's height
-        aspectRatio: 1, // Ensures width equals height
-        position: 'absolute',
-        right: SPACING.extraLarge, // Distance from the right edge
-        backgroundColor: 'transparent',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    speechComponentRoundButtonImage: {
-        height: '100%', // Relative to parent height
-        aspectRatio: 1, // Ensures width equals height
-        borderRadius: BORDERS.radiusExtraLarge, // Makes it circular
-    },
     //Sign up
     signUpSection: {
         marginBottom: 24,

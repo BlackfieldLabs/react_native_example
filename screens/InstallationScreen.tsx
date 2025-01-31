@@ -22,6 +22,9 @@ import sharedStyles from '../styles/sharedStyles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 //BLE
 import { BleManager, Device as BleDevice } from 'react-native-ble-plx';
+//Alert
+import { useAlert } from '../components/alert/CustomAlertManager';
+import { AlertType } from '../components/alert/AlertTypes'
 
 const manager = new BleManager();
 
@@ -30,6 +33,7 @@ const InstallationScreen = () => {
   const navigation = useNavigation<NavigationProp>();
   const [scannedDevices, setScannedDevices] = useState<BleDevice[]>([]);
   const [scanning, setScanning] = useState(false);
+  const { createSingleButtonAlert } = useAlert();
 
   const handleRowPress = (index: number) => {
     setSelectedRow(index === selectedRow ? null : index);
@@ -54,9 +58,12 @@ const InstallationScreen = () => {
   };
 
   const startScan = async () => {
+    console.log(`[${new Date().toLocaleString()}] Start scan clicked`);
     const hasPermissions = await requestBluetoothPermissions();
     if (!hasPermissions) {
-      console.error(`[${new Date().toLocaleString()}] Bluetooth permissions not granted`);
+      createSingleButtonAlert(AlertType.Error, getText('bluetoothPermissionDeniedMessage'), () => {
+        console.log(`[${new Date().toLocaleString()}] Bluetooth permissions not granted`);
+      });
       return;
     }
 
@@ -64,7 +71,10 @@ const InstallationScreen = () => {
     setScannedDevices([]);
     manager.startDeviceScan(null, null, (error, device) => {
       if (error) {
-        console.error(`[${new Date().toLocaleString()}] BLE Scan Error:`, error);
+        const message =  getText('bluetoothScanErrorMessage') + error;
+        createSingleButtonAlert(AlertType.Error, message, () => {
+          console.log(`[${new Date().toLocaleString()}] `, message);
+        });
         stopScan();
         return;
       }
