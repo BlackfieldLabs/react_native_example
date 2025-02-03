@@ -9,6 +9,7 @@ import {
   TextInput,
   PermissionsAndroid,
   Platform,
+  Pressable,
 } from 'react-native';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
@@ -25,50 +26,88 @@ import { BleManager, Device as BleDevice } from 'react-native-ble-plx';
 //Alert
 import { useAlert } from '../components/alert/CustomAlertManager';
 import { AlertType } from '../components/alert/AlertTypes'
-//Popover
-import Popover from 'react-native-popover-view';
+//ActionSheet
+import CustomActionSheet from '../components/actionSheet/CustomActionSheet';
+//Wi-Fi
+import { getAvailableWifiNetworks } from '../components/Wi-Fi/WifiScanner';
 
 const manager = new BleManager();
 
 const InstallationScreen = () => {
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [popoverVisible, setPopoverVisible] = useState(false);
-  const buttonRef = useRef<React.ElementRef<typeof TouchableOpacity> | null>(null);
-  const colors = [
-    { label: 'Red', value: 'red' },
-    { label: 'Blue', value: 'blue' },
-    { label: 'Purple', value: 'purple' },
-  ];
-
-  const handleColorSelect = (color: string) => {
-    setSelectedColor(color);
-    setPopoverVisible(false);
-  };
-
-  const [selectedRow, setSelectedRow] = useState<number | null>(null);
-  const navigation = useNavigation<NavigationProp>();
-  const [scannedDevices, setScannedDevices] = useState<BleDevice[]>([]);
-  const [scanning, setScanning] = useState(false);
+  //Alert
   const { createSingleButtonAlert } = useAlert();
 
-  const handleRowPress = (index: number) => {
-    setSelectedRow(index === selectedRow ? null : index);
+  //Wi-Fi
+  const [wifiList, setWifiList] = useState<string[]>([]);
+  const [selectedWifi, setSelectedWifi] = useState<string | null>(null);
+
+  //Color button
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const buttonRef = useRef<React.ElementRef<typeof TouchableOpacity> | null>(null);
+
+  //ActionSheet options
+  const [sheetVisible, setSheetVisible] = useState(false);
+  const [sheetTitle, setSheetTitle] = useState('');
+  const [sheetOptions, setSheetOptions] = useState<{ title: string; iconName?: string; iconColor?: string }[]>([]);
+
+  const openSheet = (title: string, options: { title: string; iconName?: string; iconColor?: string }[]) => {
+    setSheetTitle(title);
+    setSheetOptions(options);
+    setSheetVisible(true);
   };
 
-  const handlePress = (title: string) => {
+  const handleSelect = (index: number) => {
+    const selectedItem = sheetOptions[index];
+    if (selectedItem) {
+      setSelectedColor(selectedItem.iconColor ?? null);
+    }
+  };
+
+  const colors = [
+    { title: 'Red', iconName: 'palette', iconColor: 'red' },
+    { title: 'Blue', iconName: 'palette', iconColor: 'blue' },
+    { title: 'Purple', iconName: 'palette', iconColor: 'purple' },
+    { title: 'Yellow', iconName: 'palette', iconColor: 'yellow' },
+    { title: 'Green', iconName: 'palette', iconColor: 'green' },
+    { title: 'Pink', iconName: 'palette', iconColor: 'pink' },
+    { title: 'Grey', iconName: 'palette', iconColor: 'grey' },
+    { title: 'Black', iconName: 'palette', iconColor: 'black' },
+  ];
+
+  const handlePress = async (title: string) => {
     console.log(`[${new Date().toLocaleString()}] ${title} Button pressed`);
     if (title === getText('cameraButton')) {
       navigation.navigate('Camera', { mode: CameraMode.QR });
-    }
-    if (title === getText('scanButton')) {
+    } else if (title === getText('scanButton')) {
       toggleScan();
-    }
-    if (title === getText('colorButton')) {
+    } else if (title === getText('colorButton')) {
       console.log(`[${new Date().toLocaleString()}] ${title} Button pressed`);
-      if (title === getText('colorButton')) {
-        setPopoverVisible(true);
+      openSheet(getText('pickAColorTitle'), colors);
+    } else if (title === getText('selectNetworkButton')) {
+      console.log(`[${new Date().toLocaleString()}]Fetching available WiFi networks...`);
+      const networks = await getAvailableWifiNetworks();
+      console.log(`[${new Date().toLocaleString()}] Available networks:`, networks);
+
+      if (networks.length > 0) {
+        openSheet(getText('selectNetworkTitle'), networks.map((ssid) => ({ title: ssid })));
+      } else {
+        createSingleButtonAlert(AlertType.Warning, getText('messageNoWiFiNetworks'), () => {
+          console.log(`[${new Date().toLocaleString()}] No WiFi networks found. Please try again.`);
+        });
       }
+      //TODO: Tamara add progress
+    } else if (title === getText('roomTypeButton')) {
+      //TODO: tamara
     };
+  };
+
+  //BLE Devices Scan
+  const [selectedRow, setSelectedRow] = useState<number | null>(null);
+  const [scannedDevices, setScannedDevices] = useState<BleDevice[]>([]);
+  const [scanning, setScanning] = useState(false);
+
+  const handleDeviceRowPress = (index: number) => {
+    setSelectedRow(index === selectedRow ? null : index);
   };
 
   const toggleScan = () => {
@@ -143,6 +182,9 @@ const InstallationScreen = () => {
     };
   }, []);
 
+  //Navigation
+  const navigation = useNavigation<NavigationProp>();
+
   const nextButtonPressed = () => {
     console.log(`[${new Date().toLocaleString()}] Next button pressed.`);
     navigation.navigate('Beneficiary', { scannedDevices });
@@ -156,7 +198,7 @@ const InstallationScreen = () => {
           {[getText('scanButton'), getText('clearButton'), getText('cameraButton')].map((title) => (
             <TouchableOpacity
               key={title}
-              style={[styles.button, styles.secondaryButton, styles.halfWidthButton]}
+              style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
               onPress={() => handlePress(title)}
             >
               <MaterialIcons name={(title === getText('cameraButton') ? 'camera-alt' : title === getText('clearButton') ? 'delete' : 'touch-app')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
@@ -166,7 +208,7 @@ const InstallationScreen = () => {
         </View>
         {/* Section 2 */}
         <View style={sharedStyles.sectionMiddle}>
-          <View style={styles.listHeader}>
+          <View style={styles.row}>
             <Text style={[styles.statusText, styles.columnTitle]}>{getText('deployColumn')}</Text>
             <Text style={[styles.statusText, styles.columnTitle]}>{getText('rssiColumn')}</Text>
             <Text style={[styles.columnBig]}></Text>
@@ -178,7 +220,7 @@ const InstallationScreen = () => {
                 styles.listRowContainer,
                 selectedRow === index && { borderColor: COLORS.selection },
               ]}
-              onPress={() => handleRowPress(index)}
+              onPress={() => handleDeviceRowPress(index)}
             >
               <View style={[styles.listItem, styles.columnSmall]}>
                 <MaterialIcons
@@ -197,7 +239,7 @@ const InstallationScreen = () => {
           {[getText('roomTypeButton'), getText('customDecriptionButton')].map((title) => (
             <TouchableOpacity
               key={title}
-              style={[styles.button, styles.secondaryButton, styles.halfWidthButton]}
+              style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
               onPress={() => handlePress(title)}
             >
               <MaterialIcons name={(title === getText('roomTypeButton') ? 'home' : 'edit')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
@@ -212,7 +254,7 @@ const InstallationScreen = () => {
             {[getText('connectButton'), getText('reportWiFisButton')].map((title) => (
               <TouchableOpacity
                 key={title}
-                style={[styles.button, styles.secondaryButton, styles.halfWidthButton]}
+                style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
                 onPress={() => handlePress(title)}
               >
                 <MaterialIcons name={(title === getText('connectButton') ? 'bluetooth' : 'wifi')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
@@ -222,22 +264,22 @@ const InstallationScreen = () => {
           </View>
           <View style={styles.row}>
             <TouchableOpacity
-              style={[styles.dropDownList, styles.halfWidthButton]}
+              style={[styles.dropDownList, sharedStyles.halfWidthButton]}
               onPress={() => handlePress(getText('selectNetworkButton'))}
             >
-              <Text style={styles.dropDownText}>{getText('selectNetworkButton')}</Text>
+              <Text style={styles.dropDownText}>{selectedWifi || getText('selectNetworkButton')}</Text>
               <MaterialIcons name="arrow-drop-down" size={HEIGHT.smallImage} color={COLORS.textPrimary} style={styles.icon} />
             </TouchableOpacity>
             <TextInput
               placeholder={getText('enterWiFiPassPlaceholder')}
               placeholderTextColor={COLORS.textPrimary}
-              style={[styles.textBox, styles.halfWidthButton]}
+              style={[styles.textBox, sharedStyles.halfWidthButton]}
             />
           </View>
           <View style={styles.row}>
             <TouchableOpacity
               key={getText('credentialsButton')}
-              style={[[styles.button, styles.secondaryButton, styles.halfWidthButton]]}
+              style={[[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]]}
               onPress={() => handlePress(getText('credentialsButton'))}
             >
               <MaterialIcons name={'lock'} size={HEIGHT.smallImage} color="white" style={styles.icon} />
@@ -246,7 +288,7 @@ const InstallationScreen = () => {
             <TouchableOpacity
               ref={buttonRef}
               key={getText('colorButton')}
-              style={[styles.colorButton, styles.secondaryButton,styles.halfWidthButton]}
+              style={[styles.colorButton, sharedStyles.secondaryButtonColor,sharedStyles.halfWidthButton]}
               onPress={() => handlePress(getText('colorButton'))}
             >
               <MaterialIcons name="palette" size={HEIGHT.smallImage} color="white" style={styles.icon} />
@@ -257,42 +299,13 @@ const InstallationScreen = () => {
                 <View style={[styles.colorIndicator, { backgroundColor: selectedColor }]} />
               )}
             </TouchableOpacity>
-            {/* Popover for Color Selection */}
-            <Popover
-              isVisible={popoverVisible}
-              from={buttonRef}
-              onRequestClose={() => setPopoverVisible(false)}
-              popoverStyle={styles.roundedPopover}
-              backgroundStyle={{ backgroundColor: COLORS.overlay }}
-            >
-              <View style={styles.popoverContainer}>
-                {/* Title */}
-                <Text style={sharedStyles.titleStyle}>Pick a color</Text>
-
-                {/* Color Options with Dividers */}
-                {colors.map((color, index) => (
-                  <View key={color.value}>
-                    <TouchableOpacity
-                      style={styles.popoverItem}
-                      onPress={() => handleColorSelect(color.value)}
-                    >
-                      <Text style={[sharedStyles.buttonText, { color: COLORS.textPrimary }]}>{color.label}</Text>
-                      <View style={[styles.colorPreview, { backgroundColor: color.value }]} />
-                    </TouchableOpacity>
-
-                    {/* Divider except for the last item */}
-                    {index < colors.length - 1 && <View style={styles.divider} />}
-                  </View>
-                ))}
-              </View>
-            </Popover>
           </View>
         </View>
 
         {/* Section 5 */}
         <View style={[sharedStyles.sectionMiddle, styles.row]}>
           <TouchableOpacity
-            style={[styles.button, styles.secondaryButton, styles.halfWidthButton]}
+            style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
             onPress={() => handlePress(getText('connectionButton'))}
           >
             <MaterialIcons name="link" size={HEIGHT.smallImage} color="white" style={styles.icon} />
@@ -307,20 +320,27 @@ const InstallationScreen = () => {
         {/* Section 6  */}
         <View style={[sharedStyles.sectionBottom, styles.row]}>
           <TouchableOpacity
-            style={[styles.button, styles.secondaryButton, styles.halfWidthButton]}
+            style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
             onPress={() => handlePress(getText('goToChartsButton'))}
           >
             <MaterialIcons name="bar-chart" size={HEIGHT.smallImage} color="white" style={styles.icon} />
             <Text style={sharedStyles.buttonTextPrimary}>{getText('goToChartsButton')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.button, styles.accentButton, styles.halfWidthButton]}
+            style={[styles.button, sharedStyles.accentButtonColor, sharedStyles.halfWidthButton]}
             onPress={() => nextButtonPressed()}
           >
             <MaterialIcons name="arrow-forward" size={HEIGHT.smallImage} color="white" style={styles.iconAccent} />
             <Text style={styles.buttonTextAccent}>{getText('nextButton')}</Text>
           </TouchableOpacity>
         </View>
+        <CustomActionSheet
+          isVisible={sheetVisible}
+          sheetTitle={sheetTitle}
+          options={sheetOptions}
+          onSelect={handleSelect}
+          onClose={() => setSheetVisible(false)}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -331,11 +351,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  listHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
   listRowContainer: {
     height: HEIGHT.button,
@@ -379,16 +394,6 @@ const styles = StyleSheet.create({
     borderRadius: BORDERS.radiusLarge,
     marginHorizontal: SPACING.extraSmall,
     height: HEIGHT.button,
-  },
-  secondaryButton: {
-    backgroundColor: COLORS.border, // Secondary button color
-  },
-  accentButton: {
-    backgroundColor: COLORS.accent, // Accent button color
-  },
-  halfWidthButton: {
-    flex: 1,
-    maxWidth: '50%',
   },
   buttonTextAccent: {
     color: 'white',
@@ -463,37 +468,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.border,
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.medium,
-  },
-  roundedPopover: {
-    borderRadius: BORDERS.radiusLarge,
-    overflow: 'hidden',
-    backgroundColor: COLORS.background,
-  },
-  popoverContainer: {
-    width: '100%',
-    padding: SPACING.small,
-    backgroundColor: COLORS.background,
-    borderRadius: BORDERS.radiusLarge,
-  },
-  popoverItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: SPACING.small,
-    paddingHorizontal: SPACING.medium,
-  },
-  colorPreview: {
-    width: HEIGHT.smallImage,
-    height: HEIGHT.smallImage,
-    borderRadius: BORDERS.radiusLarge,
-    marginRight: SPACING.small,
-    borderWidth: HEIGHT.border,
-    borderColor: COLORS.textPrimary,
-    marginLeft: SPACING.small,
-  },
-  divider: {
-    height: HEIGHT.border,
-    backgroundColor: COLORS.border,
-    marginVertical: SPACING.extraSmall,
   },
 });
 

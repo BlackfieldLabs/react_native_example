@@ -34,6 +34,11 @@ const en = {
   messageWrongCredentials: 'Incorrect username or password. Please try again.',
   messageLogin: 'Signing in progress, please wait...',
   messageEmptyLogin: 'You need to enter username and password before you continue.',
+  messageNoWiFiNetworks: 'No WiFi networks found. Please try again.',
+
+  // Action Sheet
+  pickAColorTitle: 'Pick a color',
+  selectNetworkTitle: 'Available WiFi Networks',
 
   // User Interface Buttons
   nextButton: 'Next',

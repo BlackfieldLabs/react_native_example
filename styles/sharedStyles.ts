@@ -31,6 +31,16 @@ const sharedStyles = StyleSheet.create({
         marginRight: 20,
         marginBottom: 20,
     },
+    secondaryButtonColor: {
+        backgroundColor: COLORS.border,
+    },
+    accentButtonColor: {
+        backgroundColor: COLORS.accent,
+    },
+    halfWidthButton: {
+        flex: 1,
+        maxWidth: '50%',
+    },
     titleStyle: {
         fontSize: FONT_SIZES.large,
         fontFamily: FONTS.bold,
