@@ -1,14 +1,16 @@
 // LoginPage.js
 import React, { useState } from 'react';
 import { View, TextInput, Image, Alert, Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import globalStyles from './styles/globalStyles'; // Adjust the path as necessary
+import globalStyles from './styles/globalStyles';
+//Navigation
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '../helpers/RootStackParamList';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
   const { t } = useTranslation();
 
   const handleLogin = async () => {
@@ -18,6 +20,11 @@ const LoginPage = () => {
     } catch (error) {
       Alert.alert(t('LoginPage.LoginFailed'), t('LoginPage.InvalidCredentials'));
     }
+  };
+
+  const handleSignup = () => {
+    console.log(`[${new Date().toLocaleString()}] signUpPressed`);
+    navigation.navigate('SignUpPage');
   };
 
   return (
@@ -46,6 +53,9 @@ const LoginPage = () => {
       </View>
       <TouchableOpacity style={globalStyles.primaryButton} onPress={handleLogin}>
         <Text style={globalStyles.primaryButtonText}>{t('LoginPage.Login')}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={globalStyles.secondaryButton} onPress={handleSignup}>
+        <Text style={globalStyles.secondaryButtonText}>{t('LoginPage.Signup')}</Text>
       </TouchableOpacity>
       <Text style={globalStyles.divider}>{t('LoginPage.Or')}</Text>
       <TouchableOpacity style={globalStyles.secondaryButton}>
