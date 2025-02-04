@@ -9,7 +9,6 @@ import {
   TextInput,
   PermissionsAndroid,
   Platform,
-  Pressable,
 } from 'react-native';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
