@@ -9,11 +9,14 @@ export type RootStackParamList = {
   Main: undefined;
   SelectRole: undefined;
   Installation: undefined;
-  Beneficiary: { scannedDevices: BleDevice[]};
+  Beneficiary: { 
+    scannedDevices: BleDevice[]
+  };
   Camera: {
     mode: CameraMode;
     onPhotoTaken?: (uri: string) => void;
   };
+  Charts: undefined;
 };
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList>;

@@ -11,6 +11,8 @@ export const COLORS = {
     error: 'rgba(255, 77, 79, 1)',//'#ff4d4f'
     selection: 'rgba(153, 72, 254, 1)',//'#9948fe'
     overlay: 'rgba(0, 0, 0, 0.5)',
+    graphOrange: 'rgba(254, 156, 67, 1)',
+    graphGreen: 'rgba(63, 223, 112, 1)',
   };
 
   export const FONT_SIZES = {
@@ -36,6 +38,7 @@ export const COLORS = {
     image: 50,
     smallImage: 25,
     roundImage: 100,
+    graph: 500,
   };
 
   export const FONTS = {

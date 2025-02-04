@@ -106,6 +106,9 @@ const en = {
   petsPlaceholder: 'Pets',
   titleChangeBeneficiaryPhoto: 'Change beneficiary photo',
   titleListOfDevicesInDeployment: 'List of devices in deployment',
+
+  //Charts
+  chartsTitle: 'Charts',
 };
 
 const hr = {

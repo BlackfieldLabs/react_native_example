@@ -122,6 +122,8 @@ const InstallationScreen = () => {
       //TODO: Tamara add progress
     } else if (title === getText('roomTypeButton')) {
       openSheet(getText('pickARoomType'), roomTypes);
+    } else if (title === getText('goToChartsButton')) {
+      navigation.navigate('Charts');
     };
   };
 

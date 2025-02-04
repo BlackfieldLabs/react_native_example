@@ -20,6 +20,8 @@ import RoleSelectionScreen from './screens/RoleSelectionScreen';
 import InstallationScreen from './screens/InstallationScreen';
 import BeneficiaryScreen from './screens/BeneficiaryScreen';
 import CameraComponent from './screens/CameraComponent';
+import ChartsScreen from './screens/ChartsScreen';
+//Helpers
 import { RootStackParamList } from './helpers/RootStackParamList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -95,6 +97,11 @@ const App = () => {
             name="Camera"
             component={CameraComponent}
             options={{ title: getText('mobileCameraViewTitle') }}
+          />
+          <Stack.Screen
+            name="Charts"
+            component={ChartsScreen}
+            options={{ title: getText('chartsTitle') }}
           />
         </Stack.Navigator>
       </NavigationContainer>
