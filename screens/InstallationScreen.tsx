@@ -56,10 +56,18 @@ const InstallationScreen = () => {
     setSheetVisible(true);
   };
 
+  //Color
   const handleSelect = (index: number) => {
     const selectedItem = sheetOptions[index];
     if (selectedItem) {
-      setSelectedColor(selectedItem.iconColor ?? null);
+      if (sheetTitle === getText('selectNetworkTitle')) {
+        setSelectedWifi(selectedItem.title);
+      } else if (sheetTitle === getText('pickARoomType')) {
+        setSelectedRoomType(selectedItem.title);
+        setSelectedRoomImage(selectedItem.iconName ?? '');
+      } else if (sheetTitle === getText('pickAColorTitle')) {
+        setSelectedColor(selectedItem.iconColor ?? null);
+      }
     }
   };
 
@@ -74,6 +82,22 @@ const InstallationScreen = () => {
     { title: 'Black', iconName: 'palette', iconColor: 'black' },
   ];
 
+  //RoomTypes
+  const [selectedRoomType, setSelectedRoomType] = useState<string | null>(null);
+  const [selectedRoomImage, setSelectedRoomImage] = useState<string | null>(null);
+  const roomTypes = [
+    { title: 'Living Room', iconName: 'weekend' },
+    { title: 'Bedroom', iconName: 'bed' },
+    { title: 'Kitchen', iconName: 'kitchen' },
+    { title: 'Bathroom', iconName: 'bathtub' },
+    { title: 'Dining Room', iconName: 'dining' },
+    { title: 'Office', iconName: 'work' },
+    { title: 'Garage', iconName: 'garage' },
+    { title: 'Storage Room', iconName: 'store' },
+    { title: 'Balcony', iconName: 'balcony' },
+  ];
+
+  //Button press
   const handlePress = async (title: string) => {
     console.log(`[${new Date().toLocaleString()}] ${title} Button pressed`);
     if (title === getText('cameraButton')) {
@@ -97,7 +121,7 @@ const InstallationScreen = () => {
       }
       //TODO: Tamara add progress
     } else if (title === getText('roomTypeButton')) {
-      //TODO: tamara
+      openSheet(getText('pickARoomType'), roomTypes);
     };
   };
 
@@ -201,8 +225,14 @@ const InstallationScreen = () => {
               style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
               onPress={() => handlePress(title)}
             >
-              <MaterialIcons name={(title === getText('cameraButton') ? 'camera-alt' : title === getText('clearButton') ? 'delete' : 'touch-app')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
-              <Text style={sharedStyles.buttonTextPrimary}>{title}</Text>
+              <View style={styles.contentContainer}>
+                <MaterialIcons
+                  name={(title === getText('cameraButton') ? 'camera-alt' : title === getText('clearButton') ? 'delete' : 'touch-app')}
+                  size={HEIGHT.smallImage}
+                  color={COLORS.textAlternative}
+                  style={styles.icon} />
+                <Text style={[sharedStyles.buttonTextPrimary, { textAlign: 'center' }]}>{title}</Text>
+              </View>
             </TouchableOpacity>
           ))}
         </View>
@@ -236,18 +266,41 @@ const InstallationScreen = () => {
         </View>
         {/* Section 3 */}
         <View style={[sharedStyles.sectionMiddle, styles.row]}>
-          {[getText('roomTypeButton'), getText('customDecriptionButton')].map((title) => (
-            <TouchableOpacity
-              key={title}
-              style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
-              onPress={() => handlePress(title)}
-            >
-              <MaterialIcons name={(title === getText('roomTypeButton') ? 'home' : 'edit')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
-              <Text style={sharedStyles.buttonTextPrimary}>{title}</Text>
-            </TouchableOpacity>
-          ))}
+          <TouchableOpacity
+            style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
+            onPress={() => handlePress(getText('roomTypeButton'))}
+          >
+            <View style={styles.contentContainer}>
+              <MaterialIcons
+                name={selectedRoomImage || 'home'}
+                size={HEIGHT.smallImage}
+                color={COLORS.textAlternative}
+                style={styles.icon} />
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={sharedStyles.buttonTextPrimary}>{selectedRoomType || getText('roomTypeButton')}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
+            onPress={() => handlePress(getText('customDecriptionButton'))}
+          >
+            <View style={styles.contentContainer}>
+              <MaterialIcons
+                name={'edit'}
+                size={HEIGHT.smallImage}
+                color={COLORS.textAlternative}
+                style={styles.icon} />
+              <Text
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={sharedStyles.buttonTextPrimary}>{getText('customDecriptionButton')}
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
-
         {/* Section 4 */}
         <View style={sharedStyles.sectionMiddle}>
           <View style={styles.row}>
@@ -257,8 +310,14 @@ const InstallationScreen = () => {
                 style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
                 onPress={() => handlePress(title)}
               >
-                <MaterialIcons name={(title === getText('connectButton') ? 'bluetooth' : 'wifi')} size={HEIGHT.smallImage} color="white" style={styles.icon} />
-                <Text style={sharedStyles.buttonTextPrimary}>{title}</Text>
+                <View style={styles.contentContainer}>
+                  <MaterialIcons
+                    name={(title === getText('connectButton') ? 'bluetooth' : 'wifi')}
+                    size={HEIGHT.smallImage} 
+                    color={COLORS.textAlternative}
+                    style={styles.icon} />
+                  <Text style={sharedStyles.buttonTextPrimary}>{title}</Text>
+                </View>
               </TouchableOpacity>
             ))}
           </View>
@@ -268,7 +327,11 @@ const InstallationScreen = () => {
               onPress={() => handlePress(getText('selectNetworkButton'))}
             >
               <Text style={styles.dropDownText}>{selectedWifi || getText('selectNetworkButton')}</Text>
-              <MaterialIcons name="arrow-drop-down" size={HEIGHT.smallImage} color={COLORS.textPrimary} style={styles.icon} />
+              <MaterialIcons
+                name="arrow-drop-down" 
+                size={HEIGHT.smallImage}
+                color={COLORS.textPrimary}
+                style={styles.icon} />
             </TouchableOpacity>
             <TextInput
               placeholder={getText('enterWiFiPassPlaceholder')}
@@ -282,56 +345,82 @@ const InstallationScreen = () => {
               style={[[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]]}
               onPress={() => handlePress(getText('credentialsButton'))}
             >
-              <MaterialIcons name={'lock'} size={HEIGHT.smallImage} color="white" style={styles.icon} />
-              <Text style={sharedStyles.buttonTextPrimary}>{getText('credentialsButton')}</Text>
+              <View style={styles.contentContainer}>
+                <MaterialIcons
+                  name={'lock'} 
+                  size={HEIGHT.smallImage}
+                  color={COLORS.textAlternative}
+                  style={styles.icon} />
+                <Text style={sharedStyles.buttonTextPrimary}>{getText('credentialsButton')}</Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               ref={buttonRef}
               key={getText('colorButton')}
-              style={[styles.colorButton, sharedStyles.secondaryButtonColor,sharedStyles.halfWidthButton]}
+              style={[styles.colorButton, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
               onPress={() => handlePress(getText('colorButton'))}
             >
-              <MaterialIcons name="palette" size={HEIGHT.smallImage} color="white" style={styles.icon} />
-              <Text style={sharedStyles.buttonTextPrimary}>{getText('colorButton')}</Text>
-
-              {/* Selected Color Indicator (Inside Button) */}
-              {selectedColor && (
-                <View style={[styles.colorIndicator, { backgroundColor: selectedColor }]} />
-              )}
+              <View style={styles.contentContainer}>
+                <MaterialIcons
+                  name="palette" 
+                  size={HEIGHT.smallImage}
+                  color={COLORS.textAlternative}
+                  style={styles.icon} />
+                <Text style={sharedStyles.buttonTextPrimary}>{getText('colorButton')}</Text>
+                {selectedColor && (
+                  <View style={[styles.colorIndicator, { backgroundColor: selectedColor }]} />
+                )}
+              </View>
             </TouchableOpacity>
           </View>
         </View>
-
         {/* Section 5 */}
         <View style={[sharedStyles.sectionMiddle, styles.row]}>
           <TouchableOpacity
             style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
             onPress={() => handlePress(getText('connectionButton'))}
           >
-            <MaterialIcons name="link" size={HEIGHT.smallImage} color="white" style={styles.icon} />
-            <Text style={sharedStyles.buttonTextPrimary}>{getText('connectionButton')}</Text>
+            <View style={styles.contentContainer}>
+              <MaterialIcons
+                name="link" 
+                size={HEIGHT.smallImage}
+                color={COLORS.textAlternative}
+                style={styles.icon} />
+              <Text style={sharedStyles.buttonTextPrimary}>{getText('connectionButton')}</Text>
+            </View>
           </TouchableOpacity>
           <View style={styles.statusContainer}>
             <Text style={styles.statusText}>{getText('statusText')}</Text>
             <Text style={styles.statusNumber}>313546534321</Text>
           </View>
         </View>
-
         {/* Section 6  */}
         <View style={[sharedStyles.sectionBottom, styles.row]}>
           <TouchableOpacity
             style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
             onPress={() => handlePress(getText('goToChartsButton'))}
           >
-            <MaterialIcons name="bar-chart" size={HEIGHT.smallImage} color="white" style={styles.icon} />
-            <Text style={sharedStyles.buttonTextPrimary}>{getText('goToChartsButton')}</Text>
+            <View style={styles.contentContainer}>
+              <MaterialIcons
+                name="bar-chart"
+                size={HEIGHT.smallImage}
+                color={COLORS.textAlternative}
+                style={styles.icon} />
+              <Text style={sharedStyles.buttonTextPrimary}>{getText('goToChartsButton')}</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, sharedStyles.accentButtonColor, sharedStyles.halfWidthButton]}
             onPress={() => nextButtonPressed()}
           >
-            <MaterialIcons name="arrow-forward" size={HEIGHT.smallImage} color="white" style={styles.iconAccent} />
-            <Text style={styles.buttonTextAccent}>{getText('nextButton')}</Text>
+            <View style={styles.contentContainer}>
+              <MaterialIcons
+                name="arrow-forward"
+                size={HEIGHT.smallImage}
+                color={COLORS.textAlternative}
+                style={styles.iconAccent} />
+              <Text style={styles.buttonTextAccent}>{getText('nextButton')}</Text>
+            </View>
           </TouchableOpacity>
         </View>
         <CustomActionSheet
@@ -351,6 +440,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  contentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
   },
   listRowContainer: {
     height: HEIGHT.button,
@@ -455,7 +550,7 @@ const styles = StyleSheet.create({
     width: HEIGHT.smallImage,
     height: HEIGHT.smallImage,
     borderRadius: BORDERS.radiusLarge,
-    marginLeft: SPACING.small,
+    marginLeft: SPACING.medium,
     borderWidth: HEIGHT.border,
     borderColor: COLORS.textPrimary,
   },

@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  FlatList,
+    View,
+    Text,
+    Pressable,
+    StyleSheet,
+    FlatList,
 } from 'react-native';
 //Library
 import Modal from 'react-native-modal';
@@ -18,68 +18,70 @@ interface ActionSheetItem {
     title: string;
     iconName?: string;
     iconColor?: string;
-  }
-  
-  interface CustomActionSheetProps {
+}
+
+interface CustomActionSheetProps {
     isVisible: boolean;
     sheetTitle: string;
     options: ActionSheetItem[];
     onSelect: (index: number) => void;
     onClose: () => void;
-  }
-  
-  const CustomActionSheet: React.FC<CustomActionSheetProps> = ({
+}
+
+const CustomActionSheet: React.FC<CustomActionSheetProps> = ({
     isVisible,
     sheetTitle,
     options,
     onSelect,
     onClose,
-  }) => {
-      return (
+}) => {
+    return (
         <Modal isVisible={isVisible} onBackdropPress={onClose} style={styles.modal}>
-        <View style={styles.actionSheet}>
-          {/* Sheet Title */}
-          <Text style={styles.sheetTitle}>{sheetTitle}</Text>
-          {/* Scrollable List */}
-          <FlatList
-            data={options}
-            keyExtractor={(item, index) => index.toString()}
-            showsVerticalScrollIndicator={true}
-            renderItem={({ item, index }) => (
-              <Pressable
-                style={({ pressed }) => [
-                  styles.option,
-                  pressed && styles.optionPressed,
-                ]}
-                onPress={() => {
-                  onSelect(index);
-                  onClose();
-                }}
-              >
-                {item.iconName && (
-                  <MaterialIcons
-                    name={item.iconName}
-                    size={HEIGHT.smallImage}
-                    color={item.iconColor || COLORS.textPrimary}
-                  />
-                )}
-                <Text style={styles.optionText}>{item.title}</Text>
-              </Pressable>
-            )}
-          />
-          {/* Cancel Button */}
-          <Pressable style={styles.cancelButton} onPress={onClose}>
-            <Text style={styles.cancelText}>{getText('cancelButtonTitle')}</Text>
-          </Pressable>
-        </View>
-      </Modal>
+            <View style={styles.actionSheet}>
+                <Text style={styles.sheetTitle}>{sheetTitle}</Text>
+                <View style={styles.listContainer}>
+                    <FlatList
+                        data={options}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsVerticalScrollIndicator={true}
+                        renderItem={({ item, index }) => (
+                            <Pressable
+                                style={({ pressed }) => [
+                                    styles.option,
+                                    pressed && styles.optionPressed,
+                                ]}
+                                onPress={() => {
+                                    onSelect(index);
+                                    onClose();
+                                }}
+                            >
+                                {item.iconName && (
+                                    <MaterialIcons
+                                        name={item.iconName}
+                                        size={HEIGHT.smallImage}
+                                        color={item.iconColor || COLORS.textSecondary}
+                                    />
+                                )}
+                                <Text style={styles.optionText}>{item.title}</Text>
+                            </Pressable>
+                        )}
+                    />
+                </View>
+                <Pressable style={styles.cancelButton} onPress={onClose}>
+                    <Text style={styles.cancelText}>{getText('cancelButtonTitle')}</Text>
+                </Pressable>
+            </View>
+        </Modal>
     );
-  };
+};
 
 const styles = StyleSheet.create({
     modal: {
         justifyContent: 'flex-end',
         margin: SPACING.medium,
+    },
+    listContainer: {
+        width: '100%',
     },
     actionSheet: {
         backgroundColor: COLORS.primary,

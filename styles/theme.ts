@@ -6,6 +6,7 @@ export const COLORS = {
     border: 'rgba(239, 239, 239, 1)',//'#efefef'
     textPrimary: 'rgba(0, 0, 0, 1)',//'#000000'
     textSecondary: 'rgba(188, 190, 194, 1)',//'#bcbec2'
+    textAlternative: 'rgba(255, 255, 255, 1)',//'#fff'
     background: 'rgba(255, 255, 255, 1)',//'#fff'
     error: 'rgba(255, 77, 79, 1)',//'#ff4d4f'
     selection: 'rgba(153, 72, 254, 1)',//'#9948fe'

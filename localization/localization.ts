@@ -39,6 +39,7 @@ const en = {
   // Action Sheet
   pickAColorTitle: 'Pick a color',
   selectNetworkTitle: 'Available WiFi Networks',
+  pickARoomType: 'Pick a room type',
 
   // User Interface Buttons
   nextButton: 'Next',
@@ -83,7 +84,7 @@ const en = {
   rssiColumn: 'RSSI',
   goToChartsButton: 'Go to Charts',
   roomTypeButton: 'Room type',
-  customDecriptionButton: 'Custom desc',
+  customDecriptionButton: 'Custom description',
   connectionButton: 'Connection',
   statusText: 'STATUS',
   selectNetworkButton: 'Select network',
