@@ -1,8 +1,8 @@
 export const COLORS = {
-    navigation: 'rgba(234, 240, 253, 1)',//'#eaf0fd'
+    navigation: 'rgba(189, 242, 235, 1)',//'#bdf2eb'
     primary: 'rgba(246, 246, 246, 1)',//'f6f6f6'
     secondary: 'rgba(252, 252, 252, 1)',//'#fcfcfc'
-    accent: 'rgba(66, 128, 211, 1)',//'#4280d3'
+    accent: 'rgba(0, 191, 166, 1)',//'#00BFA6'
     border: 'rgba(239, 239, 239, 1)',//'#efefef'
     textPrimary: 'rgba(0, 0, 0, 1)',//'#000000'
     textSecondary: 'rgba(188, 190, 194, 1)',//'#bcbec2'

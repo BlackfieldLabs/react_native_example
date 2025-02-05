@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Image, Alert, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import globalStyles from './styles/globalStyles';
+import globalStyles from '../styles/globalStyles';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';

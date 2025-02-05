@@ -2,11 +2,10 @@ import React from 'react';
 import LoginPage from './screens/LoginPage';
 import MainLayout from './screens/MainLayout';
 //Localization
-import { getText } from './localization/localization';
 import i18n from './i18n';
-import { I18nextProvider } from 'react-i18next';
+import { I18nextProvider, useTranslation } from 'react-i18next';
 //Theme
-import { COLORS, FONT_SIZES, FONTS, HEIGHT } from './styles/theme';
+import { COLORS, FONT_SIZES, FONTS } from './styles/theme';
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -16,6 +15,7 @@ import SignUpPage from './screens/SignUpPage';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <I18nextProvider i18n={i18n}>
       <NavigationContainer>
@@ -38,20 +38,20 @@ const App: React.FC = () => {
             name="LoginPage"
             component={LoginPage}
             options={
-              { title: getText('loginButton'), headerShown: false }
+              { title: t('LoginPage.Login'), headerShown: false }
             }
           />
           <Stack.Screen
             name="MainLayout"
             component={MainLayout}
             options={{
-              title: getText('mainLayoutTitle'),
+              title:  t('HomePage.MainPageTitle'),
             }}
           />
           <Stack.Screen
             name="SignUpPage"
             component={SignUpPage}
-            options={{ title: getText('signUpScreenTitle') }}
+            options={{ title: t('SignUpPage.signUpScreenTitle') }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { COLORS, FONT_SIZES, HEIGHT, FONTS } from '../../styles/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import sharedStyles from '../../styles/sharedStyles';
+import globalStyles from '../../styles/globalStyles';
 
 /**
  * A reusable password input component with floating label behavior and a toggle for showing/hiding the password.
@@ -76,18 +76,18 @@ const PasswordInputBox = ({
   return (
     <View
       style={[
-        sharedStyles.textInputBoxContainer,
+        globalStyles.textInputBoxContainer,
         { borderColor: isFocused ? borderColor : COLORS.border },
       ]}
     >
       {/* Floating label that animates above the input field */}
-      <Animated.Text style={[sharedStyles.textInputBoxLabel, labelStyle]}>
+      <Animated.Text style={[globalStyles.textInputBoxLabel, labelStyle]}>
         {placeholder}
       </Animated.Text>
       {/* Input field */}
-      <View style={sharedStyles.PasswordInputBoxInputWrapper}>
+      <View style={globalStyles.passwordInputBoxInputWrapper}>
         <TextInput
-          style={[sharedStyles.PasswordInputBoxInput]}
+          style={[globalStyles.passwordInputBoxInput]}
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={!isPasswordVisible}
@@ -96,7 +96,7 @@ const PasswordInputBox = ({
         />
       </View>
       <TouchableOpacity
-        style={sharedStyles.PasswordInputBoxToggleButton}
+        style={globalStyles.passwordInputBoxToggleButton}
         onPress={() => setIsPasswordVisible(!isPasswordVisible)}
       >
         <Icon

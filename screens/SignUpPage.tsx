@@ -8,20 +8,19 @@ import {
 } from 'react-native';
 //Localization
 import { useTranslation } from 'react-i18next';
-import { getText } from '../localization/localization';
 //Styles
-import sharedStyles from '../styles/sharedStyles';
+import globalStyles from '../styles/globalStyles';
 //Components
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
 import TextInputBox from '../components/textbox/TextInputBox';
 import AccentButton from '../components/button/AccentButton';
-import SecondaryButton from '../components/button/SecondaryButton';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
 
 const SignUpPage = () => {
   const navigation = useNavigation<NavigationProp>();
+  const { t } = useTranslation();
 
   // State variables for all inputs
   const [username, setUsername] = useState('');
@@ -59,48 +58,48 @@ const SignUpPage = () => {
   };
 
   return (
-    <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
-      <ScrollView contentContainerStyle={sharedStyles.scrollContainer}>
+    <SafeAreaView style={globalStyles.safeLayoutContainerStyle}>
+      <ScrollView contentContainerStyle={globalStyles.scrollContainer}>
         {/* Account Information Section */}
-        <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{getText('accountInfoTitle')}</Text>
+        <View style={globalStyles.signUpSection}>
+          <Text style={globalStyles.signUpSectionTitle}>{t('SignUpPage.signUpButton')}</Text>
           <TextInputBox
-            placeholder={getText('usernamePlaceholder')}
+            placeholder={t('SignUpPage.usernamePlaceholder')}
             value={username}
             onChangeText={setUsername}
           />
           <PasswordInputBox
-            placeholder={getText('passwordPlaceholder')}
+            placeholder={t('SignUpPage.passwordPlaceholder')}
             value={password}
             onChangeText={setPassword}
           />
           <PasswordInputBox
-            placeholder={getText('repeatPasswordPlaceholder')}
+            placeholder={t('SignUpPage.repeatPasswordPlaceholder')}
             value={repeatPassword}
             onChangeText={setRepeatPassword}
           />
         </View>
 
         {/* Personal Details Section */}
-        <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{getText('personalDetailsTitle')}</Text>
+        <View style={globalStyles.signUpSection}>
+          <Text style={globalStyles.signUpSectionTitle}>{t('SignUpPage.personalDetailsTitle')}</Text>
           <TextInputBox
-            placeholder={getText('namePlaceholder')}
+            placeholder={t('SignUpPage.namePlaceholder')}
             value={name}
             onChangeText={setName}
           />
           <TextInputBox
-            placeholder={getText('familyNamePlaceholder')}
+            placeholder={t('SignUpPage.familyNamePlaceholder')}
             value={familyName}
             onChangeText={setFamilyName}
           />
           <TextInputBox
-            placeholder={getText('emailPlaceholder')}
+            placeholder={t('SignUpPage.emailPlaceholder')}
             value={email}
             onChangeText={setEmail}
           />
           <TextInputBox
-            placeholder={getText('telephonePlaceholder')}
+            placeholder={t('SignUpPage.telephonePlaceholder')}
             value={telephone}
             onChangeText={setTelephone}
             keyboardType="numeric"
@@ -108,36 +107,33 @@ const SignUpPage = () => {
         </View>
 
         {/* Address Information Section */}
-        <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{getText('addressInfoTitle')}</Text>
+        <View style={globalStyles.signUpSection}>
+          <Text style={globalStyles.signUpSectionTitle}>{t('SignUpPage.addressInfoTitle')}</Text>
           <TextInputBox
-            placeholder={getText('cityPlaceholder')}
+            placeholder={t('SignUpPage.cityPlaceholder')}
             value={city}
             onChangeText={setCity}
           />
           <TextInputBox
-            placeholder={getText('streetAndNumberPlaceholder')}
+            placeholder={t('SignUpPage.streetAndNumberPlaceholder')}
             value={streetAndNumber}
             onChangeText={setStreetAndNumber}
           />
           <TextInputBox
-            placeholder={getText('statePlaceholder')}
+            placeholder={t('SignUpPage.statePlaceholder')}
             value={state}
             onChangeText={setState}
           />
           <TextInputBox
-            placeholder={getText('zipCodePlaceholder')}
+            placeholder={t('SignUpPage.zipCodePlaceholder')}
             value={zipCode}
             onChangeText={setZipCode}
             keyboardType="numeric"
           />
         </View>
 
-        {/* Camera Button */}
-        <SecondaryButton title={getText('verifyRealUserButton')} onSecondaryButtonPress={handleCameraButton} />
-
         {/* Create User Button */}
-        <AccentButton title={getText('createUserButton')} onAccentButtonPress={handleCreateUser} />
+        <AccentButton title={t('SignUpPage.createUserButton')} onAccentButtonPress={handleCreateUser} />
       </ScrollView>
     </SafeAreaView>
   );

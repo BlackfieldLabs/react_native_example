@@ -1,10 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {View, SafeAreaView, StyleSheet, Text, Image} from 'react-native';
+import {View, SafeAreaView, StyleSheet, Text, Image, ImageSourcePropType} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
-// Components
-import WebViewComponent from '../components/WebViewComponent';
-import SpeechRecognitionComponent from '../components/SpeechRecognitionComponent';
 
 // API Call
 import VoiceAskAPIService from '../services/VoiceAskAPIService';
@@ -15,13 +11,15 @@ import {v4 as uuidv4} from 'uuid';
 import ProfilePage from './ProfilePage';
 import HomePage from './HomePage';
 import NotificationsPage from './NotificationsPage';
+import { COLORS } from '../styles/theme';
 
 // Placeholder components for other tabs
-const PlaceholderScreen = ({title}) => (
+const PlaceholderScreen = ({ title }: { title: string }) => (
   <View style={styles.placeholderContainer}>
     <Text style={styles.placeholderText}>{title}</Text>
   </View>
 );
+
 
 const Tab = createBottomTabNavigator();
 
@@ -83,7 +81,7 @@ const MainLayout = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({color, size}) => {
-          let iconSource = '';
+          let iconSource: ImageSourcePropType | null = null;
 
           // Assign PNG file paths based on the route name
           if (route.name === 'Home') {
@@ -99,7 +97,7 @@ const MainLayout = () => {
           }
 
           // Return an Image component for the icon
-          return (
+          return iconSource ? (
             <Image
               source={iconSource}
               style={{
@@ -108,9 +106,9 @@ const MainLayout = () => {
                 tintColor: color, // Apply color tint for active/inactive states
               }}
             />
-          );
+          ) : null;
         },
-        tabBarActiveTintColor: '#00BFA6',
+        tabBarActiveTintColor: COLORS.accent,
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
           height: 50,
@@ -130,8 +128,6 @@ const MainLayout = () => {
         {() => (
           <SafeAreaView style={styles.safeContainer}>
             <View style={styles.container}>
-              <WebViewComponent />
-              <SpeechRecognitionComponent onResults={handleSpeechResults} />
             </View>
           </SafeAreaView>
         )}

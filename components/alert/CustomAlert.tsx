@@ -6,9 +6,9 @@ import {
     TouchableOpacity,
 } from 'react-native';
 //Styles
-import sharedStyles from '../../styles/sharedStyles';
+import globalStyles from '../../styles/globalStyles';
 //Localization
-import { getText } from '../../localization/localization';
+import { useTranslation } from 'react-i18next';
 //Helpers
 import { AlertType } from './AlertTypes';
 
@@ -30,6 +30,7 @@ type CustomAlertProps = {
     hideCancelButton = false,
   }) => {
     console.log(`[${new Date().toLocaleString()}] CustomAlert - visible prop:`, visible);
+    const { t } = useTranslation();
     const renderButtons = () => {
       if (type === AlertType.Progress) {
         return null;
@@ -37,15 +38,15 @@ type CustomAlertProps = {
   
       if (hideCancelButton && onConfirm) {
         return (
-          <View style={sharedStyles.buttonContainer}>
+          <View style={globalStyles.buttonContainer}>
             <TouchableOpacity
-              style={[sharedStyles.button, sharedStyles.primaryButton]}
+              style={[globalStyles.buttonStyle, globalStyles.primaryButtonStyle]}
               onPress={() => {
                 console.log(`[${new Date().toLocaleString()}] CustomAlert - OK button clicked`);
                 onConfirm?.();
             }}
             >
-              <Text style={sharedStyles.buttonText}>{getText('okButtonTitle')}</Text>
+              <Text style={globalStyles.buttonTextStyle}>{t('Alert.okButtonTitle')}</Text>
             </TouchableOpacity>
           </View>
         );
@@ -54,21 +55,21 @@ type CustomAlertProps = {
       if (onClose && onConfirm) {
         // Two buttons (Cancel and OK)
         return (
-          <View style={sharedStyles.buttonContainer}>
+          <View style={globalStyles.buttonContainer}>
             <TouchableOpacity
-              style={[sharedStyles.button, sharedStyles.destructiveButton]}
+              style={[globalStyles.buttonStyle, globalStyles.destructiveButton]}
               onPress={onClose}
             >
-              <Text style={sharedStyles.buttonText}>{getText('cancelButtonTitle')}</Text>
+              <Text style={globalStyles.buttonTextStyle}>{t('Alert.cancelButtonTitle')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={[sharedStyles.button, sharedStyles.primaryButton]}
+                    style={[globalStyles.buttonStyle, globalStyles.primaryButtonStyle]}
                     onPress={() => {
                         console.log(`[${new Date().toLocaleString()}] CustomAlert - OK button clicked`);
                         onConfirm?.();
                     }}
                 >
-                    <Text style={sharedStyles.buttonText}>{getText('okButtonTitle')}</Text>
+                    <Text style={globalStyles.buttonTextStyle}>{t('Alert.okButtonTitle')}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -79,16 +80,16 @@ type CustomAlertProps = {
   
     return (
       <Modal transparent visible={visible} animationType="fade">
-        <View style={sharedStyles.overlay}>
-          <View style={sharedStyles.alertContainer}>
-            <Text style={sharedStyles.title}>
+        <View style={globalStyles.overlay}>
+          <View style={globalStyles.alertContainer}>
+            <Text style={globalStyles.titleStyle}>
               {type === AlertType.Error
-                ? getText('errorTitle')
+                ? t('Alert.errorTitle')
                 : type === AlertType.Warning
-                ? getText('warningTitle')
-                : getText('pleaseWaitTitle')}
+                ? t('Alert.warningTitle')
+                : t('Alert.pleaseWaitTitle')}
             </Text>
-            <Text style={sharedStyles.message}>{message}</Text>
+            <Text style={globalStyles.message}>{message}</Text>
             {renderButtons()}
           </View>
         </View>

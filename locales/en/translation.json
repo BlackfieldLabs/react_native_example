@@ -10,6 +10,25 @@
       "LoginFailed": "Login Failed",
       "InvalidCredentials": "Invalid credentials"
     }, 
+    "SignUpPage": {
+      "usernamePlaceholder": "Username",
+      "passwordPlaceholder": "Password",
+      "repeatPasswordPlaceholder": "Repeat password",
+      "signUpButton": "Sign Up",
+      "namePlaceholder": "First name",
+      "familyNamePlaceholder": "Family name",
+      "emailPlaceholder": "Email",
+      "telephonePlaceholder": "Telephone number",
+      "cityPlaceholder": "City",
+      "streetAndNumberPlaceholder": "Street and number",
+      "statePlaceholder": "State",
+      "zipCodePlaceholder": "Zip code",
+      "createUserButton": "Create User",
+      "signUpScreenTitle": "Sign Up",
+      "accountInfoTitle": "Account Information",
+      "personalDetailsTitle": "Personal Details",
+      "addressInfoTitle": "Address Information"
+    },
     "HomePage": {
       "Welcome": "Welcome, {{name}}!",
       "Subtitle": "Here’s what’s happening today.",
@@ -20,7 +39,8 @@
       "StepsLogged": "You’ve logged {{count}} steps today!",
       "BookAppointment": "Book Appointment",
       "MessageDoctor": "Message Doctor",
-      "ViewMedicalRecords": "View Medical Records"
+      "ViewMedicalRecords": "View Medical Records",
+      "MainPageTitle": "Dashboard"
     },
     "SettingsPage": {
       "CurrentLanguage": "Current Language",
@@ -37,6 +57,14 @@
     "profile": {
       "username": "Username",
       "email": "Email"
+    },
+    "Alert": {
+      "nextButton": "Next",
+      "cancelButtonTitle": "Cancel",
+      "okButtonTitle": "OK",
+      "warningTitle": "Warning",
+      "errorTitle": "Error",
+      "pleaseWaitTitle": "Please wait..."
     }
   }
   

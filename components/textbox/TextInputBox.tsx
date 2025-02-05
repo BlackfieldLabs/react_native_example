@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, TextInput, Animated, TextInputProps } from 'react-native';
 import { COLORS, FONT_SIZES, FONTS } from '../../styles/theme';
-import sharedStyles from '../../styles/sharedStyles';
+import globalStyles from '../../styles/globalStyles';
 
 /**
  * A reusable text input component with floating label animation.
@@ -73,17 +73,17 @@ const TextInputBox = ({
   return (
     <View
       style={[
-        sharedStyles.textInputBoxContainer,
+        globalStyles.textInputBoxContainer,
         { borderColor: isFocused ? borderColor : COLORS.border },
       ]}
     >
       {/* Floating label that animates above the input field */}
-      <Animated.Text style={[sharedStyles.textInputBoxLabel, labelStyle]}>
+      <Animated.Text style={[globalStyles.textInputBoxLabel, labelStyle]}>
         {placeholder}
       </Animated.Text>
       {/* Input field */}
       <TextInput
-        style={[sharedStyles.textInputBoxInput]}
+        style={[globalStyles.textInputBoxInput]}
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}

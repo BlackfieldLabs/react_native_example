@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import sharedStyles from '../../styles/sharedStyles';
+import globalStyles from '../../styles/globalStyles';
 
 /**
  * A reusable accent button component with predefined styling.
@@ -20,8 +20,8 @@ import sharedStyles from '../../styles/sharedStyles';
  */
 const AccentButton = ({ title, onAccentButtonPress }: { title: string; onAccentButtonPress: () => void }) => {
   return (
-    <TouchableOpacity style={sharedStyles.accentButton} onPress={onAccentButtonPress}>
-      <Text style={sharedStyles.accentButtonText}>{title}</Text>
+    <TouchableOpacity style={globalStyles.accentButton} onPress={onAccentButtonPress}>
+      <Text style={globalStyles.accentButtonText}>{title}</Text>
     </TouchableOpacity>
   );
 };

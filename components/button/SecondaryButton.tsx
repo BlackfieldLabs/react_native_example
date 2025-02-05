@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import sharedStyles from '../../styles/sharedStyles';
+import globalStyles from '../../styles/globalStyles';
 
 /**
  * A reusable secondary button component with predefined styling.
@@ -20,8 +20,8 @@ import sharedStyles from '../../styles/sharedStyles';
  */
 const SecondaryButton = ({ title, onSecondaryButtonPress }: { title: string; onSecondaryButtonPress: () => void }) => {
   return (
-    <TouchableOpacity style={sharedStyles.secondaryButtonSecondary} onPress={onSecondaryButtonPress}>
-      <Text style={sharedStyles.secondaryButtonSecondaryText}>{title}</Text>
+    <TouchableOpacity style={globalStyles.secondaryButtonSecondary} onPress={onSecondaryButtonPress}>
+      <Text style={globalStyles.secondaryButtonSecondaryText}>{title}</Text>
     </TouchableOpacity>
   );
 };

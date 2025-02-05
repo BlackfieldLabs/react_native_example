@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import globalStyles from './styles/globalStyles';
+import globalStyles from '../styles/globalStyles';
 
 const ProfilePage = () => {
   const { t, i18n } = useTranslation();
