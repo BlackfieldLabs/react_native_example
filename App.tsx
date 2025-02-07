@@ -16,6 +16,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
   const { t } = useTranslation();
+
   return (
     <I18nextProvider i18n={i18n}>
       <NavigationContainer>
