@@ -3,9 +3,11 @@ import {
     SafeAreaView,
     View,
     Text,
-    ImageBackground,
+    StyleSheet,
+    Dimensions,
+    Image,
 } from 'react-native';
-import { COLORS, HEIGHT } from '../styles/theme';
+import { COLORS, HEIGHT, BORDERS, FONT_SIZES, FONTS, SPACING } from '../styles/theme';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
@@ -30,6 +32,8 @@ import { v4 as uuidv4 } from 'uuid';
 //Storage
 import SecureStorage from '../helpers/SecureStorage';
 
+const { width, height } = Dimensions.get('window');
+
 const LoginScreen = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -37,7 +41,7 @@ const LoginScreen = () => {
     const { showAlert, createSingleButtonAlert, hideAlert } = useAlert();
 
     useEffect(() => {
-        const checkToken = async () => {
+        /*const checkToken = async () => {
             console.log(`[${new Date().toLocaleString()}] LoginScreen - checkToken on app start`);
             const token = await SecureStorage.getToken();
             const timestampString = await SecureStorage.getData(SecureStorage.Keys.TokenTimestamp);
@@ -53,7 +57,7 @@ const LoginScreen = () => {
                 }
             }
         };
-        checkToken();
+        checkToken();*/
     }, []);
 
     const signInPressed = async () => {
@@ -64,7 +68,8 @@ const LoginScreen = () => {
             });
             return;
         }
-        try {
+        navigation.navigate('Main');
+        /*try {
             showAlert(AlertType.Progress, getText('messageLogin'));
             console.log(`[${new Date().toLocaleString()}] LoginScreen - signInPressed.`);
             const uuidString = uuidv4();
@@ -93,7 +98,7 @@ const LoginScreen = () => {
                 console.log(`[${new Date().toLocaleString()}] LoginScreen - Hide alert should be called.`);
             });
             console.log(`[${new Date().toLocaleString()}] LoginScreen - Error during checkCredentials: `, error);
-        }
+        }*/
     };
 
     const signUpPressed = () => {
@@ -103,44 +108,74 @@ const LoginScreen = () => {
 
     return (
         <SafeAreaView style={sharedStyles.containerStyle}>
-            <ImageBackground
-                source={require('../assets/login_background.png')}
-                style={sharedStyles.backgroundImageContainerStyle}
-            >
-                <View style={sharedStyles.roundBottomContainerViewStyle}>
-                    {/* Image */}
-                    <Icon
-                        name={'account-circle'}
-                        size={HEIGHT.image}
-                        color={COLORS.accent}
-                    />
-                    {/* Title */}
-                    <Text style={sharedStyles.titleStyle}>{getText('appTitle')}</Text>
-                    {/* Subtitle */}
-                    <Text style={sharedStyles.subtitleStyle}>{getText('appSubtitle')}</Text>
-                    {/* Username Input */}
+            <View style={styles.backgroundContainerStyle}>
+                <Image
+                    source={require('../assets/logo.png')}
+                    style={styles.logoStyle}
+                />
+                <Text style={styles.titleStyle}>{getText('welcomeTitle')}</Text>
+                <Text style={styles.subtitleStyle}>{getText('welcomeMessage')}</Text>
+                <View style={styles.roundContainerViewStyle}>
                     <TextInputBox
                         placeholder={getText('usernamePlaceholder')}
                         value={username}
                         onChangeText={setUsername}
                         autoCapitalize="none"
                     />
-                    {/* Password Input */}
                     <PasswordInputBox
                         placeholder={getText('passwordPlaceholder')}
                         value={password}
                         onChangeText={setPassword}
                         autoCapitalize="none"
-                    //secureTextEntry
                     />
-                    {/* Sign In Button */}
                     <AccentButton title={getText('loginButton')} onAccentButtonPress={signInPressed} />
-                    {/* Sign Up Button */}
                     <SecondaryButton title={getText('signUpButton')} onSecondaryButtonPress={signUpPressed} />
                 </View>
-            </ImageBackground>
+            </View>
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create ({
+    roundContainerViewStyle: {
+        position: 'absolute',
+        top: (2 / 5) * height,
+        height: (2 / 5) * height,
+        width: width - 2 * SPACING.medium,
+        backgroundColor: COLORS.secondary,
+        borderRadius: BORDERS.radiusExtraLarge,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: SPACING.medium,
+        paddingTop: SPACING.medium,
+        paddingRight: SPACING.medium,
+        paddingBottom: SPACING.small,
+        marginLeft: SPACING.medium,
+        marginRight: SPACING.medium,
+    },
+    backgroundContainerStyle: {
+        flex: 1,
+        backgroundColor: COLORS.background,
+        alignItems: "center",
+    },
+    logoStyle: {
+        width: "60%",
+        height: "10%",
+        resizeMode: "contain",
+        top: (1 / 5) * height,
+    },
+    titleStyle: {
+        fontSize: FONT_SIZES.large,
+        fontFamily: FONTS.bold,
+        color: COLORS.textPrimary,
+        marginBottom: SPACING.extraSmall,
+    },
+    subtitleStyle: {
+        fontSize: FONT_SIZES.medium,
+        fontFamily: FONTS.regular,
+        color: COLORS.textPrimary,
+        marginBottom: SPACING.medium,
+    },
+});
 
 export default LoginScreen;

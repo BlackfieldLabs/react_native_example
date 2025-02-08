@@ -4,13 +4,13 @@ import {
     View,
     Text,
     TouchableOpacity,
+    StyleSheet
 } from 'react-native';
-//Styles
-import sharedStyles from '../../styles/sharedStyles';
 //Localization
 import { getText } from '../../localization/localization';
 //Helpers
 import { AlertType } from './AlertTypes';
+import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS, FONTS } from '../../styles/theme';
 
 type CustomAlertProps = {
     type: AlertType;
@@ -95,5 +95,59 @@ type CustomAlertProps = {
       </Modal>
     );
   };
+
+  const sharedStyles = StyleSheet.create({
+    overlay: {
+      flex: 1,
+      backgroundColor: COLORS.overlay,
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  alertContainer: {
+      width: '80%',
+      padding: SPACING.large,
+      backgroundColor: COLORS.secondary,
+      borderRadius: BORDERS.radiusLarge,
+      alignItems: 'center',
+  },
+  title: {
+      fontSize: FONT_SIZES.large,
+      fontFamily: FONTS.bold,
+      marginBottom: SPACING.medium,
+      color: COLORS.textPrimary,
+  },
+  message: {
+      fontSize: FONT_SIZES.medium,
+      fontFamily: FONTS.regular,
+      marginBottom: SPACING.medium,
+      textAlign: 'center',
+      color: COLORS.textPrimary,
+  },
+  spinner: {
+      marginTop: SPACING.medium,
+  },
+  buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: SPACING.medium,
+  },
+  button: {
+      paddingVertical: SPACING.small,
+      paddingHorizontal: SPACING.large,
+      borderRadius: BORDERS.radiusLarge,
+      borderWidth: HEIGHT.border,
+      marginHorizontal: SPACING.small,
+  },
+  destructiveButton: {
+      borderColor: COLORS.error,
+  },
+  primaryButton: {
+      borderColor: COLORS.accent,
+  },
+  buttonText: {
+      fontSize: FONT_SIZES.medium,
+      fontFamily: FONTS.bold,
+      color: COLORS.textPrimary,
+  },});
 
 export default CustomAlert;

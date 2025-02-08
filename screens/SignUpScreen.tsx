@@ -9,7 +9,9 @@ import {
 //Localization
 import { getText } from '../localization/localization';
 //Styles
+import { COLORS, FONT_SIZES, FONTS } from '../styles/theme';
 import sharedStyles from '../styles/sharedStyles';
+
 //Components
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
 import TextInputBox from '../components/textbox/TextInputBox';
@@ -18,8 +20,7 @@ import SecondaryButton from '../components/button/SecondaryButton';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
-import { CameraMode } from './CameraComponent';
-
+import { CameraMode } from '../components/CameraComponent';
 const SignUpScreen = () => {
   const navigation = useNavigation<NavigationProp>();
 
@@ -51,7 +52,6 @@ const SignUpScreen = () => {
       state,
       zipCode,
     });
-    navigation.navigate('SelectRole');
   };
 
   const handleCameraButton = () => {
@@ -61,10 +61,10 @@ const SignUpScreen = () => {
 
   return (
     <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
-      <ScrollView contentContainerStyle={sharedStyles.scrollContainer}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* Account Information Section */}
-        <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{getText('accountInfoTitle')}</Text>
+        <View style={styles.signUpSection}>
+          <Text style={styles.signUpSectionTitle}>{getText('accountInfoTitle')}</Text>
           <TextInputBox
             placeholder={getText('usernamePlaceholder')}
             value={username}
@@ -83,8 +83,8 @@ const SignUpScreen = () => {
         </View>
 
         {/* Personal Details Section */}
-        <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{getText('personalDetailsTitle')}</Text>
+        <View style={styles.signUpSection}>
+          <Text style={styles.signUpSectionTitle}>{getText('personalDetailsTitle')}</Text>
           <TextInputBox
             placeholder={getText('namePlaceholder')}
             value={name}
@@ -109,8 +109,8 @@ const SignUpScreen = () => {
         </View>
 
         {/* Address Information Section */}
-        <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{getText('addressInfoTitle')}</Text>
+        <View style={styles.signUpSection}>
+          <Text style={styles.signUpSectionTitle}>{getText('addressInfoTitle')}</Text>
           <TextInputBox
             placeholder={getText('cityPlaceholder')}
             value={city}
@@ -134,14 +134,27 @@ const SignUpScreen = () => {
           />
         </View>
 
-        {/* Camera Button */}
-        <SecondaryButton title={getText('verifyRealUserButton')} onSecondaryButtonPress={handleCameraButton} />
-
         {/* Create User Button */}
         <AccentButton title={getText('createUserButton')} onAccentButtonPress={handleCreateUser} />
       </ScrollView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  signUpSection: {
+    marginBottom: 24,
+    width: '100%',
+  },
+  signUpSectionTitle: {
+    fontSize: FONT_SIZES.large,
+    fontFamily: FONTS.regular,
+    marginBottom: 12,
+    color: COLORS.textPrimary,
+  },
+  scrollContainer: {
+    padding: 16,
+  },
+});
 
 export default SignUpScreen;

@@ -8,23 +8,23 @@ import {
     Platform,
 } from "react-native";
 //Style
-import { COLORS, SPACING, HEIGHT } from "../styles/theme";
-import sharedStyles from "../styles/sharedStyles";
+import { COLORS, SPACING, HEIGHT, FONT_SIZES, FONTS, BORDERS } from "../styles/theme";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import sharedStyles from "../styles/sharedStyles";
 //Camera
 import { RNCamera } from "react-native-camera";
 //Localization
 import { getText } from "../localization/localization";
 //Components
-import AccentButton from "../components/button/AccentButton";
-import { useAlert } from '../components/alert/CustomAlertManager';
-import { AlertType } from '../components/alert/AlertTypes'
+import AccentButton from "./button/AccentButton";
+import { useAlert } from './alert/CustomAlertManager';
+import { AlertType } from './alert/AlertTypes'
 import { RouteProp } from "@react-navigation/native";
 //Helpers
 import { RootStackParamList } from '../helpers/RootStackParamList';
 //Navigation
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { NavigationProp, RoutePropType } from '../helpers/RootStackParamList';
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProp } from '../helpers/RootStackParamList';
 
 export enum CameraMode {
     PHOTO = "photo",
@@ -118,8 +118,8 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                     </View>
                 )}
             </View>
-            <View style={sharedStyles.rowContainer}>
-                <View style={sharedStyles.roleSelectionCardIconBackground}>
+            <View style={styles.rowContainer}>
+                <View style={styles.roleSelectionCardIconBackground}>
                     <MaterialIcons
                         name={mode === CameraMode.QR ? "qr-code-scanner" : "account-box"}
                         size={HEIGHT.image}
@@ -127,10 +127,10 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                     />
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={sharedStyles.cardTitle}>
+                    <Text style={styles.cardTitle}>
                         {mode === CameraMode.QR ? getText("scanQRCodeTitle") : getText("takePictureTitle")}
                     </Text>
-                    <Text style={sharedStyles.roleSelectionCardSubtitle}>
+                    <Text style={styles.roleSelectionCardSubtitle}>
                         {mode === CameraMode.QR ? getText("scanQRCodeSubtitle") : getText("takePictureSubtitle")}
                     </Text>
                 </View>
@@ -160,5 +160,39 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: SPACING.small,
         alignSelf: 'center',
+    },
+    rowContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: COLORS.background,
+        paddingLeft: SPACING.medium,
+        height: HEIGHT.button,
+    },
+    roleSelectionCardContent: {
+        flex: 3,
+        justifyContent: 'center',
+    },
+    cardTitle: {
+        fontSize: FONT_SIZES.large,
+        fontFamily: FONTS.regular,
+        color: COLORS.textPrimary,
+        paddingLeft: SPACING.small,
+    },
+    roleSelectionCardSubtitle: {
+        width: '100%',
+        fontSize: FONT_SIZES.medium,
+        fontFamily: FONTS.regular,
+        color: COLORS.textSecondary,
+        paddingLeft: SPACING.small,
+    },
+    roleSelectionCardIconBackground: {
+        width: HEIGHT.button,
+        height: HEIGHT.button,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.border,
+        borderRadius: BORDERS.radiusMedium,
+        marginRight: SPACING.small,
     },
 });

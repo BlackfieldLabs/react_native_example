@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import sharedStyles from '../../styles/sharedStyles';
+import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS, FONTS } from '../../styles/theme';
 
 /**
  * A reusable accent button component with predefined styling.
@@ -20,10 +20,27 @@ import sharedStyles from '../../styles/sharedStyles';
  */
 const AccentButton = ({ title, onAccentButtonPress }: { title: string; onAccentButtonPress: () => void }) => {
   return (
-    <TouchableOpacity style={sharedStyles.accentButton} onPress={onAccentButtonPress}>
-      <Text style={sharedStyles.accentButtonText}>{title}</Text>
+    <TouchableOpacity style={styles.accentButton} onPress={onAccentButtonPress}>
+      <Text style={styles.accentButtonText}>{title}</Text>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+      accentButton: {
+          width: '100%',
+          height: HEIGHT.button,
+          backgroundColor: COLORS.accent,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: BORDERS.radiusLarge,
+          marginBottom: SPACING.small,
+      },
+      accentButtonText: {
+          fontSize: FONT_SIZES.medium,
+          fontFamily: FONTS.regular,
+          color: COLORS.background,
+      },
+});
 
 export default AccentButton;

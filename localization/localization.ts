@@ -1,8 +1,8 @@
 // Localization strings for different languages
 const en = {
   // Authentication & User Account
-  appTitle: 'WellNuo',
-  appSubtitle: 'So you know they are well',
+  welcomeTitle: 'Welcome!',
+  welcomeMessage: 'Glad to see you here!',
   usernamePlaceholder: 'Username',
   passwordPlaceholder: 'Password',
   repeatPasswordPlaceholder: 'Repeat password',
@@ -18,7 +18,6 @@ const en = {
   zipCodePlaceholder: 'Zip code',
   roleSelectionTitle: 'Select a role',
   createUserButton: 'Create User',
-  verifyRealUserButton: 'Open camera to verify user',
   signUpScreenTitle: 'Sign Up',
   accountInfoTitle: 'Account Information',
   personalDetailsTitle: 'Personal Details',
@@ -116,8 +115,6 @@ const hr = {
   passwordPlaceholder: 'Unesite lozinku',
   loginButton: 'Prijava',
   signUpButton: 'Registracija',
-  appTitle: 'WellNuo',
-  appSubtitle: 'Da znate da su dobro',
   microphonePermissionTitle: 'Dozvola za mikrofon',
   microphonePermissionMessage: 'Ova aplikacija zahtijeva pristup mikrofonu za prepoznavanje govora.',
   microphonePermissionButton: 'U redu',

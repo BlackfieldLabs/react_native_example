@@ -12,8 +12,6 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
 //Components
-import WebViewComponent from '../components/WebViewComponent';
-import SpeechRecognitionComponent from '../components/SpeechRecognitionComponent';
 import { useAlert } from '../components/alert/CustomAlertManager';
 import { AlertType } from '../components/alert/AlertTypes';
 //Styles
@@ -93,13 +91,6 @@ const MainLayout = () => {
     return (
         <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
             <View style={sharedStyles.containerStyle}>
-                <WebViewComponent />
-                <SpeechRecognitionComponent
-                    onResults={handleSpeechResultsAndCallAI}
-                    ref={speechRecognitionRef}
-                    isListening={isListening}
-                    setIsListening={setIsListening}
-                />
             </View>
         </SafeAreaView>
     );

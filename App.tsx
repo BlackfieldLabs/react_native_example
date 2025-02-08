@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 //Theme
 import { COLORS, FONT_SIZES, FONTS, HEIGHT } from './styles/theme';
@@ -16,10 +16,7 @@ import { AlertProvider } from './components/alert/CustomAlertManager';
 import LoginScreen from './screens/LoginScreen';
 import MainLayout from './screens/MainLayout';
 import SignUpScreen from './screens/SignUpScreen';
-import RoleSelectionScreen from './screens/RoleSelectionScreen';
-import InstallationScreen from './screens/InstallationScreen';
-import BeneficiaryScreen from './screens/BeneficiaryScreen';
-import CameraComponent from './screens/CameraComponent';
+import CameraComponent from './components/CameraComponent';
 import ChartsScreen from './screens/ChartsScreen';
 //Helpers
 import { RootStackParamList } from './helpers/RootStackParamList';
@@ -27,11 +24,11 @@ import { RootStackParamList } from './helpers/RootStackParamList';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const SettingsIcon = () => {
-  const navigation = useNavigation(); // Access navigation using the hook
+  const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      style={sharedStyles.settingsIconButton}
+      style={style.settingsIconButton}
       onPress={() => console.log(`[${new Date().toLocaleString()}] Settings item pressed`)}
     >
       <Icon name="settings" size={HEIGHT.smallImage} color={COLORS.accent} />
@@ -49,12 +46,12 @@ const App = () => {
             animation: 'slide_from_right',
             gestureEnabled: true,
             headerStyle: {
-              backgroundColor: COLORS.navigation, // Background color for the navigation bar
+              backgroundColor: COLORS.navigation,
             },
             headerTitleStyle: {
-              fontFamily: FONTS.regular, // Custom font for the navigation bar title
-              fontSize: FONT_SIZES.medium, // Font size
-              color: COLORS.textPrimary, // Font color
+              fontFamily: FONTS.regular,
+              fontSize: FONT_SIZES.medium,
+              color: COLORS.textPrimary,
             },
           }}
         >
@@ -79,21 +76,6 @@ const App = () => {
             options={{ title: getText('signUpScreenTitle') }}
           />
           <Stack.Screen
-            name="SelectRole"
-            component={RoleSelectionScreen}
-            options={{ title: getText('roleSelectionTitle') }}
-          />
-          <Stack.Screen
-            name="Installation"
-            component={InstallationScreen}
-            options={{ title: getText('installationTitle') }}
-          />
-          <Stack.Screen
-            name="Beneficiary"
-            component={BeneficiaryScreen}
-            options={{ title: getText('beneficiaryTitle') }}
-          />
-          <Stack.Screen
             name="Camera"
             component={CameraComponent}
             options={{ title: getText('mobileCameraViewTitle') }}
@@ -113,5 +95,11 @@ const SettingsScreen = () => {
   // Placeholder for the settings screen
   return null;
 };
+
+const style = StyleSheet.create({
+    settingsIconButton: {
+        marginRight: 10,
+    },
+});
 
 export default App;
