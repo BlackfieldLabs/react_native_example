@@ -6,7 +6,6 @@ import React, {
 import {
     View,
     SafeAreaView,
-    Alert,
 } from 'react-native';
 // Navigation
 import { useNavigation } from '@react-navigation/native';
@@ -32,7 +31,7 @@ const MainLayout = () => {
     const [isListening, setIsListening] = useState<boolean>(false);
     const navigation = useNavigation<NavigationProp>();
     const speechRecognitionRef = useRef<any>(null);
-    const { showAlert, createTwoButtonAlert, hideAlert } = useAlert();
+    const { createTwoButtonAlert, hideAlert } = useAlert();
 
     const handleSpeechResultsAndCallAI = (results: string[]) => {
         console.log(`[${new Date().toLocaleString()}] MainLayout - Speech Results: `, results);

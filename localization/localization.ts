@@ -109,6 +109,9 @@ const en = {
 
   //Charts
   chartsTitle: 'Charts',
+
+  //Settings
+  settingsTitle: 'Settings',
 };
 
 const hr = {

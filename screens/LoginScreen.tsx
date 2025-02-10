@@ -67,9 +67,10 @@ const LoginScreen = () => {
         try {
             showAlert(AlertType.Progress, getText('messageLogin'));
             console.log(`[${new Date().toLocaleString()}] LoginScreen - signInPressed.`);
-            const uuidString = uuidv4();
-            const response = await APIService.checkCredentials(username, password, '001', uuidString);
-
+            //const uuidString = uuidv4();
+            navigation.navigate('Main');
+            hideAlert();
+            /*const response = await APIService.checkCredentials(username, password, '001', uuidString);
             if (response?.access_token) {
                 const token = response.access_token;
                 hideAlert();
@@ -84,7 +85,7 @@ const LoginScreen = () => {
                     console.log(`[${new Date().toLocaleString()}] LoginScreen - Hide alert should be called.`);
                 });
                 console.log(`[${new Date().toLocaleString()}] LoginScreen - Token not found in the response: `, response);
-            }
+            }*/
         } catch (error) {
             hideAlert();
             createSingleButtonAlert(AlertType.Error, getText('messageWrongCredentials'), () => {

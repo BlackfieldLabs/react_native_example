@@ -21,18 +21,19 @@ import InstallationScreen from './screens/InstallationScreen';
 import BeneficiaryScreen from './screens/BeneficiaryScreen';
 import CameraComponent from './screens/CameraComponent';
 import ChartsScreen from './screens/ChartsScreen';
+import TabNavigator from './components/navigation/TabNavigator';
 //Helpers
 import { RootStackParamList } from './helpers/RootStackParamList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const SettingsIcon = () => {
-  const navigation = useNavigation(); // Access navigation using the hook
+  const navigation = useNavigation();
 
   return (
     <TouchableOpacity
       style={sharedStyles.settingsIconButton}
-      onPress={() => console.log(`[${new Date().toLocaleString()}] Settings item pressed`)}
+      onPress={() => navigation.navigate('Settings')}
     >
       <Icon name="settings" size={HEIGHT.smallImage} color={COLORS.accent} />
     </TouchableOpacity>
@@ -49,12 +50,12 @@ const App = () => {
             animation: 'slide_from_right',
             gestureEnabled: true,
             headerStyle: {
-              backgroundColor: COLORS.navigation, // Background color for the navigation bar
+              backgroundColor: COLORS.navigation,
             },
             headerTitleStyle: {
-              fontFamily: FONTS.regular, // Custom font for the navigation bar title
-              fontSize: FONT_SIZES.medium, // Font size
-              color: COLORS.textPrimary, // Font color
+              fontFamily: FONTS.regular,
+              fontSize: FONT_SIZES.medium,
+              color: COLORS.textPrimary,
             },
           }}
         >
@@ -103,15 +104,20 @@ const App = () => {
             component={ChartsScreen}
             options={{ title: getText('chartsTitle') }}
           />
+          <Stack.Screen
+            name="Settings"
+            component={TabNavigator}
+            options={{ title: getText('settingsTitle') }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </AlertProvider >
   );
 };
-
+/*
 const SettingsScreen = () => {
   // Placeholder for the settings screen
   return null;
-};
+};*/
 
 export default App;

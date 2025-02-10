@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { BarChart, LineChart, PieChart } from 'react-native-chart-kit';
 import { COLORS, FONT_SIZES, FONTS, HEIGHT, SPACING } from '../styles/theme';
 
