@@ -31,8 +31,8 @@ const TextInputBox = ({
   value,
   onChangeText,
   secureTextEntry = false,
-  borderColor = COLORS.accent,
-  placeholderColor = COLORS.textSecondary,
+  borderColor = COLORS.border,
+  placeholderColor = COLORS.border,
   ...rest
 }: {
   placeholder: string;

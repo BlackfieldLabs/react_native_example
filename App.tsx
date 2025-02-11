@@ -46,7 +46,7 @@ const App = () => {
             animation: 'slide_from_right',
             gestureEnabled: true,
             headerStyle: {
-              backgroundColor: COLORS.navigation,
+              backgroundColor: COLORS.secondary,
             },
             headerTitleStyle: {
               fontFamily: FONTS.regular,

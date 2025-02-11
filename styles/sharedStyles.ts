@@ -4,11 +4,11 @@ import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS, FONTS } from '../styles/t
 const sharedStyles = StyleSheet.create({
     safeLayoutContainerStyle: {
         flex: 1,
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.primary,
     },
     containerStyle: {
         flex: 1,
-        backgroundColor: COLORS.navigation,
+        backgroundColor: COLORS.primary,
     },
 });
 

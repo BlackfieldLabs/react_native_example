@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     secondaryButtonSecondary: {
       width: '100%',
       height: HEIGHT.button,
-      backgroundColor: COLORS.background,
+      backgroundColor: COLORS.primary,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: BORDERS.radiusLarge,

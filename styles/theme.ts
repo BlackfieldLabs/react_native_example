@@ -1,18 +1,12 @@
 export const COLORS = {
-    navigation: 'rgba(110, 194, 167, 1)',//'#6EC2A7'
-    primary: 'rgba(255, 255, 255, 1)',//'#fff''rgba(246, 246, 246, 1)',//'f6f6f6'
-    secondary: 'rgba(234, 240, 253, 1)',//'#eaf0fd'//'rgba(252, 252, 252, 1)',//'#fcfcfc'
+    primary: 'rgba(255, 255, 255, 1)',//'#fff'
+    secondary: 'rgba(225, 252, 244, 1)',//'#e1fcf4'
     accent: 'rgba(74, 93, 130, 1)',//'#4A5D82'
-    border: 'rgba(239, 239, 239, 1)',//'#efefef'
-    textPrimary: 'rgba(0, 0, 0, 1)',//'#000000'
-    textSecondary: 'rgba(188, 190, 194, 1)',//'#bcbec2'
-    textAlternative: 'rgba(255, 255, 255, 1)',//'#fff'
-    background: 'rgba(255, 255, 255, 1)',//'#fff'
+    border: 'rgba(110, 194, 167, 1)',//'#6EC2A7'
+    textPrimary: 'rgba(74, 93, 130, 1)',//'#4A5D82'
+    textSecondary: 'rgba(255, 255, 255, 1)',//'#fff'
     error: 'rgba(255, 77, 79, 1)',//'#ff4d4f'
-    selection: 'rgba(153, 72, 254, 1)',//'#9948fe'
-
-
-    overlay: 'rgba(0, 0, 0, 0.5)',
+    overlay: 'rgba(74, 93, 130, 0.5)',
     graphOrange: 'rgba(254, 156, 67, 1)',
     graphGreen: 'rgba(63, 223, 112, 1)',
   };

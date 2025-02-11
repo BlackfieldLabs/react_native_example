@@ -106,7 +106,7 @@ type CustomAlertProps = {
   alertContainer: {
       width: '80%',
       padding: SPACING.large,
-      backgroundColor: COLORS.secondary,
+      backgroundColor: COLORS.primary,
       borderRadius: BORDERS.radiusLarge,
       alignItems: 'center',
   },

@@ -109,12 +109,14 @@ const LoginScreen = () => {
     return (
         <SafeAreaView style={sharedStyles.containerStyle}>
             <View style={styles.backgroundContainerStyle}>
-                <Image
-                    source={require('../assets/logo.png')}
-                    style={styles.logoStyle}
-                />
-                <Text style={styles.titleStyle}>{getText('welcomeTitle')}</Text>
-                <Text style={styles.subtitleStyle}>{getText('welcomeMessage')}</Text>
+                <View style={styles.greetingContainerStyle}>
+                    <Image
+                        source={require('../assets/logo.png')}
+                        style={styles.logoStyle}
+                    />
+                    <Text style={styles.titleStyle}>{getText('welcomeTitle')}</Text>
+                    <Text style={styles.subtitleStyle}>{getText('welcomeMessage')}</Text>
+                </View>
                 <View style={styles.roundContainerViewStyle}>
                     <TextInputBox
                         placeholder={getText('usernamePlaceholder')}
@@ -140,38 +142,46 @@ const styles = StyleSheet.create ({
     roundContainerViewStyle: {
         position: 'absolute',
         top: (2 / 5) * height,
-        height: (2 / 5) * height,
-        width: width - 2 * SPACING.medium,
+        width: '80%',
         backgroundColor: COLORS.secondary,
         borderRadius: BORDERS.radiusExtraLarge,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center', 
+        marginTop: 'auto',
         paddingLeft: SPACING.medium,
         paddingTop: SPACING.medium,
         paddingRight: SPACING.medium,
         paddingBottom: SPACING.small,
         marginLeft: SPACING.medium,
         marginRight: SPACING.medium,
+        marginBottom: ( 1 / 5 ) * height,
     },
     backgroundContainerStyle: {
         flex: 1,
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.primary,
         alignItems: "center",
+        resizeMode: 'cover',
+    },
+    greetingContainerStyle: {
+        position: 'absolute',
+        height: '40%',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: ( 3 / 5 ) * height,
     },
     logoStyle: {
-        width: "60%",
-        height: "10%",
+        width: "80%",
         resizeMode: "contain",
-        top: (1 / 5) * height,
     },
     titleStyle: {
-        fontSize: FONT_SIZES.large,
+        fontSize: FONT_SIZES.title,
         fontFamily: FONTS.bold,
         color: COLORS.textPrimary,
         marginBottom: SPACING.extraSmall,
     },
     subtitleStyle: {
-        fontSize: FONT_SIZES.medium,
+        fontSize: FONT_SIZES.large,
         fontFamily: FONTS.regular,
         color: COLORS.textPrimary,
         marginBottom: SPACING.medium,

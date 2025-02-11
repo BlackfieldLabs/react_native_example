@@ -35,8 +35,8 @@ const PasswordInputBox = ({
   placeholder,
   value,
   onChangeText,
-  borderColor = COLORS.accent,
-  placeholderColor = COLORS.textSecondary,
+  borderColor = COLORS.border,
+  placeholderColor = COLORS.border,
   ...rest
 }: {
   placeholder: string;
@@ -102,7 +102,7 @@ const PasswordInputBox = ({
         <Icon
           name={isPasswordVisible ? 'visibility' : 'visibility-off'}
           size={HEIGHT.smallImage}
-          color={COLORS.textSecondary}
+          color={COLORS.border}
         />
       </TouchableOpacity>
     </View>

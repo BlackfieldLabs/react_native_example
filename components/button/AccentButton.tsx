@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
       accentButtonText: {
           fontSize: FONT_SIZES.medium,
           fontFamily: FONTS.regular,
-          color: COLORS.background,
+          color: COLORS.textSecondary,
       },
 });
 
