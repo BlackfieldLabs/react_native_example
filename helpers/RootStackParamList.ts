@@ -11,6 +11,7 @@ export type RootStackParamList = {
     onPhotoTaken?: (uri: string) => void;
   };
   Charts: undefined;
+  Tabs: undefined;
 };
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList>;

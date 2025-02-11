@@ -7,7 +7,7 @@ import {
     Dimensions,
     Image,
 } from 'react-native';
-import { COLORS, HEIGHT, BORDERS, FONT_SIZES, FONTS, SPACING } from '../styles/theme';
+import { COLORS, BORDERS, FONT_SIZES, FONTS, SPACING } from '../styles/theme';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
@@ -20,17 +20,10 @@ import { useAlert } from '../components/alert/CustomAlertManager';
 import { AlertType } from '../components/alert/AlertTypes'
 //Styles
 import sharedStyles from '../styles/sharedStyles';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 //Localization
 import { getText } from '../localization/localization';
-//API Call
-import APIService from '../services/APIService';
-import { isTokenValid } from '../services/APIService';
 //UUID
 import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
-//Storage
-import SecureStorage from '../helpers/SecureStorage';
 
 const { width, height } = Dimensions.get('window');
 
@@ -68,7 +61,7 @@ const LoginScreen = () => {
             });
             return;
         }
-        navigation.navigate('Main');
+        navigation.navigate('Tabs');
         /*try {
             showAlert(AlertType.Progress, getText('messageLogin'));
             console.log(`[${new Date().toLocaleString()}] LoginScreen - signInPressed.`);

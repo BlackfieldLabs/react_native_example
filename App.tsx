@@ -18,6 +18,7 @@ import MainLayout from './screens/MainLayout';
 import SignUpScreen from './screens/SignUpScreen';
 import CameraComponent from './components/CameraComponent';
 import ChartsScreen from './screens/ChartsScreen';
+import TabNavigator from './components/navigation/TabNavigator';
 //Helpers
 import { RootStackParamList } from './helpers/RootStackParamList';
 
@@ -84,6 +85,11 @@ const App = () => {
             name="Charts"
             component={ChartsScreen}
             options={{ title: getText('chartsTitle') }}
+          />
+          <Stack.Screen
+            name="Tabs"
+            component={TabNavigator}
+            options={{ title: getText('mainLayoutTitle') }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -25,7 +25,7 @@ const ChartsScreen = () => {
     { name: 'Living Room', population: 5, color: COLORS.error, legendFontColor: COLORS.textPrimary, legendFontSize: FONT_SIZES.small },
     { name: 'Bedroom', population: 3, color: COLORS.accent, legendFontColor: COLORS.textPrimary, legendFontSize: FONT_SIZES.small },
     { name: 'Kitchen', population: 7, color: COLORS.graphGreen, legendFontColor: COLORS.textPrimary, legendFontSize: FONT_SIZES.small },
-    { name: 'Office', population: 2, color: COLORS.selection, legendFontColor: COLORS.textPrimary, legendFontSize: FONT_SIZES.small },
+    { name: 'Office', population: 2, color: COLORS.border, legendFontColor: COLORS.textPrimary, legendFontSize: FONT_SIZES.small },
     { name: 'Garage', population: 4, color: COLORS.graphOrange, legendFontColor: COLORS.textPrimary, legendFontSize: FONT_SIZES.small },
   ];
 
@@ -56,7 +56,7 @@ const ChartsScreen = () => {
       <Text style={styles.chartTitle}>Room Installation Distribution</Text>
       <PieChart
         data={pieChartData}
-        width={screenWidth - 2*SPACING.medium}
+        width={screenWidth - 2*SPACING.extraLarge}
         height={HEIGHT.graph}
         chartConfig={chartConfig}
         accessor="population"
@@ -69,17 +69,17 @@ const ChartsScreen = () => {
 
 // 📌 Chart Configuration (Custom Styling)
 const chartConfig = {
-  backgroundGradientFrom: COLORS.background,
-  backgroundGradientTo: COLORS.background,
+  backgroundGradientFrom: COLORS.primary,
+  backgroundGradientTo: COLORS.primary,
   decimalPlaces: 0,
   color: (opacity = 1) => COLORS.accent,
-  labelColor: (opacity = 1) => COLORS.textSecondary,
+  labelColor: (opacity = 1) => COLORS.textPrimary,
   propsForDots: {
     r: '4',
     strokeWidth: '0',
   },
   propsForBackgroundLines: {
-    stroke: COLORS.border, // ✅ Change the color of horizontal & vertical grid lines
+    stroke: COLORS.secondary, // ✅ Change the color of horizontal & vertical grid lines
     strokeWidth: 1,    // Optional: Adjust thickness
     strokeDasharray: "0, 0" // Optional: Make the grid dashed
   }
@@ -88,7 +88,7 @@ const chartConfig = {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: COLORS.background,
+    backgroundColor: COLORS.primary,
   },
   chartTitle: {
     fontSize: FONT_SIZES.medium,
