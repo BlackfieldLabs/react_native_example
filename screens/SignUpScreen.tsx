@@ -5,8 +5,8 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-//Localization
-import { getText } from '../localization/localization';
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 //Styles
 import sharedStyles from '../styles/sharedStyles';
 //Components
@@ -18,6 +18,8 @@ import SecondaryButton from '../components/button/SecondaryButton';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
 import { CameraMode } from './CameraComponent';
+
+const { t } = useTranslation();
 
 const SignUpScreen = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -63,19 +65,19 @@ const SignUpScreen = () => {
       <ScrollView contentContainerStyle={sharedStyles.scrollContainer}>
         {/* Account Information Section */}
         <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{getText('accountInfoTitle')}</Text>
+          <Text style={sharedStyles.signUpSectionTitle}>{t('accountInfoTitle')}</Text>
           <TextInputBox
-            placeholder={getText('usernamePlaceholder')}
+            placeholder={t('usernamePlaceholder')}
             value={username}
             onChangeText={setUsername}
           />
           <PasswordInputBox
-            placeholder={getText('passwordPlaceholder')}
+            placeholder={t('passwordPlaceholder')}
             value={password}
             onChangeText={setPassword}
           />
           <PasswordInputBox
-            placeholder={getText('repeatPasswordPlaceholder')}
+            placeholder={t('repeatPasswordPlaceholder')}
             value={repeatPassword}
             onChangeText={setRepeatPassword}
           />
@@ -83,24 +85,24 @@ const SignUpScreen = () => {
 
         {/* Personal Details Section */}
         <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{getText('personalDetailsTitle')}</Text>
+          <Text style={sharedStyles.signUpSectionTitle}>{t('personalDetailsTitle')}</Text>
           <TextInputBox
-            placeholder={getText('namePlaceholder')}
+            placeholder={t('namePlaceholder')}
             value={name}
             onChangeText={setName}
           />
           <TextInputBox
-            placeholder={getText('familyNamePlaceholder')}
+            placeholder={t('familyNamePlaceholder')}
             value={familyName}
             onChangeText={setFamilyName}
           />
           <TextInputBox
-            placeholder={getText('emailPlaceholder')}
+            placeholder={t('emailPlaceholder')}
             value={email}
             onChangeText={setEmail}
           />
           <TextInputBox
-            placeholder={getText('telephonePlaceholder')}
+            placeholder={t('telephonePlaceholder')}
             value={telephone}
             onChangeText={setTelephone}
             keyboardType="numeric"
@@ -109,24 +111,24 @@ const SignUpScreen = () => {
 
         {/* Address Information Section */}
         <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{getText('addressInfoTitle')}</Text>
+          <Text style={sharedStyles.signUpSectionTitle}>{t('addressInfoTitle')}</Text>
           <TextInputBox
-            placeholder={getText('cityPlaceholder')}
+            placeholder={t('cityPlaceholder')}
             value={city}
             onChangeText={setCity}
           />
           <TextInputBox
-            placeholder={getText('streetAndNumberPlaceholder')}
+            placeholder={t('streetAndNumberPlaceholder')}
             value={streetAndNumber}
             onChangeText={setStreetAndNumber}
           />
           <TextInputBox
-            placeholder={getText('statePlaceholder')}
+            placeholder={t('statePlaceholder')}
             value={state}
             onChangeText={setState}
           />
           <TextInputBox
-            placeholder={getText('zipCodePlaceholder')}
+            placeholder={t('zipCodePlaceholder')}
             value={zipCode}
             onChangeText={setZipCode}
             keyboardType="numeric"
@@ -134,10 +136,10 @@ const SignUpScreen = () => {
         </View>
 
         {/* Camera Button */}
-        <SecondaryButton title={getText('verifyRealUserButton')} onSecondaryButtonPress={handleCameraButton} />
+        <SecondaryButton title={t('verifyRealUserButton')} onSecondaryButtonPress={handleCameraButton} />
 
         {/* Create User Button */}
-        <AccentButton title={getText('createUserButton')} onAccentButtonPress={handleCreateUser} />
+        <AccentButton title={t('createUserButton')} onAccentButtonPress={handleCreateUser} />
       </ScrollView>
     </SafeAreaView>
   );

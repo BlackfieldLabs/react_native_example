@@ -15,7 +15,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
 import { CameraMode } from './CameraComponent';
 //Localization
-import { getText } from '../localization/localization';
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 //Style
 import { BORDERS, COLORS, FONT_SIZES, FONTS, HEIGHT, SPACING } from '../styles/theme';
 import sharedStyles from '../styles/sharedStyles';
@@ -29,6 +30,8 @@ import { AlertType } from '../components/alert/AlertTypes'
 import CustomActionSheet from '../components/actionSheet/CustomActionSheet';
 //Wi-Fi
 import { getAvailableWifiNetworks } from '../components/Wi-Fi/WifiScanner';
+
+const { t } = useTranslation();
 
 const manager = new BleManager();
 
@@ -59,12 +62,12 @@ const InstallationScreen = () => {
   const handleSelect = (index: number) => {
     const selectedItem = sheetOptions[index];
     if (selectedItem) {
-      if (sheetTitle === getText('selectNetworkTitle')) {
+      if (sheetTitle === t('selectNetworkTitle')) {
         setSelectedWifi(selectedItem.title);
-      } else if (sheetTitle === getText('pickARoomType')) {
+      } else if (sheetTitle === t('pickARoomType')) {
         setSelectedRoomType(selectedItem.title);
         setSelectedRoomImage(selectedItem.iconName ?? '');
-      } else if (sheetTitle === getText('pickAColorTitle')) {
+      } else if (sheetTitle === t('pickAColorTitle')) {
         setSelectedColor(selectedItem.iconColor ?? null);
       }
     }
@@ -99,29 +102,29 @@ const InstallationScreen = () => {
   //Button press
   const handlePress = async (title: string) => {
     console.log(`[${new Date().toLocaleString()}] ${title} Button pressed`);
-    if (title === getText('cameraButton')) {
+    if (title === t('cameraButton')) {
       navigation.navigate('Camera', { mode: CameraMode.QR });
-    } else if (title === getText('scanButton')) {
+    } else if (title === t('scanButton')) {
       toggleScan();
-    } else if (title === getText('colorButton')) {
+    } else if (title === t('colorButton')) {
       console.log(`[${new Date().toLocaleString()}] ${title} Button pressed`);
-      openSheet(getText('pickAColorTitle'), colors);
-    } else if (title === getText('selectNetworkButton')) {
+      openSheet(t('pickAColorTitle'), colors);
+    } else if (title === t('selectNetworkButton')) {
       console.log(`[${new Date().toLocaleString()}]Fetching available WiFi networks...`);
       const networks = await getAvailableWifiNetworks();
       console.log(`[${new Date().toLocaleString()}] Available networks:`, networks);
 
       if (networks.length > 0) {
-        openSheet(getText('selectNetworkTitle'), networks.map((ssid) => ({ title: ssid })));
+        openSheet(t('selectNetworkTitle'), networks.map((ssid) => ({ title: ssid })));
       } else {
-        createSingleButtonAlert(AlertType.Warning, getText('messageNoWiFiNetworks'), () => {
+        createSingleButtonAlert(AlertType.Warning, t('messageNoWiFiNetworks'), () => {
           console.log(`[${new Date().toLocaleString()}] No WiFi networks found. Please try again.`);
         });
       }
       //TODO: Tamara add progress
-    } else if (title === getText('roomTypeButton')) {
-      openSheet(getText('pickARoomType'), roomTypes);
-    } else if (title === getText('goToChartsButton')) {
+    } else if (title === t('roomTypeButton')) {
+      openSheet(t('pickARoomType'), roomTypes);
+    } else if (title === t('goToChartsButton')) {
       navigation.navigate('Charts');
     };
   };
@@ -147,7 +150,7 @@ const InstallationScreen = () => {
     console.log(`[${new Date().toLocaleString()}] Start scan clicked`);
     const hasPermissions = await requestBluetoothPermissions();
     if (!hasPermissions) {
-      createSingleButtonAlert(AlertType.Error, getText('bluetoothPermissionDeniedMessage'), () => {
+      createSingleButtonAlert(AlertType.Error, t('bluetoothPermissionDeniedMessage'), () => {
         console.log(`[${new Date().toLocaleString()}] Bluetooth permissions not granted`);
       });
       return;
@@ -157,7 +160,7 @@ const InstallationScreen = () => {
     setScannedDevices([]);
     manager.startDeviceScan(null, null, (error, device) => {
       if (error) {
-        const message = getText('bluetoothScanErrorMessage') + error;
+        const message = t('bluetoothScanErrorMessage') + error;
         createSingleButtonAlert(AlertType.Error, message, () => {
           console.log(`[${new Date().toLocaleString()}] `, message);
         });
@@ -220,7 +223,7 @@ const InstallationScreen = () => {
       <ScrollView contentContainerStyle={sharedStyles.scrollContainer}>
         {/* Section 1 */}
         <View style={[sharedStyles.sectionTop, styles.row]}>
-          {[getText('scanButton'), getText('clearButton'), getText('cameraButton')].map((title) => (
+          {[t('scanButton'), t('clearButton'), t('cameraButton')].map((title) => (
             <TouchableOpacity
               key={title}
               style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
@@ -228,7 +231,7 @@ const InstallationScreen = () => {
             >
               <View style={styles.contentContainer}>
                 <MaterialIcons
-                  name={(title === getText('cameraButton') ? 'camera-alt' : title === getText('clearButton') ? 'delete' : 'touch-app')}
+                  name={(title === t('cameraButton') ? 'camera-alt' : title === t('clearButton') ? 'delete' : 'touch-app')}
                   size={HEIGHT.smallImage}
                   color={COLORS.textAlternative}
                   style={styles.icon} />
@@ -240,8 +243,8 @@ const InstallationScreen = () => {
         {/* Section 2 */}
         <View style={sharedStyles.sectionMiddle}>
           <View style={styles.row}>
-            <Text style={[styles.statusText, styles.columnTitle]}>{getText('deployColumn')}</Text>
-            <Text style={[styles.statusText, styles.columnTitle]}>{getText('rssiColumn')}</Text>
+            <Text style={[styles.statusText, styles.columnTitle]}>{t('deployColumn')}</Text>
+            <Text style={[styles.statusText, styles.columnTitle]}>{t('rssiColumn')}</Text>
             <Text style={[styles.columnBig]}></Text>
           </View>
           {scannedDevices.map((device, index) => (
@@ -269,7 +272,7 @@ const InstallationScreen = () => {
         <View style={[sharedStyles.sectionMiddle, styles.row]}>
           <TouchableOpacity
             style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
-            onPress={() => handlePress(getText('roomTypeButton'))}
+            onPress={() => handlePress(t('roomTypeButton'))}
           >
             <View style={styles.contentContainer}>
               <MaterialIcons
@@ -280,13 +283,13 @@ const InstallationScreen = () => {
               <Text
                 numberOfLines={1}
                 ellipsizeMode="tail"
-                style={sharedStyles.buttonTextPrimary}>{selectedRoomType || getText('roomTypeButton')}
+                style={sharedStyles.buttonTextPrimary}>{selectedRoomType || t('roomTypeButton')}
               </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
-            onPress={() => handlePress(getText('customDecriptionButton'))}
+            onPress={() => handlePress(t('customDecriptionButton'))}
           >
             <View style={styles.contentContainer}>
               <MaterialIcons
@@ -297,7 +300,7 @@ const InstallationScreen = () => {
               <Text
                 numberOfLines={1}
                 ellipsizeMode="tail"
-                style={sharedStyles.buttonTextPrimary}>{getText('customDecriptionButton')}
+                style={sharedStyles.buttonTextPrimary}>{t('customDecriptionButton')}
               </Text>
             </View>
           </TouchableOpacity>
@@ -305,7 +308,7 @@ const InstallationScreen = () => {
         {/* Section 4 */}
         <View style={sharedStyles.sectionMiddle}>
           <View style={styles.row}>
-            {[getText('connectButton'), getText('reportWiFisButton')].map((title) => (
+            {[t('connectButton'), t('reportWiFisButton')].map((title) => (
               <TouchableOpacity
                 key={title}
                 style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
@@ -313,7 +316,7 @@ const InstallationScreen = () => {
               >
                 <View style={styles.contentContainer}>
                   <MaterialIcons
-                    name={(title === getText('connectButton') ? 'bluetooth' : 'wifi')}
+                    name={(title === t('connectButton') ? 'bluetooth' : 'wifi')}
                     size={HEIGHT.smallImage} 
                     color={COLORS.textAlternative}
                     style={styles.icon} />
@@ -325,9 +328,9 @@ const InstallationScreen = () => {
           <View style={styles.row}>
             <TouchableOpacity
               style={[styles.dropDownList, sharedStyles.halfWidthButton]}
-              onPress={() => handlePress(getText('selectNetworkButton'))}
+              onPress={() => handlePress(t('selectNetworkButton'))}
             >
-              <Text style={styles.dropDownText}>{selectedWifi || getText('selectNetworkButton')}</Text>
+              <Text style={styles.dropDownText}>{selectedWifi || t('selectNetworkButton')}</Text>
               <MaterialIcons
                 name="arrow-drop-down" 
                 size={HEIGHT.smallImage}
@@ -335,16 +338,16 @@ const InstallationScreen = () => {
                 style={styles.icon} />
             </TouchableOpacity>
             <TextInput
-              placeholder={getText('enterWiFiPassPlaceholder')}
+              placeholder={t('enterWiFiPassPlaceholder')}
               placeholderTextColor={COLORS.textPrimary}
               style={[styles.textBox, sharedStyles.halfWidthButton]}
             />
           </View>
           <View style={styles.row}>
             <TouchableOpacity
-              key={getText('credentialsButton')}
+              key={t('credentialsButton')}
               style={[[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]]}
-              onPress={() => handlePress(getText('credentialsButton'))}
+              onPress={() => handlePress(t('credentialsButton'))}
             >
               <View style={styles.contentContainer}>
                 <MaterialIcons
@@ -352,14 +355,14 @@ const InstallationScreen = () => {
                   size={HEIGHT.smallImage}
                   color={COLORS.textAlternative}
                   style={styles.icon} />
-                <Text style={sharedStyles.buttonTextPrimary}>{getText('credentialsButton')}</Text>
+                <Text style={sharedStyles.buttonTextPrimary}>{t('credentialsButton')}</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
               ref={buttonRef}
-              key={getText('colorButton')}
+              key={t('colorButton')}
               style={[styles.colorButton, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
-              onPress={() => handlePress(getText('colorButton'))}
+              onPress={() => handlePress(t('colorButton'))}
             >
               <View style={styles.contentContainer}>
                 <MaterialIcons
@@ -367,7 +370,7 @@ const InstallationScreen = () => {
                   size={HEIGHT.smallImage}
                   color={COLORS.textAlternative}
                   style={styles.icon} />
-                <Text style={sharedStyles.buttonTextPrimary}>{getText('colorButton')}</Text>
+                <Text style={sharedStyles.buttonTextPrimary}>{t('colorButton')}</Text>
                 {selectedColor && (
                   <View style={[styles.colorIndicator, { backgroundColor: selectedColor }]} />
                 )}
@@ -379,7 +382,7 @@ const InstallationScreen = () => {
         <View style={[sharedStyles.sectionMiddle, styles.row]}>
           <TouchableOpacity
             style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
-            onPress={() => handlePress(getText('connectionButton'))}
+            onPress={() => handlePress(t('connectionButton'))}
           >
             <View style={styles.contentContainer}>
               <MaterialIcons
@@ -387,11 +390,11 @@ const InstallationScreen = () => {
                 size={HEIGHT.smallImage}
                 color={COLORS.textAlternative}
                 style={styles.icon} />
-              <Text style={sharedStyles.buttonTextPrimary}>{getText('connectionButton')}</Text>
+              <Text style={sharedStyles.buttonTextPrimary}>{t('connectionButton')}</Text>
             </View>
           </TouchableOpacity>
           <View style={styles.statusContainer}>
-            <Text style={styles.statusText}>{getText('statusText')}</Text>
+            <Text style={styles.statusText}>{t('statusText')}</Text>
             <Text style={styles.statusNumber}>313546534321</Text>
           </View>
         </View>
@@ -399,7 +402,7 @@ const InstallationScreen = () => {
         <View style={[sharedStyles.sectionBottom, styles.row]}>
           <TouchableOpacity
             style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
-            onPress={() => handlePress(getText('goToChartsButton'))}
+            onPress={() => handlePress(t('goToChartsButton'))}
           >
             <View style={styles.contentContainer}>
               <MaterialIcons
@@ -407,7 +410,7 @@ const InstallationScreen = () => {
                 size={HEIGHT.smallImage}
                 color={COLORS.textAlternative}
                 style={styles.icon} />
-              <Text style={sharedStyles.buttonTextPrimary}>{getText('goToChartsButton')}</Text>
+              <Text style={sharedStyles.buttonTextPrimary}>{t('goToChartsButton')}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -420,7 +423,7 @@ const InstallationScreen = () => {
                 size={HEIGHT.smallImage}
                 color={COLORS.textAlternative}
                 style={styles.iconAccent} />
-              <Text style={styles.buttonTextAccent}>{getText('nextButton')}</Text>
+              <Text style={styles.buttonTextAccent}>{t('nextButton')}</Text>
             </View>
           </TouchableOpacity>
         </View>

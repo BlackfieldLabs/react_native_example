@@ -8,9 +8,12 @@ import {
 //Styles
 import sharedStyles from '../../styles/sharedStyles';
 //Localization
-import { getText } from '../../localization/localization';
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../../localization/i18n";
 //Helpers
 import { AlertType } from './AlertTypes';
+
+const { t } = useTranslation();
 
 type CustomAlertProps = {
     type: AlertType;
@@ -45,7 +48,7 @@ type CustomAlertProps = {
                 onConfirm?.();
             }}
             >
-              <Text style={sharedStyles.buttonText}>{getText('okButtonTitle')}</Text>
+              <Text style={sharedStyles.buttonText}>{t('okButtonTitle')}</Text>
             </TouchableOpacity>
           </View>
         );
@@ -59,7 +62,7 @@ type CustomAlertProps = {
               style={[sharedStyles.button, sharedStyles.destructiveButton]}
               onPress={onClose}
             >
-              <Text style={sharedStyles.buttonText}>{getText('cancelButtonTitle')}</Text>
+              <Text style={sharedStyles.buttonText}>{t('cancelButtonTitle')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[sharedStyles.button, sharedStyles.primaryButton]}
@@ -68,7 +71,7 @@ type CustomAlertProps = {
                         onConfirm?.();
                     }}
                 >
-                    <Text style={sharedStyles.buttonText}>{getText('okButtonTitle')}</Text>
+                    <Text style={sharedStyles.buttonText}>{t('okButtonTitle')}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -83,10 +86,10 @@ type CustomAlertProps = {
           <View style={sharedStyles.alertContainer}>
             <Text style={sharedStyles.title}>
               {type === AlertType.Error
-                ? getText('errorTitle')
+                ? t('errorTitle')
                 : type === AlertType.Warning
-                ? getText('warningTitle')
-                : getText('pleaseWaitTitle')}
+                ? t('warningTitle')
+                : t('pleaseWaitTitle')}
             </Text>
             <Text style={sharedStyles.message}>{message}</Text>
             {renderButtons()}

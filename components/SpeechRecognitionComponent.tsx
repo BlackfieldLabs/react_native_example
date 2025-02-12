@@ -19,10 +19,13 @@ import Voice, {
 //Styles
 import { COLORS, FONT_SIZES, SPACING, BORDERS, FONTS } from '../styles/theme';
 //Localization
-import { getText } from '../localization/localization';
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 //Alert
 import { useAlert } from '../components/alert/CustomAlertManager';
 import { AlertType } from '../components/alert/AlertTypes'
+
+const { t } = useTranslation();
 
 interface Props {
     onResults: (results: string[]) => void;
@@ -42,7 +45,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 await Voice.stop();
                 props.setIsListening(false);
             } catch (e) {
-                const message = getText('messageErrorStoppingListenning') + e;
+                const message = t('messageErrorStoppingListenning') + e;
                 createSingleButtonAlert(AlertType.Error, message, () => {
                     console.log(`[${new Date().toLocaleString()}] Error stopping listening: `, e);
                 });
@@ -53,7 +56,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 await Voice.destroy();
                 props.setIsListening(false);
             } catch (e) {
-                const message = getText('messageErrorStoppingRecognition') + e;
+                const message = t('messageErrorStoppingRecognition') + e;
                 createSingleButtonAlert(AlertType.Error, message, () => {
                     console.log(`[${new Date().toLocaleString()}] Error stopping recognition: `, e);
                 });
@@ -92,9 +95,9 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
                 {
-                    title: getText('microphonePermissionTitle'),
-                    message: getText('microphonePermissionMessage'),
-                    buttonPositive: getText('okButtonTitle'),
+                    title: t('microphonePermissionTitle'),
+                    message: t('microphonePermissionMessage'),
+                    buttonPositive: t('okButtonTitle'),
                 }
             );
             console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Permission granted - Android!`);
@@ -191,7 +194,7 @@ const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
                 />
                 <Text style={styles.speechComponentWhiteViewTitleText}>Julia</Text>
                 <Text style={styles.speechComponentWhiteViewSubtitleText}>
-                    {results.length > 0 ? results[0] : getText('toggleSpeechRecognition')}
+                    {results.length > 0 ? results[0] : t('toggleSpeechRecognition')}
                 </Text>
                 <TouchableOpacity
                     style={styles.speechComponentRoundButton}

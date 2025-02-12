@@ -14,7 +14,8 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 //Camera
 import { RNCamera } from "react-native-camera";
 //Localization
-import { getText } from "../localization/localization";
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 //Components
 import AccentButton from "../components/button/AccentButton";
 import { useAlert } from '../components/alert/CustomAlertManager';
@@ -25,6 +26,8 @@ import { RootStackParamList } from '../helpers/RootStackParamList';
 //Navigation
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NavigationProp, RoutePropType } from '../helpers/RootStackParamList';
+
+const { t } = useTranslation();
 
 export enum CameraMode {
     PHOTO = "photo",
@@ -53,13 +56,13 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.CAMERA,
                 {
-                    title: getText('cameraPermissionTitle'),
-                    message: getText('cameraPermissionMessage'),
-                    buttonPositive: getText('okButtonTitle'),
+                    title: t('cameraPermissionTitle'),
+                    message: t('cameraPermissionMessage'),
+                    buttonPositive: t('okButtonTitle'),
                 }
             );
             if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-                createSingleButtonAlert(AlertType.Warning, getText('cameraPermissionDeniedMessage'), () => {
+                createSingleButtonAlert(AlertType.Warning, t('cameraPermissionDeniedMessage'), () => {
                     console.log(`[${new Date().toLocaleString()}] CameraComponent - Permission denied!`);
                 });
             }
@@ -112,7 +115,7 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                 {mode === CameraMode.PHOTO && (
                     <View style={styles.captureButtonWrapper}>
                         <AccentButton
-                            title={getText("takeAPictureTitle")}
+                            title={t("takeAPictureTitle")}
                             onAccentButtonPress={handleTakenPhoto}
                         />
                     </View>
@@ -128,10 +131,10 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={sharedStyles.cardTitle}>
-                        {mode === CameraMode.QR ? getText("scanQRCodeTitle") : getText("takePictureTitle")}
+                        {mode === CameraMode.QR ? t("scanQRCodeTitle") : t("takePictureTitle")}
                     </Text>
                     <Text style={sharedStyles.roleSelectionCardSubtitle}>
-                        {mode === CameraMode.QR ? getText("scanQRCodeSubtitle") : getText("takePictureSubtitle")}
+                        {mode === CameraMode.QR ? t("scanQRCodeSubtitle") : t("takePictureSubtitle")}
                     </Text>
                 </View>
             </View>

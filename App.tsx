@@ -5,7 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { COLORS, FONT_SIZES, FONTS, HEIGHT } from './styles/theme';
 import sharedStyles from './styles/sharedStyles';
 //Localization
-import { getText } from './localization/localization';
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "./localization/i18n";
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -26,6 +27,7 @@ import TabNavigator from './components/navigation/TabNavigator';
 import { RootStackParamList } from './helpers/RootStackParamList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const { t } = useTranslation();
 
 const SettingsIcon = () => {
   const navigation = useNavigation();
@@ -42,82 +44,79 @@ const SettingsIcon = () => {
 
 const App = () => {
   return (
-    <AlertProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{
-            animation: 'slide_from_right',
-            gestureEnabled: true,
-            headerStyle: {
-              backgroundColor: COLORS.navigation,
-            },
-            headerTitleStyle: {
-              fontFamily: FONTS.regular,
-              fontSize: FONT_SIZES.medium,
-              color: COLORS.textPrimary,
-            },
-          }}
-        >
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={
-              { title: getText('loginButton'), headerShown: false }
-            }
-          />
-          <Stack.Screen
-            name="Main"
-            component={MainLayout}
-            options={{
-              title: getText('mainLayoutTitle'),
-              headerRight: () => <SettingsIcon />,
+    <I18nextProvider i18n={i18n}>
+      <AlertProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+              animation: 'slide_from_right',
+              gestureEnabled: true,
+              headerStyle: {
+                backgroundColor: COLORS.navigation,
+              },
+              headerTitleStyle: {
+                fontFamily: FONTS.regular,
+                fontSize: FONT_SIZES.medium,
+                color: COLORS.textPrimary,
+              },
             }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUpScreen}
-            options={{ title: getText('signUpScreenTitle') }}
-          />
-          <Stack.Screen
-            name="SelectRole"
-            component={RoleSelectionScreen}
-            options={{ title: getText('roleSelectionTitle') }}
-          />
-          <Stack.Screen
-            name="Installation"
-            component={InstallationScreen}
-            options={{ title: getText('installationTitle') }}
-          />
-          <Stack.Screen
-            name="Beneficiary"
-            component={BeneficiaryScreen}
-            options={{ title: getText('beneficiaryTitle') }}
-          />
-          <Stack.Screen
-            name="Camera"
-            component={CameraComponent}
-            options={{ title: getText('mobileCameraViewTitle') }}
-          />
-          <Stack.Screen
-            name="Charts"
-            component={ChartsScreen}
-            options={{ title: getText('chartsTitle') }}
-          />
-          <Stack.Screen
-            name="Settings"
-            component={TabNavigator}
-            options={{ title: getText('settingsTitle') }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AlertProvider >
+          >
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={
+                { title: t("loginButton"), headerShown: false }
+              }
+            />
+            <Stack.Screen
+              name="Main"
+              component={MainLayout}
+              options={{
+                title: t("mainLayoutTitle"),
+                headerRight: () => <SettingsIcon />,
+              }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUpScreen}
+              options={{ title: t("signUpScreenTitle") }}
+            />
+            <Stack.Screen
+              name="SelectRole"
+              component={RoleSelectionScreen}
+              options={{ title: t("roleSelectionTitle") }}
+            />
+            <Stack.Screen
+              name="Installation"
+              component={InstallationScreen}
+              options={{ title: t('installationTitle') }}
+            />
+            <Stack.Screen
+              name="Beneficiary"
+              component={BeneficiaryScreen}
+              options={{ title: t("beneficiaryTitle") }}
+            />
+            <Stack.Screen
+              name="Camera"
+              component={CameraComponent}
+              options={{ title: t("mobileCameraViewTitle") }}
+            />
+            <Stack.Screen
+              name="Charts"
+              component={ChartsScreen}
+              options={{ title: t("chartsTitle") }}
+            />
+            <Stack.Screen
+              name="Settings"
+              component={TabNavigator}
+              options={{ title: t("settingsTitle") }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AlertProvider >
+    </I18nextProvider>
   );
 };
-/*
-const SettingsScreen = () => {
-  // Placeholder for the settings screen
-  return null;
-};*/
 
 export default App;

@@ -20,7 +20,8 @@ import { AlertType } from '../components/alert/AlertTypes'
 import sharedStyles from '../styles/sharedStyles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 //Localization
-import { getText } from '../localization/localization';
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 //API Call
 import APIService from '../services/APIService';
 import { isTokenValid } from '../services/APIService';
@@ -29,6 +30,8 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 //Storage
 import SecureStorage from '../helpers/SecureStorage';
+
+const { t } = useTranslation();
 
 const LoginScreen = () => {
     const [username, setUsername] = useState<string>('');
@@ -59,13 +62,13 @@ const LoginScreen = () => {
     const signInPressed = async () => {
         console.log(`[${new Date().toLocaleString()}] LoginScreen - Empty username or password? `, username.trim(), password.trim());
         if (username.trim() === '' || password.trim() === '') {
-            createSingleButtonAlert(AlertType.Warning, getText('messageEmptyLogin'), () => {
+            createSingleButtonAlert(AlertType.Warning, t('messageEmptyLogin'), () => {
                 console.log(`[${new Date().toLocaleString()}] LoginScreen - Empty username or password.`);
             });
             return;
         }
         try {
-            showAlert(AlertType.Progress, getText('messageLogin'));
+            showAlert(AlertType.Progress, t('messageLogin'));
             console.log(`[${new Date().toLocaleString()}] LoginScreen - signInPressed.`);
             //const uuidString = uuidv4();
             navigation.navigate('Main');
@@ -88,7 +91,7 @@ const LoginScreen = () => {
             }*/
         } catch (error) {
             hideAlert();
-            createSingleButtonAlert(AlertType.Error, getText('messageWrongCredentials'), () => {
+            createSingleButtonAlert(AlertType.Error, t('messageWrongCredentials'), () => {
                 console.log(`[${new Date().toLocaleString()}] LoginScreen - Incorrect username or password.`);
                 hideAlert();
                 console.log(`[${new Date().toLocaleString()}] LoginScreen - Hide alert should be called.`);
@@ -116,28 +119,28 @@ const LoginScreen = () => {
                         color={COLORS.accent}
                     />
                     {/* Title */}
-                    <Text style={sharedStyles.titleStyle}>{getText('appTitle')}</Text>
+                    <Text style={sharedStyles.titleStyle}>{t('appTitle')}</Text>
                     {/* Subtitle */}
-                    <Text style={sharedStyles.subtitleStyle}>{getText('appSubtitle')}</Text>
+                    <Text style={sharedStyles.subtitleStyle}>{t('appSubtitle')}</Text>
                     {/* Username Input */}
                     <TextInputBox
-                        placeholder={getText('usernamePlaceholder')}
+                        placeholder={t('usernamePlaceholder')}
                         value={username}
                         onChangeText={setUsername}
                         autoCapitalize="none"
                     />
                     {/* Password Input */}
                     <PasswordInputBox
-                        placeholder={getText('passwordPlaceholder')}
+                        placeholder={t('passwordPlaceholder')}
                         value={password}
                         onChangeText={setPassword}
                         autoCapitalize="none"
                     //secureTextEntry
                     />
                     {/* Sign In Button */}
-                    <AccentButton title={getText('loginButton')} onAccentButtonPress={signInPressed} />
+                    <AccentButton title={t('loginButton')} onAccentButtonPress={signInPressed} />
                     {/* Sign Up Button */}
-                    <SecondaryButton title={getText('signUpButton')} onSecondaryButtonPress={signUpPressed} />
+                    <SecondaryButton title={t('signUpButton')} onSecondaryButtonPress={signUpPressed} />
                 </View>
             </ImageBackground>
         </SafeAreaView>

@@ -12,7 +12,10 @@ import Modal from 'react-native-modal';
 import { BORDERS, COLORS, FONT_SIZES, FONTS, HEIGHT, SPACING } from '../../styles/theme';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 //Localization
-import { getText } from '../../localization/localization';
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../../localization/i18n";
+
+const { t } = useTranslation();
 
 interface ActionSheetItem {
     title: string;
@@ -68,7 +71,7 @@ const CustomActionSheet: React.FC<CustomActionSheetProps> = ({
                     />
                 </View>
                 <Pressable style={styles.cancelButton} onPress={onClose}>
-                    <Text style={styles.cancelText}>{getText('cancelButtonTitle')}</Text>
+                    <Text style={styles.cancelText}>{t('cancelButtonTitle')}</Text>
                 </Pressable>
             </View>
         </Modal>

@@ -4,7 +4,8 @@ import { StyleSheet, SafeAreaView, ScrollView, View, Text, TouchableOpacity, Ima
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NavigationProp, RoutePropType } from '../helpers/RootStackParamList';
 //Localization
-import { getText } from '../localization/localization';
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../localization/i18n";
 //Style
 import { BORDERS, COLORS, HEIGHT, SPACING } from '../styles/theme';
 import sharedStyles from '../styles/sharedStyles';
@@ -17,6 +18,8 @@ import { CameraMode } from "./CameraComponent";
 import { Device as BleDevice } from 'react-native-ble-plx';
 
 type BeneficiaryScreenRouteProp = RoutePropType<'Beneficiary'>;
+
+const { t } = useTranslation();
 
 const BeneficiaryScreen = () => {
     const [capturedPhotoUri, setCapturedPhotoUri] = useState<string | null>(null);
@@ -43,49 +46,49 @@ const BeneficiaryScreen = () => {
     return (
         <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
             <ScrollView contentContainerStyle={sharedStyles.scrollContainer}>
-                <Text style={[styles.spacings, sharedStyles.titleStyle]}>{getText('titleBeneficiary')}</Text>
+                <Text style={[styles.spacings, sharedStyles.titleStyle]}>{t('titleBeneficiary')}</Text>
                 <TextInputBox
-                    placeholder={getText('beneficiaryNamePlaceholder')}
+                    placeholder={t('beneficiaryNamePlaceholder')}
                     value={nameValue}
                     onChangeText={(text: string) => setNameValue(text)}
                 />
                 <TextInputBox
-                    placeholder={getText('beneficiaryEmailPlaceholder')}
+                    placeholder={t('beneficiaryEmailPlaceholder')}
                     value={emailValue}
                     onChangeText={(text: string) => setEmailValue(text)}
                 />
                 <TextInputBox
-                    placeholder={getText('numberOfPeoplePlaceholder')}
+                    placeholder={t('numberOfPeoplePlaceholder')}
                     value={peopleCount}
                     onChangeText={(text: string) => setPeopleCount(text)}
                 />
                 <View style={styles.row}>
                     <TextInputBox
-                        placeholder={getText('genderPlaceholder')}
+                        placeholder={t('genderPlaceholder')}
                         value={genderValue}
                         onChangeText={(text) => setGenderValue(text)}
                     />
                     <View style={{ width: 10 }}></View>
                     <TextInputBox
-                        placeholder={getText('pronounsPlaceholder')}
+                        placeholder={t('pronounsPlaceholder')}
                         value={pronounsValue}
                         onChangeText={(text) => setPronounsValue(text)}
                     />
                 </View>
                 <View style={styles.row}>
                     <TextInputBox
-                        placeholder={getText('yearBornPlaceholder')}
+                        placeholder={t('yearBornPlaceholder')}
                         value={yearValue}
                         onChangeText={(text) => setYearValue(text)}
                     />
                     <View style={{ width: 10 }}></View>
                     <TextInputBox
-                        placeholder={getText('petsPlaceholder')}
+                        placeholder={t('petsPlaceholder')}
                         value={petsCount}
                         onChangeText={(text) => setPetsCount(text)}
                     />
                 </View>
-                <Text style={[styles.spacings, sharedStyles.titleStyle]}>{getText('titleChangeBeneficiaryPhoto')}</Text>
+                <Text style={[styles.spacings, sharedStyles.titleStyle]}>{t('titleChangeBeneficiaryPhoto')}</Text>
                 <TouchableOpacity
                     onPress={() => takeAnotherPhotoPressed()}
                     activeOpacity={0.7} // Adjust opacity effect on click
@@ -100,11 +103,11 @@ const BeneficiaryScreen = () => {
                         {!capturedPhotoUri && (
                             <MaterialIcons name="add-photo-alternate" size={HEIGHT.image} color={COLORS.textSecondary} />
                         )}
-                        <Text style={[sharedStyles.cardTitle]}>{getText('takePhotoTitle')}</Text>
-                        <Text style={[sharedStyles.subtitleStyle, styles.secondaryTextColor]}>{getText('takePhotoSubtitle')}</Text>
+                        <Text style={[sharedStyles.cardTitle]}>{t('takePhotoTitle')}</Text>
+                        <Text style={[sharedStyles.subtitleStyle, styles.secondaryTextColor]}>{t('takePhotoSubtitle')}</Text>
                     </View>
                 </TouchableOpacity>
-                <Text style={[styles.spacings, sharedStyles.titleStyle]}>{getText('titleListOfDevicesInDeployment')}</Text>
+                <Text style={[styles.spacings, sharedStyles.titleStyle]}>{t('titleListOfDevicesInDeployment')}</Text>
                 <View>
                     {scannedDevices.map((device, index) => (
                         <View key={index} style={[styles.button]}>
@@ -113,7 +116,7 @@ const BeneficiaryScreen = () => {
                     ))}
                 </View>
                 <AccentButton
-                    title={getText('sendButtonTitle')}
+                    title={t('sendButtonTitle')}
                     onAccentButtonPress={() => {
                         //Do something
                     }}
