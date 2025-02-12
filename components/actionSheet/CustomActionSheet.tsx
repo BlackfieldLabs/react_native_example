@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     sheetTitle: {
         fontSize: FONT_SIZES.medium,
         fontFamily: FONTS.regular,
-        color: COLORS.textSecondary,
+        color: COLORS.textAlternative,
     },
     option: {
         height: HEIGHT.button,
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         borderTopWidth: HEIGHT.border,
-        borderTopColor: COLORS.primary,
+        borderTopColor: COLORS.textAlternative,
     },
     optionPressed: {
         backgroundColor: COLORS.border,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: BORDERS.radiusLarge,
         width: '100%',
-        backgroundColor: COLORS.primary,
+        backgroundColor: COLORS.secondary,
     },
     cancelText: {
         fontSize: FONT_SIZES.medium,

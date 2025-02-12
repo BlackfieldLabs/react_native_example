@@ -13,6 +13,7 @@ class SecureStorage {
         UserId: 'userId',
         Username: 'username',
         Password: 'password',
+        AppLanguage: 'appLanguage',
     };
 
     /**
@@ -39,10 +40,10 @@ class SecureStorage {
     static async saveToken(value: string): Promise<boolean> {
         try {
             await Keychain.setGenericPassword(SecureStorage.Keys.AuthToken, value);
-            console.log(`[${new Date().toLocaleString()}] SecureStorage - Successfully saved key: ${SecureStorage.Keys.AuthToken}`);
+            console.log(`[${new Date().toLocaleString()}] SecureStorage: Successfully saved key: ${SecureStorage.Keys.AuthToken}`);
             return true;
         } catch (error) {
-            console.error(`[${new Date().toLocaleString()}] SecureStorage - Error saving key: ${SecureStorage.Keys.AuthToken}`, error);
+            console.error(`[${new Date().toLocaleString()}] SecureStorage: Error saving key: ${SecureStorage.Keys.AuthToken}`, error);
             return false;
         }
     }
@@ -55,13 +56,13 @@ class SecureStorage {
         try {
             const credentials = await Keychain.getGenericPassword();
             if (credentials && credentials.username === SecureStorage.Keys.AuthToken) {
-                console.log(`[${new Date().toLocaleString()}] SecureStorage - Successfully retrieved key: ${SecureStorage.Keys.AuthToken}`);
+                console.log(`[${new Date().toLocaleString()}] SecureStorage: Successfully retrieved key: ${SecureStorage.Keys.AuthToken}`);
                 return credentials.password;
             }
-            console.log(`[${new Date().toLocaleString()}] SecureStorage - Key not found: ${SecureStorage.Keys.AuthToken}`);
+            console.log(`[${new Date().toLocaleString()}] SecureStorage: Key not found: ${SecureStorage.Keys.AuthToken}`);
             return null;
         } catch (error) {
-            console.error(`[${new Date().toLocaleString()}] SecureStorage - Error retrieving key: ${SecureStorage.Keys.AuthToken}`, error);
+            console.error(`[${new Date().toLocaleString()}] SecureStorage: Error retrieving key: ${SecureStorage.Keys.AuthToken}`, error);
             return null;
         }
     }
@@ -75,12 +76,12 @@ class SecureStorage {
             const credentials = await Keychain.getGenericPassword();
             if (credentials && credentials.username === SecureStorage.Keys.AuthToken) {
                 await Keychain.resetGenericPassword();
-                console.log(`[${new Date().toLocaleString()}] SecureStorage - Successfully deleted key: ${SecureStorage.Keys.AuthToken}`);
+                console.log(`[${new Date().toLocaleString()}] SecureStorage: Successfully deleted key: ${SecureStorage.Keys.AuthToken}`);
             } else {
-                console.log(`[${new Date().toLocaleString()}] SecureStorage - Key not found for deletion: ${SecureStorage.Keys.AuthToken}`);
+                console.log(`[${new Date().toLocaleString()}] SecureStorage: Key not found for deletion: ${SecureStorage.Keys.AuthToken}`);
             }
         } catch (error) {
-            console.error(`[${new Date().toLocaleString()}] SecureStorage - Error deleting key: ${SecureStorage.Keys.AuthToken}`, error);
+            console.error(`[${new Date().toLocaleString()}] SecureStorage: Error deleting key: ${SecureStorage.Keys.AuthToken}`, error);
             throw error;
         }
     }
@@ -94,10 +95,10 @@ class SecureStorage {
     static async saveData(key: string, value: string): Promise<boolean> {
         try {
             await Keychain.setInternetCredentials(key, key, value);
-            console.log(`[${new Date().toLocaleString()}] SecureStorage - saveData Successfully saved key: ${key}`);
+            console.log(`[${new Date().toLocaleString()}] SecureStorage: saveData Successfully saved key: ${key}`);
             return true;
         } catch (error) {
-            console.error(`[${new Date().toLocaleString()}] SecureStorage - saveData Error saving key: ${key}`, error);
+            console.error(`[${new Date().toLocaleString()}] SecureStorage: saveData Error saving key: ${key}`, error);
             return false;
         }
     }
@@ -111,13 +112,13 @@ class SecureStorage {
         try {
             const credentials = await Keychain.getInternetCredentials(key);
             if (credentials && credentials.username === key) {
-                console.log(`[${new Date().toLocaleString()}] SecureStorage - getData Successfully retrieved key: ${key}`);
+                console.log(`[${new Date().toLocaleString()}] SecureStorage: getData Successfully retrieved key: ${key}`);
                 return credentials.password;
             }
-            console.log(`[${new Date().toLocaleString()}] SecureStorage - getData Key not found: ${key}`);
+            console.log(`[${new Date().toLocaleString()}] SecureStorage: getData Key not found: ${key}`);
             return null;
         } catch (error) {
-            console.error(`[${new Date().toLocaleString()}] SecureStorage - getData Error retrieving key: ${key}`, error);
+            console.error(`[${new Date().toLocaleString()}] SecureStorage: getData Error retrieving key: ${key}`, error);
             return null;
         }
     }
@@ -132,12 +133,12 @@ class SecureStorage {
             const credentials = await Keychain.getInternetCredentials(key);
             if (credentials && credentials.username === key) {
                 await Keychain.resetInternetCredentials(key);
-                console.log(`[${new Date().toLocaleString()}] SecureStorage - Successfully deleted key: ${key}`);
+                console.log(`[${new Date().toLocaleString()}] SecureStorage: Successfully deleted key: ${key}`);
             } else {
-                console.log(`[${new Date().toLocaleString()}] SecureStorage - Key not found for deletion: ${key}`);
+                console.log(`[${new Date().toLocaleString()}] SecureStorage: Key not found for deletion: ${key}`);
             }
         } catch (error) {
-            console.error(`[${new Date().toLocaleString()}] SecureStorage - Error deleting key: ${key}`, error);
+            console.error(`[${new Date().toLocaleString()}] SecureStorage: Error deleting key: ${key}`, error);
             throw error;
         }
     }

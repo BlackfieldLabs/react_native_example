@@ -48,10 +48,10 @@ const LoginScreen = () => {
     }, []);
 
     const signInPressed = async () => {
-        console.log(`[${new Date().toLocaleString()}] LoginScreen - Empty username or password? `, username.trim(), password.trim());
+        console.log(`[${new Date().toLocaleString()}] LoginScreen: Empty username or password? `, username.trim(), password.trim());
         if (username.trim() === '' || password.trim() === '') {
             createSingleButtonAlert(AlertType.Warning, t('MessageSection.messageEmptyLogin'), () => {
-                console.log(`[${new Date().toLocaleString()}] LoginScreen - Empty username or password.`);
+                console.log(`[${new Date().toLocaleString()}] LoginScreen: Empty username or password.`);
             });
             return;
         }

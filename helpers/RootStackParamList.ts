@@ -12,6 +12,7 @@ export type RootStackParamList = {
   };
   Charts: undefined;
   Tabs: undefined;
+  Settings: undefined;
 };
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList>;

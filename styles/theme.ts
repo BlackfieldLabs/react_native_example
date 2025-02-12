@@ -1,12 +1,13 @@
 export const COLORS = {
     primary: 'rgba(255, 255, 255, 1)',//'#fff'
     secondary: 'rgba(225, 252, 244, 1)',//'#e1fcf4'
-    accent: 'rgba(74, 93, 130, 1)',//'#4A5D82'
+    accent: 'rgba(104, 133, 189, 1)',//'#6885bd'
     border: 'rgba(110, 194, 167, 1)',//'#6EC2A7'
     textPrimary: 'rgba(74, 93, 130, 1)',//'#4A5D82'
     textSecondary: 'rgba(255, 255, 255, 1)',//'#fff'
+    textAlternative: 'rgba(176, 182, 194, 1)',//#b0b6c2
     error: 'rgba(255, 77, 79, 1)',//'#ff4d4f'
-    overlay: 'rgba(74, 93, 130, 0.5)',
+    overlay: 'rgba(74, 93, 130, 0.1)',
     graphOrange: 'rgba(254, 156, 67, 1)',
     graphGreen: 'rgba(63, 223, 112, 1)',
   };
@@ -22,6 +23,7 @@ export const COLORS = {
   export const SPACING = {
     extraSmall: 4,
     small: 8,
+    average: 12,
     medium: 16,
     large: 24,
     extraLarge: 32,

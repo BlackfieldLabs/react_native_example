@@ -51,6 +51,14 @@
         "mobileCameraViewTitle": "Prikaz kamere na mobilnom uređaju",
         "takeAPictureTitle": "Fotografiraj",
         "mainLayoutTitle": "Nadzorna ploča",
-        "chartsTitle": "Grafikoni"
+        "chartsTitle": "Grafikoni",
+        "settingsTitle": "Postavke"
+    },
+    "SettingsSection": {
+        "changeLanguageTitle": "Jezik",
+        "chooseLanguageTitle": "Odaberite jezik",
+        "englishTitle": "Engleski",
+        "serbianTitle": "Srpski",
+        "croatianTitle": "Hrvatski"
     }
 }

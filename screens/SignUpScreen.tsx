@@ -9,7 +9,7 @@ import {
 //Localization
 import { useTranslation } from "react-i18next";
 //Styles
-import { COLORS, FONT_SIZES, FONTS } from '../styles/theme';
+import { COLORS, FONT_SIZES, FONTS, SPACING } from '../styles/theme';
 import sharedStyles from '../styles/sharedStyles';
 //Components
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
@@ -38,7 +38,7 @@ const SignUpScreen = () => {
   const [zipCode, setZipCode] = useState('');
 
   const handleCreateUser = () => {
-    console.log(`[${new Date().toLocaleString()}] Create User button pressed`);
+    console.log(`[${new Date().toLocaleString()}] SignUpScreen: Create User button pressed`);
     console.log({
       username,
       password,
@@ -55,16 +55,16 @@ const SignUpScreen = () => {
   };
 
   const handleCameraButton = () => {
-    console.log(`[${new Date().toLocaleString()}] Camera button pressed`);
+    console.log(`[${new Date().toLocaleString()}] SignUpScreen: Camera button pressed`);
     navigation.navigate('Camera', { mode: CameraMode.PHOTO });
   };
 
   return (
     <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView contentContainerStyle={sharedStyles.scrollContainer}>
         {/* Account Information Section */}
-        <View style={styles.signUpSection}>
-          <Text style={styles.signUpSectionTitle}>{t('SignUpPage.accountInfoTitle')}</Text>
+        <View>
+          <Text style={sharedStyles.sectionTitle}>{t('SignUpPage.accountInfoTitle')}</Text>
           <TextInputBox
             placeholder={t('LoginPage.usernamePlaceholder')}
             value={username}
@@ -83,8 +83,8 @@ const SignUpScreen = () => {
         </View>
 
         {/* Personal Details Section */}
-        <View style={styles.signUpSection}>
-          <Text style={styles.signUpSectionTitle}>{t('SignUpPage.personalDetailsTitle')}</Text>
+        <View>
+          <Text style={sharedStyles.sectionTitle}>{t('SignUpPage.personalDetailsTitle')}</Text>
           <TextInputBox
             placeholder={t('SignUpPage.namePlaceholder')}
             value={name}
@@ -109,8 +109,8 @@ const SignUpScreen = () => {
         </View>
 
         {/* Address Information Section */}
-        <View style={styles.signUpSection}>
-          <Text style={styles.signUpSectionTitle}>{t('SignUpPage.addressInfoTitle')}</Text>
+        <View>
+          <Text style={sharedStyles.sectionTitle}>{t('SignUpPage.addressInfoTitle')}</Text>
           <TextInputBox
             placeholder={t('SignUpPage.cityPlaceholder')}
             value={city}
@@ -142,19 +142,6 @@ const SignUpScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  signUpSection: {
-    marginBottom: 24,
-    width: '100%',
-  },
-  signUpSectionTitle: {
-    fontSize: FONT_SIZES.large,
-    fontFamily: FONTS.regular,
-    marginBottom: 12,
-    color: COLORS.textPrimary,
-  },
-  scrollContainer: {
-    padding: 16,
-  },
 });
 
 export default SignUpScreen;

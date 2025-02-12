@@ -7,10 +7,16 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import SignUpScreen from "../../screens/SignUpScreen";
 import LoginScreen from "../../screens/LoginScreen";
 import ChartsScreen from "../../screens/ChartsScreen";
+import SettingsScreen from "../../screens/SettingsScreen";
+//Localization
+import { useTranslation } from "react-i18next";
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
+  const { t } = useTranslation();
+  const settingsTitle = t('NavigationTitles.settingsTitle');
+  
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -20,7 +26,7 @@ const TabNavigator = () => {
           if (route.name === "List") iconName = "list";
           else if (route.name === "Add Manually") iconName = "edit";
           else if (route.name === "Scan") iconName = "qr-code-scanner";
-          else if (route.name === "Settings") iconName = "settings";
+          else if (route.name === settingsTitle) iconName = "settings";
 
           return <Icon name={iconName} size={size} color={color} />;
         },
@@ -32,7 +38,7 @@ const TabNavigator = () => {
       <Tab.Screen name="List" component={SignUpScreen} />
       <Tab.Screen name="Add Manually" component={LoginScreen} />
       <Tab.Screen name="Scan" component={ChartsScreen} />
-      <Tab.Screen name="Settings" component={ChartsScreen} />
+      <Tab.Screen name={settingsTitle} component={SettingsScreen} />
     </Tab.Navigator>
   );
 };

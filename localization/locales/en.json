@@ -51,6 +51,14 @@
         "mobileCameraViewTitle": "Mobile camera view",
         "takeAPictureTitle": "Take a picture",
         "mainLayoutTitle": "Dashboard",
-        "chartsTitle": "Charts"
+        "chartsTitle": "Charts",
+        "settingsTitle": "Settings"
+    },
+    "SettingsSection": {
+        "changeLanguageTitle": "Language",
+        "chooseLanguageTitle": "Choose language",
+        "englishTitle": "English",
+        "serbianTitle": "Serbian",
+        "croatianTitle": "Croatian"
     }
 }
