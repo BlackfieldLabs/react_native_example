@@ -1,0 +1,56 @@
+{
+    "LoginPage": {
+        "welcomeTitle": "Welcome!",
+        "welcomeMessage": "Glad to see you here!",
+        "usernamePlaceholder": "Username",
+        "passwordPlaceholder": "Password",
+        "loginButton": "Sign In",
+        "signUpButton": "Sign Up"
+    },
+    "SignUpPage": {
+        "repeatPasswordPlaceholder": "Repeat password",
+        "namePlaceholder": "First name",
+        "familyNamePlaceholder": "Family name",
+        "emailPlaceholder": "Email",
+        "telephonePlaceholder": "Telephone number",
+        "cityPlaceholder": "City",
+        "streetAndNumberPlaceholder": "Street and number",
+        "statePlaceholder": "State",
+        "zipCodePlaceholder": "Zip code",
+        "createUserButton": "Create User",
+        "signUpScreenTitle": "Sign Up",
+        "accountInfoTitle": "Account Information",
+        "personalDetailsTitle": "Personal Details",
+        "addressInfoTitle": "Address Information"
+    },
+    "MessageSection": {
+        "messageCheckingCredentials": "Checking credentials...",
+        "messageLogIn": "Sign In in progress...?",
+        "messageLogOut": "Are you sure you want to Sign Out?",
+        "messageWrongCredentials": "Incorrect username or password. Please try again.",
+        "messageLogin": "Signing in progress, please wait...",
+        "messageEmptyLogin": "You need to enter username and password before you continue."
+    },
+    "ActionStrings": {
+        "nextButtonTitle": "Next",
+        "cancelButtonTitle": "Cancel",
+        "okButtonTitle": "OK",
+        "warningTitle": "Warning",
+        "errorTitle": "Error",
+        "pleaseWaitTitle": "Please wait..."
+    },
+    "PermissionsStrings": {
+        "microphonePermissionTitle": "Microphone Permission",
+        "microphonePermissionMessage": "This app requires access to your microphone for speech recognition.",
+        "cameraPermissionTitle": "Camera Permission",
+        "cameraPermissionMessage": "We need access to your camera to take photos and scan QR codes.",
+        "cameraPermissionDeniedMessage": "Permission denied. Camera access is required to use this feature."
+    },
+    "NavigationTitles": {
+        "scanQRCodeTitle": "Scan QR Code on a device",
+        "mobileCameraViewTitle": "Mobile camera view",
+        "takeAPictureTitle": "Take a picture",
+        "mainLayoutTitle": "Dashboard",
+        "chartsTitle": "Charts"
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "LoginPage": {
+        "welcomeTitle": "Dobrodošli!",
+        "welcomeMessage": "Drago nam je što ste ovdje!",
+        "usernamePlaceholder": "Korisničko ime",
+        "passwordPlaceholder": "Lozinka",
+        "loginButton": "Prijava",
+        "signUpButton": "Registracija"
+    },
+    "SignUpPage": {
+        "repeatPasswordPlaceholder": "Ponovite lozinku",
+        "namePlaceholder": "Ime",
+        "familyNamePlaceholder": "Prezime",
+        "emailPlaceholder": "E-mail",
+        "telephonePlaceholder": "Broj telefona",
+        "cityPlaceholder": "Grad",
+        "streetAndNumberPlaceholder": "Ulica i broj",
+        "statePlaceholder": "Država",
+        "zipCodePlaceholder": "Poštanski broj",
+        "createUserButton": "Kreiraj korisnika",
+        "signUpScreenTitle": "Registracija",
+        "accountInfoTitle": "Podaci o računu",
+        "personalDetailsTitle": "Osobni podaci",
+        "addressInfoTitle": "Podaci o adresi"
+    },
+    "MessageSection": {
+        "messageCheckingCredentials": "Provjera podataka...",
+        "messageLogIn": "Prijava u tijeku...?",
+        "messageLogOut": "Jeste li sigurni da se želite odjaviti?",
+        "messageWrongCredentials": "Neispravno korisničko ime ili lozinka. Pokušajte ponovno.",
+        "messageLogin": "Prijava u tijeku, molimo pričekajte...",
+        "messageEmptyLogin": "Morate unijeti korisničko ime i lozinku prije nego što nastavite."
+    },
+    "ActionStrings": {
+        "nextButtonTitle": "Sljedeće",
+        "cancelButtonTitle": "Odustani",
+        "okButtonTitle": "U redu",
+        "warningTitle": "Upozorenje",
+        "errorTitle": "Pogreška",
+        "pleaseWaitTitle": "Molimo pričekajte..."
+    },
+    "PermissionsStrings": {
+        "microphonePermissionTitle": "Dozvola za mikrofon",
+        "microphonePermissionMessage": "Ova aplikacija zahtijeva pristup mikrofonu za prepoznavanje govora.",
+        "cameraPermissionTitle": "Dozvola za kameru",
+        "cameraPermissionMessage": "Treba nam pristup vašoj kameri za snimanje fotografija i skeniranje QR kodova.",
+        "cameraPermissionDeniedMessage": "Dozvola odbijena. Pristup kameri je potreban za korištenje ove značajke."
+    },
+    "NavigationTitles": {
+        "scanQRCodeTitle": "Skenirajte QR kod na uređaju",
+        "mobileCameraViewTitle": "Prikaz kamere na mobilnom uređaju",
+        "takeAPictureTitle": "Fotografiraj",
+        "mainLayoutTitle": "Nadzorna ploča",
+        "chartsTitle": "Grafikoni"
+    }
+}

@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-    SafeAreaView,
-    View,
-    Text,
-    StyleSheet,
-    Dimensions,
-    Image,
-} from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import { COLORS, BORDERS, FONT_SIZES, FONTS, SPACING } from '../styles/theme';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
@@ -21,13 +14,14 @@ import { AlertType } from '../components/alert/AlertTypes'
 //Styles
 import sharedStyles from '../styles/sharedStyles';
 //Localization
-import { getText } from '../localization/localization';
+import { useTranslation } from "react-i18next";
 //UUID
 import 'react-native-get-random-values';
 
 const { width, height } = Dimensions.get('window');
 
 const LoginScreen = () => {
+    const { t } = useTranslation();
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigation = useNavigation<NavigationProp>();
@@ -56,14 +50,14 @@ const LoginScreen = () => {
     const signInPressed = async () => {
         console.log(`[${new Date().toLocaleString()}] LoginScreen - Empty username or password? `, username.trim(), password.trim());
         if (username.trim() === '' || password.trim() === '') {
-            createSingleButtonAlert(AlertType.Warning, getText('messageEmptyLogin'), () => {
+            createSingleButtonAlert(AlertType.Warning, t('MessageSection.messageEmptyLogin'), () => {
                 console.log(`[${new Date().toLocaleString()}] LoginScreen - Empty username or password.`);
             });
             return;
         }
         navigation.navigate('Tabs');
         /*try {
-            showAlert(AlertType.Progress, getText('messageLogin'));
+            showAlert(AlertType.Progress, t('messageLogin'));
             console.log(`[${new Date().toLocaleString()}] LoginScreen - signInPressed.`);
             const uuidString = uuidv4();
             const response = await APIService.checkCredentials(username, password, '001', uuidString);
@@ -76,7 +70,7 @@ const LoginScreen = () => {
                 navigation.navigate('Main');
             } else {
                 hideAlert();
-                createSingleButtonAlert(AlertType.Error, getText('messageWrongCredentials'), () => {
+                createSingleButtonAlert(AlertType.Error, t('messageWrongCredentials'), () => {
                     console.log(`[${new Date().toLocaleString()}] LoginScreen - Incorrect username or password <3.`);
                     hideAlert();
                     console.log(`[${new Date().toLocaleString()}] LoginScreen - Hide alert should be called.`);
@@ -85,7 +79,7 @@ const LoginScreen = () => {
             }
         } catch (error) {
             hideAlert();
-            createSingleButtonAlert(AlertType.Error, getText('messageWrongCredentials'), () => {
+            createSingleButtonAlert(AlertType.Error, t('messageWrongCredentials'), () => {
                 console.log(`[${new Date().toLocaleString()}] LoginScreen - Incorrect username or password.`);
                 hideAlert();
                 console.log(`[${new Date().toLocaleString()}] LoginScreen - Hide alert should be called.`);
@@ -107,31 +101,31 @@ const LoginScreen = () => {
                         source={require('../assets/logo.png')}
                         style={styles.logoStyle}
                     />
-                    <Text style={styles.titleStyle}>{getText('welcomeTitle')}</Text>
-                    <Text style={styles.subtitleStyle}>{getText('welcomeMessage')}</Text>
+                    <Text style={styles.titleStyle}>{t('LoginPage.welcomeTitle')}</Text>
+                    <Text style={styles.subtitleStyle}>{t('LoginPage.welcomeMessage')}</Text>
                 </View>
                 <View style={styles.roundContainerViewStyle}>
                     <TextInputBox
-                        placeholder={getText('usernamePlaceholder')}
+                        placeholder={t('LoginPage.usernamePlaceholder')}
                         value={username}
                         onChangeText={setUsername}
                         autoCapitalize="none"
                     />
                     <PasswordInputBox
-                        placeholder={getText('passwordPlaceholder')}
+                        placeholder={t('LoginPage.passwordPlaceholder')}
                         value={password}
                         onChangeText={setPassword}
                         autoCapitalize="none"
                     />
-                    <AccentButton title={getText('loginButton')} onAccentButtonPress={signInPressed} />
-                    <SecondaryButton title={getText('signUpButton')} onSecondaryButtonPress={signUpPressed} />
+                    <AccentButton title={t('LoginPage.loginButton')} onAccentButtonPress={signInPressed} />
+                    <SecondaryButton title={t('LoginPage.signUpButton')} onSecondaryButtonPress={signUpPressed} />
                 </View>
             </View>
         </SafeAreaView>
     );
 };
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
     roundContainerViewStyle: {
         position: 'absolute',
         top: (2 / 5) * height,
@@ -139,7 +133,7 @@ const styles = StyleSheet.create ({
         backgroundColor: COLORS.secondary,
         borderRadius: BORDERS.radiusExtraLarge,
         justifyContent: 'center',
-        alignItems: 'center', 
+        alignItems: 'center',
         marginTop: 'auto',
         paddingLeft: SPACING.medium,
         paddingTop: SPACING.medium,
@@ -147,7 +141,7 @@ const styles = StyleSheet.create ({
         paddingBottom: SPACING.small,
         marginLeft: SPACING.medium,
         marginRight: SPACING.medium,
-        marginBottom: ( 1 / 5 ) * height,
+        marginBottom: (1 / 5) * height,
     },
     backgroundContainerStyle: {
         flex: 1,
@@ -161,7 +155,7 @@ const styles = StyleSheet.create ({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: ( 3 / 5 ) * height,
+        marginBottom: (3 / 5) * height,
     },
     logoStyle: {
         width: "80%",

@@ -14,7 +14,7 @@ import sharedStyles from "../styles/sharedStyles";
 //Camera
 import { RNCamera } from "react-native-camera";
 //Localization
-import { getText } from "../localization/localization";
+import { useTranslation } from "react-i18next";
 //Components
 import AccentButton from "./button/AccentButton";
 import { useAlert } from './alert/CustomAlertManager';
@@ -38,9 +38,10 @@ interface CameraComponentProps {
 }
 
 const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
+    const { t } = useTranslation();
     const { mode } = route.params;
     const cameraRef = useRef<RNCamera>(null);
-    const { showAlert, createSingleButtonAlert, hideAlert } = useAlert();
+    const { createSingleButtonAlert } = useAlert();
     const [qrResult, setQrResult] = useState<string | null>(null);
     const [photoUri, setPhotoUri] = useState<string | null>(null);
 
@@ -53,13 +54,13 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.CAMERA,
                 {
-                    title: getText('cameraPermissionTitle'),
-                    message: getText('cameraPermissionMessage'),
-                    buttonPositive: getText('okButtonTitle'),
+                    title: t('PermissionsStrings.cameraPermissionTitle'),
+                    message: t('PermissionsStrings.cameraPermissionMessage'),
+                    buttonPositive: t('ActionStrings.okButtonTitle'),
                 }
             );
             if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-                createSingleButtonAlert(AlertType.Warning, getText('cameraPermissionDeniedMessage'), () => {
+                createSingleButtonAlert(AlertType.Warning, t('PermissionsStrings.cameraPermissionDeniedMessage'), () => {
                     console.log(`[${new Date().toLocaleString()}] CameraComponent - Permission denied!`);
                 });
             }
@@ -104,7 +105,7 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                 <RNCamera
                     ref={cameraRef}
                     style={styles.cameraView}
-                    type={mode === CameraMode.QR ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front }
+                    type={mode === CameraMode.QR ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front}
                     captureAudio={false}
                     onBarCodeRead={mode === CameraMode.QR ? handleBarCodeRead : undefined}
                     barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
@@ -112,7 +113,7 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                 {mode === CameraMode.PHOTO && (
                     <View style={styles.captureButtonWrapper}>
                         <AccentButton
-                            title={getText("takeAPictureTitle")}
+                            title={t("NavigationTitles.takeAPictureTitle")}
                             onAccentButtonPress={handleTakenPhoto}
                         />
                     </View>
@@ -128,10 +129,10 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.cardTitle}>
-                        {mode === CameraMode.QR ? getText("scanQRCodeTitle") : getText("takePictureTitle")}
+                        {mode === CameraMode.QR ? t("scanQRCodeTitle") : t("takePictureTitle")}
                     </Text>
                     <Text style={styles.roleSelectionCardSubtitle}>
-                        {mode === CameraMode.QR ? getText("scanQRCodeSubtitle") : getText("takePictureSubtitle")}
+                        {mode === CameraMode.QR ? t("scanQRCodeSubtitle") : t("takePictureSubtitle")}
                     </Text>
                 </View>
             </View>
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
         flex: 7,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.primary,
     },
     cameraView: {
         width: "100%",
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.primary,
         paddingLeft: SPACING.medium,
         height: HEIGHT.button,
     },

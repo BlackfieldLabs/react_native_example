@@ -12,7 +12,7 @@ import Modal from 'react-native-modal';
 import { BORDERS, COLORS, FONT_SIZES, FONTS, HEIGHT, SPACING } from '../../styles/theme';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 //Localization
-import { getText } from '../../localization/localization';
+import { useTranslation } from "react-i18next";
 
 interface ActionSheetItem {
     title: string;
@@ -35,6 +35,7 @@ const CustomActionSheet: React.FC<CustomActionSheetProps> = ({
     onSelect,
     onClose,
 }) => {
+    const { t } = useTranslation();
     return (
         <Modal isVisible={isVisible} onBackdropPress={onClose} style={styles.modal}>
             <View style={styles.actionSheet}>
@@ -68,7 +69,7 @@ const CustomActionSheet: React.FC<CustomActionSheetProps> = ({
                     />
                 </View>
                 <Pressable style={styles.cancelButton} onPress={onClose}>
-                    <Text style={styles.cancelText}>{getText('cancelButtonTitle')}</Text>
+                    <Text style={styles.cancelText}>{t('ActionStrings.cancelButtonTitle')}</Text>
                 </Pressable>
             </View>
         </Modal>
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         borderTopWidth: HEIGHT.border,
-        borderTopColor: COLORS.background,
+        borderTopColor: COLORS.primary,
     },
     optionPressed: {
         backgroundColor: COLORS.border,
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: BORDERS.radiusLarge,
         width: '100%',
-        backgroundColor: COLORS.background,
+        backgroundColor: COLORS.primary,
     },
     cancelText: {
         fontSize: FONT_SIZES.medium,

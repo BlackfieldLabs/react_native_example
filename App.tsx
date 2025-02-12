@@ -2,14 +2,13 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 //Theme
-import { COLORS, FONT_SIZES, FONTS, HEIGHT } from './styles/theme';
-import sharedStyles from './styles/sharedStyles';
+import { COLORS, FONT_SIZES, FONTS, HEIGHT, SPACING } from './styles/theme';
 //Localization
-import { getText } from './localization/localization';
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "./localization/i18n";
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
 //Alert
 import { AlertProvider } from './components/alert/CustomAlertManager';
 //Screens
@@ -25,8 +24,6 @@ import { RootStackParamList } from './helpers/RootStackParamList';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const SettingsIcon = () => {
-  const navigation = useNavigation();
-
   return (
     <TouchableOpacity
       style={style.settingsIconButton}
@@ -38,74 +35,72 @@ const SettingsIcon = () => {
 };
 
 const App = () => {
+  const { t } = useTranslation();
   return (
-    <AlertProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{
-            animation: 'slide_from_right',
-            gestureEnabled: true,
-            headerStyle: {
-              backgroundColor: COLORS.secondary,
-            },
-            headerTitleStyle: {
-              fontFamily: FONTS.regular,
-              fontSize: FONT_SIZES.medium,
-              color: COLORS.textPrimary,
-            },
-          }}
-        >
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={
-              { title: getText('loginButton'), headerShown: false }
-            }
-          />
-          <Stack.Screen
-            name="Main"
-            component={MainLayout}
-            options={{
-              title: getText('mainLayoutTitle'),
-              headerRight: () => <SettingsIcon />,
+    <I18nextProvider i18n={i18n}>
+      <AlertProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+              animation: 'slide_from_right',
+              gestureEnabled: true,
+              headerStyle: {
+                backgroundColor: COLORS.secondary,
+              },
+              headerTitleStyle: {
+                fontFamily: FONTS.regular,
+                fontSize: FONT_SIZES.medium,
+                color: COLORS.textPrimary,
+              },
             }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUpScreen}
-            options={{ title: getText('signUpScreenTitle') }}
-          />
-          <Stack.Screen
-            name="Camera"
-            component={CameraComponent}
-            options={{ title: getText('mobileCameraViewTitle') }}
-          />
-          <Stack.Screen
-            name="Charts"
-            component={ChartsScreen}
-            options={{ title: getText('chartsTitle') }}
-          />
-          <Stack.Screen
-            name="Tabs"
-            component={TabNavigator}
-            options={{ title: getText('mainLayoutTitle') }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AlertProvider >
+          >
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={
+                { title: t('LoginPage.loginButton'), headerShown: false }
+              }
+            />
+            <Stack.Screen
+              name="Main"
+              component={MainLayout}
+              options={{
+                title: t('NavigationTitles.mainLayoutTitle'),
+                headerRight: () => <SettingsIcon />,
+              }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUpScreen}
+              options={{ title: t('SignUpPage.signUpScreenTitle') }}
+            />
+            <Stack.Screen
+              name="Camera"
+              component={CameraComponent}
+              options={{ title: t('NavigationTitles.mobileCameraViewTitle') }}
+            />
+            <Stack.Screen
+              name="Charts"
+              component={ChartsScreen}
+              options={{ title: t('NavigationTitles.chartsTitle') }}
+            />
+            <Stack.Screen
+              name="Tabs"
+              component={TabNavigator}
+              options={{ title: t('NavigationTitles.mainLayoutTitle') }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AlertProvider >
+    </I18nextProvider>
   );
 };
 
-const SettingsScreen = () => {
-  // Placeholder for the settings screen
-  return null;
-};
-
 const style = StyleSheet.create({
-    settingsIconButton: {
-        marginRight: 10,
-    },
+  settingsIconButton: {
+    marginRight: SPACING.small,
+  },
 });
 
 export default App;

@@ -7,7 +7,7 @@ import {
     StyleSheet
 } from 'react-native';
 //Localization
-import { getText } from '../../localization/localization';
+import { useTranslation } from "react-i18next";
 //Helpers
 import { AlertType } from './AlertTypes';
 import { COLORS, FONT_SIZES, SPACING, HEIGHT, BORDERS, FONTS } from '../../styles/theme';
@@ -29,6 +29,7 @@ type CustomAlertProps = {
     onConfirm,
     hideCancelButton = false,
   }) => {
+    const { t } = useTranslation();
     console.log(`[${new Date().toLocaleString()}] CustomAlert - visible prop:`, visible);
     const renderButtons = () => {
       if (type === AlertType.Progress) {
@@ -45,7 +46,7 @@ type CustomAlertProps = {
                 onConfirm?.();
             }}
             >
-              <Text style={sharedStyles.buttonText}>{getText('okButtonTitle')}</Text>
+              <Text style={sharedStyles.buttonText}>{t('ActionStrings.okButtonTitle')}</Text>
             </TouchableOpacity>
           </View>
         );
@@ -59,7 +60,7 @@ type CustomAlertProps = {
               style={[sharedStyles.button, sharedStyles.destructiveButton]}
               onPress={onClose}
             >
-              <Text style={sharedStyles.buttonText}>{getText('cancelButtonTitle')}</Text>
+              <Text style={sharedStyles.buttonText}>{t('ActionStrings.cancelButtonTitle')}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[sharedStyles.button, sharedStyles.primaryButton]}
@@ -68,7 +69,7 @@ type CustomAlertProps = {
                         onConfirm?.();
                     }}
                 >
-                    <Text style={sharedStyles.buttonText}>{getText('okButtonTitle')}</Text>
+                    <Text style={sharedStyles.buttonText}>{t('ActionStrings.okButtonTitle')}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -83,10 +84,10 @@ type CustomAlertProps = {
           <View style={sharedStyles.alertContainer}>
             <Text style={sharedStyles.title}>
               {type === AlertType.Error
-                ? getText('errorTitle')
+                ? t('ActionStrings.errorTitle')
                 : type === AlertType.Warning
-                ? getText('warningTitle')
-                : getText('pleaseWaitTitle')}
+                ? t('ActionStrings.warningTitle')
+                : t('ActionStrings.pleaseWaitTitle')}
             </Text>
             <Text style={sharedStyles.message}>{message}</Text>
             {renderButtons()}

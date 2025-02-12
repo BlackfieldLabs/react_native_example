@@ -1,0 +1,56 @@
+{
+    "LoginPage": {
+        "welcomeTitle": "Dobrodošli!",
+        "welcomeMessage": "Drago nam je da vas vidimo ovde!",
+        "usernamePlaceholder": "Korisničko ime",
+        "passwordPlaceholder": "Lozinka",
+        "loginButton": "Prijavi se",
+        "signUpButton": "Registruj se"
+    },
+    "SignUpPage": {
+        "repeatPasswordPlaceholder": "Ponovite lozinku",
+        "namePlaceholder": "Ime",
+        "familyNamePlaceholder": "Prezime",
+        "emailPlaceholder": "E-mail",
+        "telephonePlaceholder": "Broj telefona",
+        "cityPlaceholder": "Grad",
+        "streetAndNumberPlaceholder": "Ulica i broj",
+        "statePlaceholder": "Država",
+        "zipCodePlaceholder": "Poštanski broj",
+        "createUserButton": "Kreiraj korisnika",
+        "signUpScreenTitle": "Registracija",
+        "accountInfoTitle": "Informacije o nalogu",
+        "personalDetailsTitle": "Lični podaci",
+        "addressInfoTitle": "Podaci o adresi"
+    },
+    "MessageSection": {
+        "messageCheckingCredentials": "Provera podataka...",
+        "messageLogIn": "Prijava u toku...?",
+        "messageLogOut": "Da li ste sigurni da želite da se odjavite?",
+        "messageWrongCredentials": "Neispravno korisničko ime ili lozinka. Pokušajte ponovo.",
+        "messageLogin": "Prijavljivanje u toku, molimo sačekajte...",
+        "messageEmptyLogin": "Morate uneti korisničko ime i lozinku pre nego što nastavite."
+    },
+    "ActionStrings": {
+        "nextButtonTitle": "Sledeće",
+        "cancelButtonTitle": "Otkaži",
+        "okButtonTitle": "U redu",
+        "warningTitle": "Upozorenje",
+        "errorTitle": "Greška",
+        "pleaseWaitTitle": "Molimo sačekajte..."
+    },
+    "PermissionsStrings": {
+        "microphonePermissionTitle": "Dozvola za mikrofon",
+        "microphonePermissionMessage": "Ova aplikacija zahteva pristup mikrofonu za prepoznavanje govora.",
+        "cameraPermissionTitle": "Dozvola za kameru",
+        "cameraPermissionMessage": "Potreban nam je pristup vašoj kameri za snimanje fotografija i skeniranje QR kodova.",
+        "cameraPermissionDeniedMessage": "Dozvola odbijena. Pristup kameri je neophodan za korišćenje ove funkcije."
+    },
+    "NavigationTitles": {
+        "scanQRCodeTitle": "Skenirajte QR kod na uređaju",
+        "mobileCameraViewTitle": "Pregled kamere na mobilnom uređaju",
+        "takeAPictureTitle": "Fotografišite",
+        "mainLayoutTitle": "Kontrolna tabla",
+        "chartsTitle": "Grafikoni"
+    }
+}

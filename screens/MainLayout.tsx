@@ -24,9 +24,10 @@ import { v4 as uuidv4 } from 'uuid';
 //Storage
 import SecureStorage from '../helpers/SecureStorage';
 //Localization
-import { getText } from '../localization/localization';
+import { useTranslation } from "react-i18next";
 
 const MainLayout = () => {
+    const { t } = useTranslation();
     const [isListening, setIsListening] = useState<boolean>(false);
     const navigation = useNavigation<NavigationProp>();
     const speechRecognitionRef = useRef<any>(null);
@@ -70,7 +71,7 @@ const MainLayout = () => {
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', (e) => {
             e.preventDefault();
-            createTwoButtonAlert(AlertType.Warning, getText('messageLogOut'),
+            createTwoButtonAlert(AlertType.Warning, t('MessageSection.messageLogOut'),
                 () => {
                     console.log(`[${new Date().toLocaleString()}] MainLayout - Cancel Pressed`);
                     hideAlert();
