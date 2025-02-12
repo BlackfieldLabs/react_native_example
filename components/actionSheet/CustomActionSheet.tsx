@@ -15,8 +15,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { I18nextProvider, useTranslation } from "react-i18next";
 import i18n from "../../localization/i18n";
 
-const { t } = useTranslation();
-
 interface ActionSheetItem {
     title: string;
     iconName?: string;
@@ -38,6 +36,7 @@ const CustomActionSheet: React.FC<CustomActionSheetProps> = ({
     onSelect,
     onClose,
 }) => {
+    const { t } = useTranslation();
     return (
         <Modal isVisible={isVisible} onBackdropPress={onClose} style={styles.modal}>
             <View style={styles.actionSheet}>

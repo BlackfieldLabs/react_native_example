@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TextInput, Animated, TextInputProps } from 'react-native';
-import { COLORS, FONT_SIZES, FONTS } from '../../styles/theme';
-import sharedStyles from '../../styles/sharedStyles';
+import { View, TextInput, Animated, TextInputProps, StyleSheet } from 'react-native';
+import { COLORS, FONT_SIZES, FONTS, HEIGHT, BORDERS, SPACING } from '../../styles/theme';
 
 /**
  * A reusable text input component with floating label animation.
@@ -73,17 +72,17 @@ const TextInputBox = ({
   return (
     <View
       style={[
-        sharedStyles.textInputBoxContainer,
+        styles.textInputBoxContainer,
         { borderColor: isFocused ? borderColor : COLORS.border },
       ]}
     >
       {/* Floating label that animates above the input field */}
-      <Animated.Text style={[sharedStyles.textInputBoxLabel, labelStyle]}>
+      <Animated.Text style={[styles.textInputBoxLabel, labelStyle]}>
         {placeholder}
       </Animated.Text>
       {/* Input field */}
       <TextInput
-        style={[sharedStyles.textInputBoxInput]}
+        style={[styles.textInputBoxInput]}
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
@@ -95,5 +94,39 @@ const TextInputBox = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  /**
+ * Container style for the text input box, including padding, border, and margins.
+ */
+  textInputBoxContainer: {
+      width: '100%', // Full width of the parent container
+      borderWidth: HEIGHT.border, // Dynamic border width
+      borderRadius: BORDERS.radiusLarge, // Rounded corners
+      paddingHorizontal: SPACING.medium, // Horizontal padding
+      paddingTop: SPACING.medium, // Padding at the top for label space
+      marginBottom: SPACING.medium, // Space between input boxes
+      backgroundColor: COLORS.secondary,
+  },
+  /**
+   * Style for the floating label positioned above the text input box.
+   */
+  textInputBoxLabel: {
+      position: 'absolute', // Positioned relative to the container
+      left: SPACING.medium, // Space from the left edge
+      backgroundColor: 'transparent', // Background for label (to avoid overlapping with input)
+      fontFamily: FONTS.regular, // Small padding for better visibility
+  },
+  /**
+   * Style for the text input field, including font size, height, and padding.
+   */
+  textInputBoxInput: {
+      fontSize: FONT_SIZES.medium, // Font size for input text
+      fontFamily: FONTS.regular, // Custom font for input text
+      height: HEIGHT.textBox, // Dynamic height of the input box
+      paddingVertical: SPACING.small, // Vertical padding inside the input
+      color: COLORS.textPrimary, // Text color for input
+  },
+});
 
 export default TextInputBox;

@@ -27,9 +27,8 @@ import SecureStorage from '../helpers/SecureStorage';
 import { I18nextProvider, useTranslation } from "react-i18next";
 import i18n from "../localization/i18n";
 
-const { t } = useTranslation();
-
 const MainLayout = () => {
+    const { t } = useTranslation();
     const [isListening, setIsListening] = useState<boolean>(false);
     const navigation = useNavigation<NavigationProp>();
     const speechRecognitionRef = useRef<any>(null);

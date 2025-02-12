@@ -27,8 +27,6 @@ import { RootStackParamList } from '../helpers/RootStackParamList';
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { NavigationProp, RoutePropType } from '../helpers/RootStackParamList';
 
-const { t } = useTranslation();
-
 export enum CameraMode {
     PHOTO = "photo",
     QR = "qr",
@@ -41,6 +39,7 @@ interface CameraComponentProps {
 }
 
 const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
+    const { t } = useTranslation();
     const { mode } = route.params;
     const cameraRef = useRef<RNCamera>(null);
     const { showAlert, createSingleButtonAlert, hideAlert } = useAlert();
@@ -121,7 +120,7 @@ const CameraComponent: React.FC<CameraComponentProps> = ({ route }) => {
                     </View>
                 )}
             </View>
-            <View style={sharedStyles.rowContainer}>
+            <View style={styles.rowContainer}>
                 <View style={sharedStyles.roleSelectionCardIconBackground}>
                     <MaterialIcons
                         name={mode === CameraMode.QR ? "qr-code-scanner" : "account-box"}
@@ -163,5 +162,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: SPACING.small,
         alignSelf: 'center',
+    },
+    rowContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: COLORS.background,
+        paddingLeft: SPACING.medium,
+        height: HEIGHT.button,
     },
 });

@@ -25,8 +25,6 @@ import i18n from "../localization/i18n";
 import { useAlert } from '../components/alert/CustomAlertManager';
 import { AlertType } from '../components/alert/AlertTypes'
 
-const { t } = useTranslation();
-
 interface Props {
     onResults: (results: string[]) => void;
     isListening: boolean;
@@ -34,6 +32,7 @@ interface Props {
 }
 
 const SpeechRecognitionComponent = forwardRef<any, Props>((props, ref) => {
+    const { t } = useTranslation();
     const [isListening, setIsListening] = useState<boolean>(false);
     console.log(`[${new Date().toLocaleString()}] SpeechRecognitionComponent - Is listening: `, isListening);
     const [results, setResults] = useState<string[]>([]);

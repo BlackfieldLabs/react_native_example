@@ -19,9 +19,8 @@ import { Device as BleDevice } from 'react-native-ble-plx';
 
 type BeneficiaryScreenRouteProp = RoutePropType<'Beneficiary'>;
 
-const { t } = useTranslation();
-
 const BeneficiaryScreen = () => {
+    const { t } = useTranslation();
     const [capturedPhotoUri, setCapturedPhotoUri] = useState<string | null>(null);
 
     const route = useRoute<BeneficiaryScreenRouteProp>();
@@ -93,7 +92,7 @@ const BeneficiaryScreen = () => {
                     onPress={() => takeAnotherPhotoPressed()}
                     activeOpacity={0.7} // Adjust opacity effect on click
                 >
-                    <View style={[sharedStyles.sectionMiddle, sharedStyles.center, styles.cornerRadiusLarge]}>
+                    <View style={[sharedStyles.sectionMiddle, styles.center, styles.cornerRadiusLarge]}>
                         {/* Show the Captured Photo if Available */}
                         {capturedPhotoUri && (
                             <View style={styles.photoContainer}>
@@ -164,6 +163,10 @@ const styles = StyleSheet.create({
     photoText: {
         marginTop: 5,
         color: COLORS.textPrimary,
+    },
+    center: {
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 });
 

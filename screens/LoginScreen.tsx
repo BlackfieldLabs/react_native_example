@@ -4,8 +4,9 @@ import {
     View,
     Text,
     ImageBackground,
+    StyleSheet,
 } from 'react-native';
-import { COLORS, HEIGHT } from '../styles/theme';
+import { COLORS, HEIGHT, BORDERS } from '../styles/theme';
 //Navigation
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
@@ -31,9 +32,8 @@ import { v4 as uuidv4 } from 'uuid';
 //Storage
 import SecureStorage from '../helpers/SecureStorage';
 
-const { t } = useTranslation();
-
 const LoginScreen = () => {
+    const { t } = useTranslation();
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigation = useNavigation<NavigationProp>();
@@ -109,9 +109,9 @@ const LoginScreen = () => {
         <SafeAreaView style={sharedStyles.containerStyle}>
             <ImageBackground
                 source={require('../assets/login_background.png')}
-                style={sharedStyles.backgroundImageContainerStyle}
+                style={styles.backgroundImageContainerStyle}
             >
-                <View style={sharedStyles.roundBottomContainerViewStyle}>
+                <View style={styles.roundBottomContainerViewStyle}>
                     {/* Image */}
                     <Icon
                         name={'account-circle'}
@@ -146,5 +146,26 @@ const LoginScreen = () => {
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    roundBottomContainerViewStyle: {
+        justifyContent: 'center',
+        backgroundColor: COLORS.background,
+        borderRadius: BORDERS.radiusExtraLarge,
+        alignItems: 'center',
+        paddingLeft: 20,
+        paddingTop: 20,
+        paddingRight: 20,
+        paddingBottom: 10,
+        marginTop: 'auto',
+        marginLeft: 20,
+        marginRight: 20,
+        marginBottom: 20,
+    },
+    backgroundImageContainerStyle: {
+        flex: 1,
+        resizeMode: 'cover',
+    },
+});
 
 export default LoginScreen;

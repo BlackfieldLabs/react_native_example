@@ -5,10 +5,11 @@ import {
     ScrollView,
     TouchableOpacity,
     SafeAreaView,
+    StyleSheet,
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 //Style
-import { COLORS, HEIGHT } from '../styles/theme';
+import { COLORS, HEIGHT, SPACING } from '../styles/theme';
 import sharedStyles from '../styles/sharedStyles';
 //Components
 import AccentButton from '../components/button/AccentButton';
@@ -53,14 +54,14 @@ const RoleSelectionScreen = () => {
 
     return (
         <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
-            <View style={sharedStyles.roleSelectionContainer}>
-                <ScrollView contentContainerStyle={sharedStyles.roleSelectionScrollContainer}>
+            <View style={styles.roleSelectionContainer}>
+                <ScrollView contentContainerStyle={styles.roleSelectionScrollContainer}>
                     {roles.map((role) => (
                         <TouchableOpacity
                             key={role.id}
                             style={[
                                 sharedStyles.roleSelectionCard,
-                                isSelected(role.id) && sharedStyles.roleSelectionCardSelected,
+                                isSelected(role.id) && styles.roleSelectionCardSelected,
                             ]}
                             onPress={() => toggleSelection(role.id)}
                         >
@@ -74,7 +75,7 @@ const RoleSelectionScreen = () => {
                             </View>
 
                             {/* Second Column: Title and Subtitle */}
-                            <View style={sharedStyles.roleSelectionCardContent}>
+                            <View style={styles.roleSelectionCardContent}>
                                 <Text style={sharedStyles.cardTitle}>{role.title}</Text>
                                 <Text style={sharedStyles.roleSelectionCardSubtitle}>{role.subtitle}</Text>
                             </View>
@@ -103,5 +104,23 @@ const RoleSelectionScreen = () => {
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    roleSelectionContainer: {
+        flex: 1,
+        padding: SPACING.large,
+    },
+    roleSelectionScrollContainer: {
+        paddingBottom: SPACING.large,
+    },
+    roleSelectionCardSelected: {
+        borderColor: COLORS.accent,
+        borderWidth: 1,
+    },
+    roleSelectionCardContent: {
+        flex: 3,
+        justifyContent: 'center',
+    },
+});
 
 export default RoleSelectionScreen;

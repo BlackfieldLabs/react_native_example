@@ -4,10 +4,12 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
+  StyleSheet,
 } from 'react-native';
 import { I18nextProvider, useTranslation } from "react-i18next";
 import i18n from "../localization/i18n";
 //Styles
+import { COLORS, FONT_SIZES, FONTS } from '../styles/theme';
 import sharedStyles from '../styles/sharedStyles';
 //Components
 import PasswordInputBox from '../components/textbox/PasswordInputBox';
@@ -19,9 +21,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../helpers/RootStackParamList';
 import { CameraMode } from './CameraComponent';
 
-const { t } = useTranslation();
-
 const SignUpScreen = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<NavigationProp>();
 
   // State variables for all inputs
@@ -64,8 +65,8 @@ const SignUpScreen = () => {
     <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
       <ScrollView contentContainerStyle={sharedStyles.scrollContainer}>
         {/* Account Information Section */}
-        <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{t('accountInfoTitle')}</Text>
+        <View style={styles.signUpSection}>
+          <Text style={styles.signUpSectionTitle}>{t('accountInfoTitle')}</Text>
           <TextInputBox
             placeholder={t('usernamePlaceholder')}
             value={username}
@@ -84,8 +85,8 @@ const SignUpScreen = () => {
         </View>
 
         {/* Personal Details Section */}
-        <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{t('personalDetailsTitle')}</Text>
+        <View style={styles.signUpSection}>
+          <Text style={styles.signUpSectionTitle}>{t('personalDetailsTitle')}</Text>
           <TextInputBox
             placeholder={t('namePlaceholder')}
             value={name}
@@ -110,8 +111,8 @@ const SignUpScreen = () => {
         </View>
 
         {/* Address Information Section */}
-        <View style={sharedStyles.signUpSection}>
-          <Text style={sharedStyles.signUpSectionTitle}>{t('addressInfoTitle')}</Text>
+        <View style={styles.signUpSection}>
+          <Text style={styles.signUpSectionTitle}>{t('addressInfoTitle')}</Text>
           <TextInputBox
             placeholder={t('cityPlaceholder')}
             value={city}
@@ -144,5 +145,18 @@ const SignUpScreen = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  signUpSection: {
+      marginBottom: 24,
+      width: '100%',
+  },
+  signUpSectionTitle: {
+      fontSize: FONT_SIZES.large,
+      fontFamily: FONTS.regular,
+      marginBottom: 12,
+      color: COLORS.textPrimary,
+  },
+});
 
 export default SignUpScreen;

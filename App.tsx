@@ -27,7 +27,6 @@ import TabNavigator from './components/navigation/TabNavigator';
 import { RootStackParamList } from './helpers/RootStackParamList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const { t } = useTranslation();
 
 const SettingsIcon = () => {
   const navigation = useNavigation();
@@ -43,6 +42,7 @@ const SettingsIcon = () => {
 };
 
 const App = () => {
+  const { t } = useTranslation();
   return (
     <I18nextProvider i18n={i18n}>
       <AlertProvider>

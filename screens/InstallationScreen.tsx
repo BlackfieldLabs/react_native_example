@@ -31,11 +31,10 @@ import CustomActionSheet from '../components/actionSheet/CustomActionSheet';
 //Wi-Fi
 import { getAvailableWifiNetworks } from '../components/Wi-Fi/WifiScanner';
 
-const { t } = useTranslation();
-
 const manager = new BleManager();
 
 const InstallationScreen = () => {
+  const { t } = useTranslation();
   //Alert
   const { createSingleButtonAlert } = useAlert();
 
@@ -222,11 +221,11 @@ const InstallationScreen = () => {
     <SafeAreaView style={sharedStyles.safeLayoutContainerStyle}>
       <ScrollView contentContainerStyle={sharedStyles.scrollContainer}>
         {/* Section 1 */}
-        <View style={[sharedStyles.sectionTop, styles.row]}>
+        <View style={[styles.sectionTop, styles.row]}>
           {[t('scanButton'), t('clearButton'), t('cameraButton')].map((title) => (
             <TouchableOpacity
               key={title}
-              style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
+              style={[styles.button, styles.secondaryButtonColor, styles.halfWidthButton]}
               onPress={() => handlePress(title)}
             >
               <View style={styles.contentContainer}>
@@ -271,7 +270,7 @@ const InstallationScreen = () => {
         {/* Section 3 */}
         <View style={[sharedStyles.sectionMiddle, styles.row]}>
           <TouchableOpacity
-            style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
+            style={[styles.button, styles.secondaryButtonColor, styles.halfWidthButton]}
             onPress={() => handlePress(t('roomTypeButton'))}
           >
             <View style={styles.contentContainer}>
@@ -288,7 +287,7 @@ const InstallationScreen = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
+            style={[styles.button, styles.secondaryButtonColor, styles.halfWidthButton]}
             onPress={() => handlePress(t('customDecriptionButton'))}
           >
             <View style={styles.contentContainer}>
@@ -311,7 +310,7 @@ const InstallationScreen = () => {
             {[t('connectButton'), t('reportWiFisButton')].map((title) => (
               <TouchableOpacity
                 key={title}
-                style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
+                style={[styles.button, styles.secondaryButtonColor, styles.halfWidthButton]}
                 onPress={() => handlePress(title)}
               >
                 <View style={styles.contentContainer}>
@@ -327,7 +326,7 @@ const InstallationScreen = () => {
           </View>
           <View style={styles.row}>
             <TouchableOpacity
-              style={[styles.dropDownList, sharedStyles.halfWidthButton]}
+              style={[styles.dropDownList, styles.halfWidthButton]}
               onPress={() => handlePress(t('selectNetworkButton'))}
             >
               <Text style={styles.dropDownText}>{selectedWifi || t('selectNetworkButton')}</Text>
@@ -340,13 +339,13 @@ const InstallationScreen = () => {
             <TextInput
               placeholder={t('enterWiFiPassPlaceholder')}
               placeholderTextColor={COLORS.textPrimary}
-              style={[styles.textBox, sharedStyles.halfWidthButton]}
+              style={[styles.textBox, styles.halfWidthButton]}
             />
           </View>
           <View style={styles.row}>
             <TouchableOpacity
               key={t('credentialsButton')}
-              style={[[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]]}
+              style={[[styles.button, styles.secondaryButtonColor, styles.halfWidthButton]]}
               onPress={() => handlePress(t('credentialsButton'))}
             >
               <View style={styles.contentContainer}>
@@ -361,7 +360,7 @@ const InstallationScreen = () => {
             <TouchableOpacity
               ref={buttonRef}
               key={t('colorButton')}
-              style={[styles.colorButton, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
+              style={[styles.colorButton, styles.secondaryButtonColor, styles.halfWidthButton]}
               onPress={() => handlePress(t('colorButton'))}
             >
               <View style={styles.contentContainer}>
@@ -381,7 +380,7 @@ const InstallationScreen = () => {
         {/* Section 5 */}
         <View style={[sharedStyles.sectionMiddle, styles.row]}>
           <TouchableOpacity
-            style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
+            style={[styles.button, styles.secondaryButtonColor, styles.halfWidthButton]}
             onPress={() => handlePress(t('connectionButton'))}
           >
             <View style={styles.contentContainer}>
@@ -399,9 +398,9 @@ const InstallationScreen = () => {
           </View>
         </View>
         {/* Section 6  */}
-        <View style={[sharedStyles.sectionBottom, styles.row]}>
+        <View style={[styles.sectionBottom, styles.row]}>
           <TouchableOpacity
-            style={[styles.button, sharedStyles.secondaryButtonColor, sharedStyles.halfWidthButton]}
+            style={[styles.button, styles.secondaryButtonColor, styles.halfWidthButton]}
             onPress={() => handlePress(t('goToChartsButton'))}
           >
             <View style={styles.contentContainer}>
@@ -414,7 +413,7 @@ const InstallationScreen = () => {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.button, sharedStyles.accentButtonColor, sharedStyles.halfWidthButton]}
+            style={[styles.button, styles.accentButtonColor, styles.halfWidthButton]}
             onPress={() => nextButtonPressed()}
           >
             <View style={styles.contentContainer}>
@@ -567,6 +566,32 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.border,
     justifyContent: 'space-between',
     paddingHorizontal: SPACING.medium,
+  },
+  secondaryButtonColor: {
+      backgroundColor: COLORS.border,
+  },
+  accentButtonColor: {
+      backgroundColor: COLORS.accent,
+  },
+  halfWidthButton: {
+      flex: 1,
+      maxWidth: '50%',
+  },
+  sectionTop: {
+      padding: SPACING.medium,
+      borderWidth: HEIGHT.border,
+      borderColor: COLORS.border,
+      borderTopLeftRadius: BORDERS.radiusMedium,
+      borderTopRightRadius: BORDERS.radiusMedium,
+      backgroundColor: COLORS.background,
+  },
+  sectionBottom: {
+      padding: SPACING.medium,
+      borderWidth: HEIGHT.border,
+      borderColor: COLORS.border,
+      borderBottomLeftRadius: BORDERS.radiusMedium,
+      borderBottomRightRadius: BORDERS.radiusMedium,
+      backgroundColor: COLORS.background,
   },
 });
 
