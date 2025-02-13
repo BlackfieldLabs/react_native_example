@@ -31,10 +31,10 @@ export const COLORS = {
 
   export const HEIGHT = {
     border: 1,
-    button: 60,
+    smallImage: 25,
     textBox: 40,
     image: 50,
-    smallImage: 25,
+    button: 60,
     roundImage: 100,
     graph: 500,
   };

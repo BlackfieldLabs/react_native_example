@@ -28,6 +28,8 @@ const updateLanguage = async () => {
         if (storedLanguage) {
             i18n.changeLanguage(storedLanguage);
             console.log(`[${new Date().toLocaleString()}] i18n: Loaded stored language ->`, storedLanguage);
+        } else {
+            await SecureStorage.saveData(SecureStorage.Keys.AppLanguage, defaultLanguage);
         }
     } catch (error) {
         console.error(`[${new Date().toLocaleString()}] i18n: Error fetching stored language:`, error);

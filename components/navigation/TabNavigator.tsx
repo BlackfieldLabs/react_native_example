@@ -10,6 +10,7 @@ import ChartsScreen from "../../screens/ChartsScreen";
 import SettingsScreen from "../../screens/SettingsScreen";
 //Localization
 import { useTranslation } from "react-i18next";
+import i18n from "../../localization/i18n";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +31,7 @@ const TabNavigator = () => {
 
           return <Icon name={iconName} size={size} color={color} />;
         },
+        headerShown: false,
         tabBarActiveTintColor: COLORS.border,
         tabBarInactiveTintColor: COLORS.accent,
         tabBarStyle: { backgroundColor: COLORS.secondary, height: HEIGHT.button },

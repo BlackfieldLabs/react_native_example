@@ -1,4 +1,4 @@
-import React, { useState, useEffect, startTransition  } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     SafeAreaView,
@@ -114,7 +114,7 @@ const SettingsScreen = () => {
                         <MaterialIcons
                             name="arrow-right"
                             style={sharedStyles.icon}
-                            size={HEIGHT.image} />
+                            size={HEIGHT.smallImage} />
                     </TouchableOpacity>
                 </View>
                 <CustomActionSheet
@@ -132,12 +132,12 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: COLORS.primary,
-        height: HEIGHT.button,
+        height: HEIGHT.textBox,
     },
     infoButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: HEIGHT.button,
+        height: HEIGHT.textBox,
         maxWidth: '50%',
     },
 });

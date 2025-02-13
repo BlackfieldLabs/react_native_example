@@ -14,7 +14,7 @@ const sharedStyles = StyleSheet.create({
         padding: SPACING.medium,
     },
     sectionTitle: {
-        fontSize: FONT_SIZES.large,
+        fontSize: FONT_SIZES.medium,
         fontFamily: FONTS.regular,
         marginBottom: SPACING.average,
         color: COLORS.textPrimary,
@@ -22,7 +22,7 @@ const sharedStyles = StyleSheet.create({
     icon: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: HEIGHT.button,
+        height: HEIGHT.textBox,
         color: COLORS.textAlternative,
     },
     alternativeTextColorStyle: {
@@ -35,7 +35,7 @@ const sharedStyles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     bottomBorder: {
-        borderBottomColor: COLORS.textAlternative,
+        borderBottomColor: COLORS.secondary,
         borderBottomWidth: HEIGHT.border,
     },
 });
