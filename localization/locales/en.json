@@ -89,5 +89,9 @@
     "titleChangeBeneficiaryPhoto": "Change beneficiary photo",
     "titleListOfDevicesInDeployment": "List of devices in deployment",
     "chartsTitle": "Charts",
-    "settingsTitle": "Settings"
+    "settingsTitle": "Settings",
+    "changeLanguageTitle": "Change language",
+    "englishTitle": "English",
+    "serbianTitle": "Serbian",
+    "croatianTitle": "Croatian"
 }

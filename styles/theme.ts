@@ -26,6 +26,7 @@ export const COLORS = {
   export const SPACING = {
     extraSmall: 4,
     small: 8,
+    average: 12,
     medium: 16,
     large: 24,
     extraLarge: 32,

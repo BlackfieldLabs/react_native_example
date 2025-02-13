@@ -72,6 +72,31 @@ const sharedStyles = StyleSheet.create({
         borderColor: COLORS.border,
         backgroundColor: COLORS.background,
     },
+    sectionTitle: {
+        fontSize: FONT_SIZES.large,
+        fontFamily: FONTS.regular,
+        marginBottom: SPACING.average,
+        color: COLORS.textPrimary,
+    },
+    icon: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: HEIGHT.button,
+        color: COLORS.border,
+    },
+    alternativeTextColorStyle: {
+        color: COLORS.textSecondary,
+    },
+    rowContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    bottomBorder: {
+        borderBottomColor: COLORS.border,
+        borderBottomWidth: HEIGHT.border,
+    },
 });
 
 export default sharedStyles;

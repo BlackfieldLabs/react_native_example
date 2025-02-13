@@ -13,6 +13,7 @@ class SecureStorage {
         UserId: 'userId',
         Username: 'username',
         Password: 'password',
+        AppLanguage: 'language',
     };
 
     /**

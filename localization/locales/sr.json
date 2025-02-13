@@ -89,5 +89,9 @@
     "titleChangeBeneficiaryPhoto": "Promeni fotografiju korisnika",
     "titleListOfDevicesInDeployment": "Lista uređaja u postavljanju",
     "chartsTitle": "Grafikoni",
-    "settingsTitle": "Podešavanja"
+    "settingsTitle": "Podešavanja",
+    "changeLanguageTitle": "Promenite jezik",
+    "englishTitle": "Engleski",
+    "serbianTitle": "Srpski",
+    "croatianTitle": "Hrvatski"
 }

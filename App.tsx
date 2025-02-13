@@ -22,6 +22,7 @@ import InstallationScreen from './screens/InstallationScreen';
 import BeneficiaryScreen from './screens/BeneficiaryScreen';
 import CameraComponent from './screens/CameraComponent';
 import ChartsScreen from './screens/ChartsScreen';
+import SettingsScreen from './screens/SettingsScreen';
 import TabNavigator from './components/navigation/TabNavigator';
 //Helpers
 import { RootStackParamList } from './helpers/RootStackParamList';
@@ -34,7 +35,7 @@ const SettingsIcon = () => {
   return (
     <TouchableOpacity
       style={sharedStyles.settingsIconButton}
-      onPress={() => navigation.navigate('Settings')}
+      onPress={() => navigation.navigate('TabNavigator')}
     >
       <Icon name="settings" size={HEIGHT.smallImage} color={COLORS.accent} />
     </TouchableOpacity>
@@ -109,8 +110,13 @@ const App = () => {
             />
             <Stack.Screen
               name="Settings"
+              component={SettingsScreen}
+              options={{ title: t('settingsTitle') }}
+            />
+            <Stack.Screen
+              name="TabNavigator"
               component={TabNavigator}
-              options={{ title: t("settingsTitle") }}
+              options={{ title: t('settingsTitle') }}
             />
           </Stack.Navigator>
         </NavigationContainer>

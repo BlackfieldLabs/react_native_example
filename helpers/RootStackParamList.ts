@@ -17,6 +17,7 @@ export type RootStackParamList = {
     onPhotoTaken?: (uri: string) => void;
   };
   Charts: undefined;
+  TabNavigator: undefined;
   Settings: undefined;
 };
 
